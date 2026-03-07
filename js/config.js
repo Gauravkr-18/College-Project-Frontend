@@ -13,23 +13,9 @@
    ============================================ */
 
 // ---- API Configuration ----
-// Auto-detects environment:
-//   - On Vercel/production: uses same origin (frontend + backend share domain)
-//   - In local dev (localhost/127.0.0.1): points to local backend on port 5000
-(function() {
-    var isLocalDev = window.location.hostname === 'localhost' ||
-                     window.location.hostname === '127.0.0.1';
-    if (isLocalDev) {
-        window.API_URL = 'http://localhost:5000/api';
-        window.AVATAR_BASE_URL = 'http://localhost:5000/avatars/';
-    } else {
-        // Vercel / production — same origin, Nginx/Vercel proxies /api to backend
-        window.API_URL = window.location.origin + '/api';
-        window.AVATAR_BASE_URL = window.location.origin + '/avatars/';
-    }
-})();
-var API_URL = window.API_URL;
-var AVATAR_BASE_URL = window.AVATAR_BASE_URL;
+// Change these when deploying to production
+var API_URL = 'http://localhost:5000/api';
+var AVATAR_BASE_URL = 'http://localhost:5000/avatars/';
 
 // ============================================
 // SHARED HELPER FUNCTIONS
