@@ -14,6 +14,8 @@
 window.FullScreenEditor = (function () {
     'use strict';
 
+    function $(sel) { return document.querySelector(sel); }
+
     var overlay       = null;
     var codeArea      = null;
     var fileBadgeText = null;
