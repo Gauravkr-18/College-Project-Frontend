@@ -13,9 +13,13 @@
    ============================================ */
 
 // ---- API Configuration ----
-// Change these when deploying to production
-var API_URL = 'http://localhost:5000/api';
-var AVATAR_BASE_URL = 'http://localhost:5000/avatars/';
+// Auto-detect environment: localhost for dev, Render URL for production
+var BACKEND_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:5000'
+    : 'https://codelens-backend-b3fg.onrender.com';
+
+var API_URL = BACKEND_URL + '/api';
+var AVATAR_BASE_URL = BACKEND_URL + '/avatars/';
 
 // ============================================
 // SHARED HELPER FUNCTIONS
