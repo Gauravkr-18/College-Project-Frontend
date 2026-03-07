@@ -1,0 +1,615 @@
+/* ============================================
+   Full-Screen Editor — Modal Popup
+   Matches CodeLens React version design
+   ============================================ */
+
+/* ---- Overlay ---- */
+.fse-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+/* Elevate browse/history popups above FSE overlay when FSE is open */
+body.fse-open .popup-overlay {
+    z-index: 10100;
+}
+
+.fse-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* ---- Container ---- */
+.fse-container {
+    position: relative;
+    width: 95vw;
+    height: 90vh;
+    max-width: 1600px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--surface-base);
+    border-radius: 16px;
+    border: 1px solid var(--border-default);
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    transform: scale(0.95) translateY(20px);
+    opacity: 0;
+    transition: transform 0.25s ease, opacity 0.25s ease;
+}
+
+.fse-overlay.open .fse-container {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+}
+
+/* ---- Header ---- */
+.fse-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    height: 48px;
+    background-color: var(--surface-raised);
+    border-bottom: 1px solid var(--border-subtle);
+    flex-shrink: 0;
+    position: relative;
+}
+
+.fse-header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.fse-header-center {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.fse-header-right {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fse-divider {
+    width: 1px;
+    height: 24px;
+    background-color: var(--border-subtle);
+    flex-shrink: 0;
+}
+
+/* ---- Traffic Lights ---- */
+.fse-traffic-lights {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fse-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    transition: transform 0.15s ease, opacity 0.15s ease;
+    border: none;
+    padding: 0;
+}
+
+.fse-dot--red {
+    background-color: var(--accent-red);
+    cursor: pointer;
+}
+
+.fse-dot--red:hover {
+    transform: scale(1.15);
+}
+
+.fse-dot--yellow {
+    background-color: var(--accent-yellow);
+    cursor: default;
+}
+
+.fse-dot--green {
+    background-color: var(--accent-green);
+    cursor: default;
+}
+
+/* ---- Branding ---- */
+.fse-branding {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    letter-spacing: 0.5px;
+    user-select: none;
+}
+
+.fse-branding span {
+    color: var(--accent-blue);
+}
+
+/* ---- File Badge (center) ---- */
+.fse-file-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    background-color: var(--surface-elevated);
+    border-radius: 8px;
+    border: 1px solid var(--border-subtle);
+}
+
+.fse-file-badge svg {
+    width: 14px;
+    height: 14px;
+    color: var(--accent-blue);
+}
+
+.fse-file-badge-text {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-primary);
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.fse-file-badge-text .ext {
+    color: var(--accent-blue);
+}
+
+/* ---- Tool Buttons ---- */
+.fse-tool-group {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.fse-tool-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background-color: var(--surface-elevated);
+    border: 1px solid var(--border-subtle);
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.fse-tool-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+.fse-tool-btn--icon {
+    padding: 8px;
+}
+
+.fse-tool-btn--examples {
+    color: var(--accent-yellow);
+}
+
+.fse-tool-btn--examples:hover {
+    background-color: rgba(234, 179, 8, 0.12);
+    border-color: var(--accent-yellow);
+}
+
+.fse-tool-btn--format {
+    color: var(--accent-purple);
+}
+
+.fse-tool-btn--format:hover {
+    background-color: rgba(168, 85, 247, 0.12);
+    border-color: var(--accent-purple);
+}
+
+.fse-tool-btn--copy {
+    color: var(--text-muted);
+}
+
+.fse-tool-btn--copy:hover {
+    background-color: var(--surface-hover);
+    color: var(--text-primary);
+}
+
+.fse-tool-btn--copy.copied {
+    color: var(--accent-green);
+    border-color: var(--accent-green);
+}
+
+/* ---- Execution Controls ---- */
+.fse-exec-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fse-btn-visualize {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 14px;
+    background-color: var(--surface-elevated);
+    border: 1px solid var(--accent-blue);
+    border-radius: 8px;
+    color: var(--accent-blue);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Inter', sans-serif;
+}
+
+.fse-btn-visualize svg {
+    width: 14px;
+    height: 14px;
+}
+
+.fse-btn-visualize:hover {
+    background-color: rgba(14, 165, 233, 0.12);
+    box-shadow: 0 0 8px rgba(14, 165, 233, 0.25);
+}
+
+.fse-btn-run {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px;
+    background-color: var(--accent-green);
+    border: 1px solid var(--accent-green);
+    border-radius: 8px;
+    color: #000;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 0 12px rgba(0, 212, 170, 0.25);
+    font-family: 'Inter', sans-serif;
+}
+
+.fse-btn-run svg {
+    width: 14px;
+    height: 14px;
+}
+
+.fse-btn-run:hover {
+    filter: brightness(1.15);
+    box-shadow: 0 0 20px rgba(0, 212, 170, 0.4);
+}
+
+.fse-btn-run.running {
+    opacity: 0.7;
+    cursor: wait;
+}
+
+/* ---- Close Button ---- */
+.fse-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    border-radius: 8px;
+    color: var(--accent-red);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.fse-close-btn svg {
+    width: 20px;
+    height: 20px;
+}
+
+.fse-close-btn:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+/* ---- Content Area (code) ---- */
+.fse-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    overflow: hidden;
+}
+
+.fse-code-area {
+    flex: 1;
+    overflow: auto;
+    padding: 16px 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    line-height: 1.7;
+    background-color: var(--code-viewer-bg, #08080c);
+}
+
+/* Code lines inside FSE */
+.fse-code-area .code-line {
+    display: flex;
+    align-items: stretch;
+    min-height: 24px;
+    border-radius: 4px;
+    transition: background-color 0.15s ease;
+}
+
+.fse-code-area .code-line:hover {
+    background-color: var(--code-hover-bg, rgba(255, 255, 255, 0.03));
+}
+
+.fse-code-area .line-number {
+    display: inline-flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 48px;
+    padding-right: 16px;
+    color: var(--text-muted);
+    font-size: 13px;
+    user-select: none;
+    flex-shrink: 0;
+    opacity: 0.5;
+}
+
+.fse-code-area .code-text {
+    flex: 1;
+    white-space: pre;
+    padding: 0 8px;
+}
+
+/* ---- Terminal ---- */
+.fse-terminal {
+    border-top: 1px solid var(--border-default);
+    overflow: hidden;
+    transition: height 0.25s ease;
+    flex-shrink: 0;
+}
+
+.fse-terminal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 16px;
+    background-color: var(--surface-raised);
+    border-bottom: 1px solid var(--border-subtle);
+    cursor: pointer;
+    user-select: none;
+}
+
+.fse-terminal-header-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fse-terminal-header-left svg {
+    width: 14px;
+    height: 14px;
+    color: var(--text-muted);
+}
+
+.fse-terminal-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.fse-terminal-running {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--accent-yellow);
+}
+
+.fse-terminal-running.active {
+    display: flex;
+}
+
+.fse-terminal-running-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--accent-yellow);
+    animation: fse-pulse 1s ease-in-out infinite;
+}
+
+@keyframes fse-pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+}
+
+.fse-terminal-header-right {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.fse-terminal-icon-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: none;
+    border-radius: 6px;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.fse-terminal-icon-btn svg {
+    width: 14px;
+    height: 14px;
+}
+
+.fse-terminal-icon-btn:hover {
+    background-color: var(--surface-elevated);
+    color: var(--text-secondary);
+}
+
+.fse-terminal-icon-btn--clear:hover {
+    color: var(--accent-red);
+}
+
+.fse-terminal-content {
+    height: 0;
+    overflow: auto;
+    padding: 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    background-color: #0d1117;
+    transition: height 0.25s ease, padding 0.25s ease;
+}
+
+.fse-terminal.open .fse-terminal-content {
+    height: 150px;
+    padding: 12px 16px;
+}
+
+.fse-terminal.expanded .fse-terminal-content {
+    height: 300px;
+    padding: 12px 16px;
+}
+
+.fse-terminal-empty {
+    color: var(--text-muted);
+    font-style: italic;
+}
+
+.fse-terminal-line--compile { color: var(--accent-cyan); }
+.fse-terminal-line--run     { color: var(--accent-yellow); }
+.fse-terminal-line--output  { color: var(--accent-green); font-weight: 600; }
+.fse-terminal-line--success { color: var(--accent-green); }
+.fse-terminal-line--error   { color: var(--accent-red); }
+.fse-terminal-line--info    { color: var(--text-muted); }
+
+.fse-terminal-line {
+    white-space: pre-wrap;
+    margin-bottom: 2px;
+}
+
+.fse-terminal-line--output {
+    margin-bottom: 4px;
+}
+
+/* ---- Status Bar ---- */
+.fse-status-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 16px;
+    background-color: var(--surface-raised);
+    border-top: 1px solid var(--border-subtle);
+    font-size: 11px;
+    color: var(--text-muted);
+    flex-shrink: 0;
+}
+
+.fse-status-left,
+.fse-status-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.fse-status-ready {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.fse-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--accent-green);
+}
+
+.fse-status-lang {
+    padding: 2px 8px;
+    background-color: var(--surface-elevated);
+    border-radius: 4px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.fse-status-lines {
+    padding: 2px 8px;
+    background-color: var(--surface-elevated);
+    border-radius: 4px;
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+/* ---- Responsive ---- */
+@media (max-width: 768px) {
+    .fse-container {
+        width: 100vw;
+        height: 100vh;
+        border-radius: 0;
+        max-width: none;
+    }
+
+    .fse-header {
+        padding: 0 12px;
+        height: 44px;
+    }
+
+    .fse-branding {
+        display: none;
+    }
+
+    .fse-tool-btn span {
+        display: none;
+    }
+
+    .fse-tool-btn {
+        padding: 8px;
+    }
+
+    .fse-btn-visualize span,
+    .fse-btn-run span {
+        display: none;
+    }
+
+    .fse-btn-visualize,
+    .fse-btn-run {
+        padding: 8px;
+    }
+
+    .fse-file-badge-text {
+        max-width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+@media (max-width: 480px) {
+    .fse-header-center {
+        display: none;
+    }
+
+    .fse-exec-group {
+        gap: 4px;
+    }
+}
