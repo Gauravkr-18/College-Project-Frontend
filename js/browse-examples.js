@@ -436,6 +436,10 @@
             if (cacheEntry) cacheEntry.hidden = nowHidden;
         }
 
+        // ⚠️ IMPORTANT: Also invalidate the regular (non-admin) cache so normal users
+        // refetch the list and see the updated hidden state
+        P.invalidateExamplesCache(P.currentType, P.currentLang);
+
         // --- 2. Update UI instantly (no flicker, no full reload) ---
         applyVisibilityToUI(nowHidden);
 
