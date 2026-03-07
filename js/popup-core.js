@@ -169,7 +169,8 @@
         var url  = elevated
             ? EXAMPLES_BASE + '/api/examples/admin-list/' + type + '/' + langKey
             : EXAMPLES_BASE + '/api/examples/list/'       + type + '/' + langKey;
-        var opts = elevated && token ? { headers: { 'Authorization': 'Bearer ' + token } } : {};
+        var opts = { cache: 'no-store' };
+        if (elevated && token) opts.headers = { 'Authorization': 'Bearer ' + token };
 
         fetch(url, opts)
             .then(function (r) {
