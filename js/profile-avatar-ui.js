@@ -106,6 +106,16 @@ async function saveAvatarSelection(avatarValue) {
 
 document.addEventListener('DOMContentLoaded', function() {
 
+    // ---- Inject correct avatar URLs into preset picker options ----
+    // src is NOT hardcoded in HTML to avoid localhost being baked in for production
+    document.querySelectorAll('.avatar-option[data-avatar]').forEach(function(option) {
+        var val = option.getAttribute('data-avatar');
+        if (/^[1-5]$/.test(val)) {
+            var img = option.querySelector('img');
+            if (img) img.src = AVATAR_BASE_URL + val + '.png';
+        }
+    });
+
     // ---- Avatar edit button → toggle picker ----
     var avatarEditBtn = document.getElementById('avatarEditBtn');
     if (avatarEditBtn) {
