@@ -4,31 +4,38 @@ Final-year college project. Step-through visualization of data structures and al
 across C, C++, Java, Python, and JavaScript with live memory/stack/array rendering,
 multi-language syntax highlighting, user authentication, and an admin dashboard.
 
+**Deployment:**
+- **Frontend** → [Vercel](https://vercel.com) (this repo — static HTML/CSS/JS)
+- **Backend** → [Render](https://render.com) ([codelens-backend](https://github.com/YOUR_USERNAME/codelens-backend) repo)
+- **Database** → MongoDB Atlas
+
 ---
 
 ## Prerequisites
 
 | Requirement | Version | Notes |
 |---|---|---|
-| **Node.js** | 18 LTS or 20 LTS | Backend runtime |
-| **npm** | 8+ | Comes with Node.js |
-| **MongoDB** | 6+ local  OR  Atlas | Database |
 | **Browser** | Chrome 90+, Firefox 90+, Edge 90+ | ES5 frontend, no polyfills needed |
+| **Node.js** | 18 LTS or 20 LTS | Backend only (not needed for frontend) |
+| **MongoDB** | Atlas (cloud) OR local 6+ | Backend database |
 
 ---
 
 ## Quick Start
 
+### Local Development
+
 ```bash
-# 1. Start the backend (required for auth, examples API, analytics)
-cd Backend
+# 1. Start the backend (in the separate codelens-backend repo)
+git clone https://github.com/YOUR_USERNAME/codelens-backend.git
+cd codelens-backend
 npm install
-npm run dev          # → http://localhost:5000
+cp .env.example .env   # fill in MONGODB_URI, JWT_SECRET, etc.
+npm run dev            # → http://localhost:5000
 
 # 2. Serve the frontend with any static server
-cd ..                # back to College Project root
+cd path/to/codelens-frontend
 python -m http.server 5500
-
 # Or use VS Code Live Server on port 5500
 ```
 
@@ -37,27 +44,32 @@ Open in browser:
 - **Editor:** `http://localhost:5500/editor.html`
 - **Admin:** `http://localhost:5500/admin.html` (admin users only)
 
+> **`js/config.js` auto-detects the environment:** on `localhost` it points to `http://localhost:5000`; on any other domain it points to the configured Render URL.
+
+### Production (Vercel)
+
+1. Push this repo to GitHub
+2. Go to [vercel.com](https://vercel.com) → **Add New Project** → import this repo
+3. Framework: **Other**, Build Command: *(empty)*, Output Directory: `./`
+4. Click **Deploy** — no build step needed
+
+Vercel auto-deploys on every push to `main`.
+
 ---
 
 ## Environment Variables
 
-Create `Backend/.env` from the provided template:
+The frontend has **no environment variables**. The backend API URL is configured directly in `js/config.js`:
 
-```bash
-cp Backend/.env.example Backend/.env
-# then edit Backend/.env with your values
+```js
+var BACKEND_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? 'http://localhost:5000'
+    : 'https://YOUR_RENDER_APP.onrender.com';  // ← update before deploying
 ```
 
-| Variable | Default | Description |
-|---|---|---|
-| `PORT` | `5000` | Backend server port |
-| `NODE_ENV` | `development` | Set to `production` in live deployments |
-| `MONGODB_URI` | `mongodb://localhost:27017/codelens` | MongoDB connection string |
-| `JWT_SECRET` | *(required)* | Long random string — generate with `node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"` |
-| `JWT_EXPIRE` | `7d` | JWT token expiry (e.g. `7d`, `24h`) |
-| `CORS_ORIGINS` | `http://localhost:5500,http://127.0.0.1:5500` | Comma-separated list of allowed frontend origins |
+Replace `YOUR_RENDER_APP` with your actual Render service name before pushing.
 
-> **Never commit `Backend/.env`** — it is already excluded by `.gitignore`.
+> All backend configuration (MongoDB URI, JWT secret, CORS, email) lives in the backend repo's environment variables on Render.
 
 ---
 
@@ -66,7 +78,7 @@ cp Backend/.env.example Backend/.env
 There is no sign-up route for admins. Promote a user directly in MongoDB:
 
 ```js
-// In MongoDB shell or Atlas:
+// In MongoDB Atlas Data Explorer or mongosh:
 db.users.updateOne(
   { email: "your@email.com" },
   { $set: { role: "admin" } }
@@ -80,15 +92,12 @@ Then log in as that user to access `admin.html`.
 ## Project Structure
 
 ```
-College Project/
+codelens-frontend/
 ├── index.html                  # Home page — hero, features, language cards
 ├── editor.html                 # Editor — code viewer + visualizer + animation controller
 ├── admin.html                  # Admin panel — user stats & management
-│
-├── .gitignore                  # Excludes node_modules, .env, uploads, OS files
-├── .github/
-│   └── workflows/
-│       └── deploy.yml          # GitHub Actions — auto-deploy to EC2 on push to main
+├── .gitignore
+├── README.md                   # ← You are here
 │
 ├── css/                        # 7 CSS files (~3,800 lines, no framework)
 │   ├── theme.css               #   CSS variables for dark/light themes (~200 vars each)
@@ -99,8 +108,8 @@ College Project/
 │   ├── dashboard.css           #   Profile modal, admin table, avatar picker/crop/viewer
 │   └── popups.css              #   Browse examples, search dropdown, history popup
 │
-├── js/                         # 17 JS files (vanilla ES5, no bundler)
-│   ├── config.js               #   API URLs, escapeHtml, getInitials, helpers (loaded first)
+├── js/                         # 19 JS files (vanilla ES5, no bundler)
+│   ├── config.js               #   BACKEND_URL auto-detect, API_URL, escapeHtml, helpers (loaded first)
 │   ├── theme.js                #   Dark/light theme toggle with localStorage
 │   ├── header.js               #   Nav dropdowns, logo eye blink animation
 │   ├── auth.js                 #   Login/signup modal, JWT auth state management
@@ -116,43 +125,22 @@ College Project/
 │   ├── animation-controller.js #   Step-through animation player (play/pause/speed/slider/markers)
 │   ├── editor.js               #   Editor page (copy, reset, fullscreen, resizer, vis tabs)
 │   ├── fullscreen-editor.js    #   Full-screen modal editor with simulated terminal
-│   └── admin.js                #   Admin panel — stats & user table
+│   ├── admin.js                #   Admin panel — stats & user table (server-side auth via /api/auth/me)
+│   ├── admin-reports.js        #   Admin reports
+│   └── report.js               #   Report submission
 │
 ├── Visualization Engine/       # 4 engine files (vanilla JS, IIFE pattern)
 │   ├── Memory Engine/          #   Stack + data segment visualization
 │   │   ├── visualization-engine.js   # State machine (11 stack_update actions + data_segment)
-│   │   ├── visualization-renderer.js # DOM renderer (frames, variables, arrays)
-│   │   └── README.md
+│   │   └── visualization-renderer.js # DOM renderer (frames, variables, arrays)
 │   └── D.S Engine/             #   Data structure visualization
 │       ├── ds-engine.js        #   State machine (13 ds_update actions)
-│       ├── ds-renderer.js      #   DOM renderer (arrays, matrices, pointers, sidebar)
-│       └── README.md
+│       └── ds-renderer.js      #   DOM renderer (arrays, matrices, pointers, sidebar)
 │
-├── Assets/                     # Static assets (Logo.png)
-│
-├── Backend/                    # Express 5 REST API
-│   ├── server.js               #   Entry — middleware stack, routes, graceful shutdown
-│   ├── package.json
-│   ├── .env                    #   ← NOT committed (gitignored)
-│   ├── .env.example            #   Safe-to-commit template for .env
-│   ├── config/db.js            #   MongoDB connection (pool-optimised, auto-reconnect)
-│   ├── models/
-│   │   ├── User.js             #   User schema — bcrypt, toPublicJSON()
-│   │   └── Analytics.js        #   View tracking — title, lang, type, 90-day TTL
-│   ├── middleware/
-│   │   ├── auth.js             #   JWT verification → req.user
-│   │   └── admin.js            #   Admin role gate
-│   ├── routes/
-│   │   ├── auth.js             #   Register, login, profile, avatar upload
-│   │   ├── admin.js            #   User list, stats, delete user
-│   │   └── examples.js         #   Lazy-load examples + visibility toggle + analytics
-│   ├── Data/
-│   │   ├── Avatar/             #   Preset (1–5.png) + uploads/ (gitignored, .gitkeep present)
-│   │   └── Examples/           #   JSON files per language (Stack + D.S)
-│   └── README.md
-│
-└── README.md                   # ← You are here
+└── Assets/                     # Static assets (Logo.png)
 ```
+
+> **Backend lives in a separate repo** ([codelens-backend](https://github.com/YOUR_USERNAME/codelens-backend)) deployed on Render.
 
 ---
 
@@ -210,14 +198,13 @@ College Project/
 | **Frontend**       | Vanilla HTML/CSS/JS (ES5, no framework, no bundler)       |
 | **Styling**        | Custom CSS (~3,800 lines), Inter + JetBrains Mono fonts   |
 | **Vis Engines**    | Vanilla JS IIFEs, DOM-based rendering                     |
-| **Backend**        | Node.js + Express 5                                       |
-| **Database**       | MongoDB + Mongoose 9                                      |
+| **Hosting**        | Vercel (static, free tier)                                |
+| **Backend**        | Node.js + Express 5 on Render (separate repo)             |
+| **Database**       | MongoDB Atlas (cloud, free tier)                          |
 | **Auth**           | JWT (jsonwebtoken) + bcryptjs                             |
 | **Security**       | Helmet, express-rate-limit, CORS                          |
 | **Upload**         | Multer (2 MB max, image-only)                             |
 | **Compression**    | gzip via compression middleware                           |
-| **Process Mgr**    | PM2 (production)                                          |
-| **Reverse Proxy**  | Nginx (production)                                        |
 
 ---
 
@@ -230,7 +217,7 @@ College Project/
 | `/api/admin` | 3 | Admin | Users, stats, delete |
 | `/api/health` | 1 | No | Server status + uptime |
 
-See [Backend/README.md](Backend/README.md) for full endpoint documentation.
+See the [codelens-backend README](https://github.com/YOUR_USERNAME/codelens-backend#readme) for full endpoint documentation.
 
 ### Rate Limits
 
