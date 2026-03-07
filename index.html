@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeLens - Code Visualizer</title>
+    <link rel="stylesheet" href="css/theme.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+</head>
+<body>
+    <div class="home-page">
+
+        <!-- ============ HEADER (Home: Logo + Login only) ============ -->
+        <header class="header">
+            <div class="header-container">
+                <div class="header-content">
+
+                    <!-- Logo (Left) -->
+                    <a href="index.html" class="logo">
+                        <div class="logo-icon-wrapper">
+                            <img src="Assets/Logo.png" alt="CodeLens Logo" class="logo-img">
+                        </div>
+                        <div class="logo-text">
+                            <div class="logo-title">
+                                <span class="logo-title-text">C<span class="logo-eye"><svg class="eye-svg" width="22" height="18" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="irisGrad" cx="50%" cy="50%" r="50%" fx="35%" fy="35%"><stop offset="0%" class="iris-stop1"/><stop offset="100%" class="iris-stop2"/></radialGradient><mask id="eyeMsk"><path d="M3 11C3 11 6 4 12 4C18 4 21 11 21 11C21 11 18 18 12 18C6 18 3 11 3 11Z" fill="white"/></mask></defs><g class="eye-lashes" fill="none"><path d="M6 8.5L4.5 6.5"/><path d="M9.5 6.5L9 3.5"/><path d="M14.5 6.5L15 3.5"/><path d="M18 8.5L19.5 6.5"/></g><path class="eye-white" d="M3 11C3 11 6 4 12 4C18 4 21 11 21 11C21 11 18 18 12 18C6 18 3 11 3 11Z"/><g mask="url(#eyeMsk)"><g class="eye-iris-group"><circle cx="12" cy="11" r="5.5" fill="url(#irisGrad)"/><circle cx="12" cy="11" r="2.2" class="eye-pupil"/><circle cx="13.5" cy="9.5" r="1.1" class="eye-glint"/><circle cx="10.8" cy="12.8" r="0.6" fill="white" fill-opacity="0.2"/></g></g><path class="eye-lid-bottom" d="M3 11C3 11 6 18 12 18C18 18 21 11 21 11"/><path class="eye-lid-top" d="M3 11C3 11 6 4 12 4C18 4 21 11 21 11"/></svg></span>de<span>Lens</span></span>
+                                <span class="logo-beta">BETA</span>
+                            </div>
+                            <div class="logo-subtitle">
+                                Code Visualizer
+                                <i data-lucide="search"></i>
+                                
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Navigation (Center) -->
+                    <nav class="header-nav">
+                        <a href="#features" class="nav-link">Features</a>
+                        <a href="#visualization" class="nav-link">Visualizations</a>
+                        <a href="#roadmap" class="nav-link">Roadmap</a>
+                        <a href="#languages" class="nav-link">Languages</a>
+                        <a href="#pricing" class="nav-link">Pricing</a>
+                    </nav>
+
+                    <!-- Login / Signup (shown when logged out) -->
+                    <div class="header-actions">
+                        <button class="login-btn">
+                            <svg data-lucide="user"></svg>
+                            Login / Signup
+                        </button>
+
+                        <!-- User Profile (shown when logged in) -->
+                        <div class="profile-dropdown-wrapper">
+                            <button class="profile-btn">
+                                <div class="profile-avatar">?</div>
+                                <span class="profile-name">User</span>
+                                <svg class="profile-chevron" data-lucide="chevron-down"></svg>
+                            </button>
+                            <div class="profile-dropdown">
+                                <div class="profile-info">
+                                    <div class="profile-info-name">User</div>
+                                    <div class="profile-info-email">user@email.com</div>
+                                </div>
+                                <button class="dropdown-item profile-modal-btn">
+                                    <svg data-lucide="user"></svg>
+                                    <span>My Profile</span>
+                                </button>
+                                <a href="admin.html" class="dropdown-item admin-only-link" style="display: none;">
+                                    <svg data-lucide="shield"></svg>
+                                    <span>Admin Panel</span>
+                                </a>
+                                <a href="admin.html" class="dropdown-item tester-only-link" style="display: none;">
+                                    <svg data-lucide="flag"></svg>
+                                    <span>Reports</span>
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <button class="dropdown-item logout logout-btn">
+                                    <svg data-lucide="log-out"></svg>
+                                    <span>Logout</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+
+        <!-- ============ MAIN CONTENT ============ -->
+        <main class="home-main">
+
+            <!-- ═══ HERO ═══ -->
+            <section class="hero">
+                <div class="hero-content">
+
+                    <!-- Big brand name at top of hero -->
+                    <div class="hero-brand">
+                        <span class="hero-brand-text">C<span class="hero-brand-eye"><svg class="hero-eye-svg" width="48" height="39" viewBox="0 0 24 20" fill="none" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="heroIrisGrad" cx="50%" cy="50%" r="50%" fx="35%" fy="35%"><stop offset="0%" class="iris-stop1"/><stop offset="100%" class="iris-stop2"/></radialGradient><mask id="heroEyeMsk"><path d="M3 11C3 11 6 4 12 4C18 4 21 11 21 11C21 11 18 18 12 18C6 18 3 11 3 11Z" fill="white"/></mask></defs><g class="eye-lashes" fill="none"><path d="M6 8.5L4.5 6.5"/><path d="M9.5 6.5L9 3.5"/><path d="M14.5 6.5L15 3.5"/><path d="M18 8.5L19.5 6.5"/></g><path class="eye-white" d="M3 11C3 11 6 4 12 4C18 4 21 11 21 11C21 11 18 18 12 18C6 18 3 11 3 11Z"/><g mask="url(#heroEyeMsk)"><g class="eye-iris-group"><circle cx="12" cy="11" r="5.5" fill="url(#heroIrisGrad)"/><circle cx="12" cy="11" r="2.2" class="eye-pupil"/><circle cx="13.5" cy="9.5" r="1.1" class="eye-glint"/><circle cx="10.8" cy="12.8" r="0.6" fill="white" fill-opacity="0.2"/></g></g><path class="eye-lid-bottom" d="M3 11C3 11 6 18 12 18C18 18 21 11 21 11"/><path class="eye-lid-top" d="M3 11C3 11 6 4 12 4C18 4 21 11 21 11"/></svg></span>de<span>Lens</span></span>
+                        <span class="hero-brand-beta">BETA</span>
+                    </div>
+                    <div class="hero-brand-sub">A Code Visualizer</div>
+
+                    <div class="hero-badge">
+                        <span class="dot"></span>
+                        Open Source Code Visualization Platform
+                    </div>
+
+                    <h1 class="hero-title">
+                        See Your Code<br>
+                        <span class="highlight">Come Alive</span>
+                    </h1>
+
+                    <p class="hero-description">
+                        Step through your C programs line by line — watch stack frames push & pop,
+                        arrays sort in real time, and data structures build node by node.
+                        Built for students, by students.
+                    </p>
+
+                    <div class="hero-actions">
+                        <a href="editor.html" class="btn btn-primary">
+                            <svg data-lucide="play"></svg>
+                            Start Visualizing
+                        </a>
+                        <a href="editor.html" class="btn btn-secondary">
+                            <svg data-lucide="book-open"></svg>
+                            Browse Examples
+                        </a>
+                    </div>
+
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <div class="stat-value"><span class="accent">5</span></div>
+                            <div class="stat-label">Languages</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value"><span class="accent">50+</span></div>
+                            <div class="stat-label">Examples</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value"><span class="accent">3</span></div>
+                            <div class="stat-label">Viz Modes</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value"><span class="accent">∞</span></div>
+                            <div class="stat-label">Step by Step</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══ WHAT CODELENS DOES ═══ -->
+            <section class="features" id="features">
+                <div class="section-header">
+                    <div class="section-badge">
+                        <svg data-lucide="sparkles"></svg>
+                        Core Features
+                    </div>
+                    <h2 class="section-title">What CodeLens Does</h2>
+                    <p class="section-subtitle">
+                        A complete visualization toolkit that makes learning data structures
+                        and algorithms truly intuitive.
+                    </p>
+                </div>
+
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon blue">
+                            <svg data-lucide="play-circle"></svg>
+                        </div>
+                        <h3 class="feature-title">Step-by-Step Execution</h3>
+                        <p class="feature-desc">
+                            Walk through code line by line. Watch variables change,
+                            pointers move, and data structures transform in real time.
+                        </p>
+                        <span class="feature-status live">Live</span>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon green">
+                            <svg data-lucide="layers"></svg>
+                        </div>
+                        <h3 class="feature-title">Stack Memory Visualization</h3>
+                        <p class="feature-desc">
+                            See call stack frames push & pop. Watch local variables,
+                            function calls, and return values in a visual stack layout.
+                        </p>
+                        <span class="feature-status live">Live</span>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon purple">
+                            <svg data-lucide="network"></svg>
+                        </div>
+                        <h3 class="feature-title">Data Structure Visualization</h3>
+                        <p class="feature-desc">
+                            Arrays, matrices, pointers rendered as interactive diagrams.
+                            Compare, highlight, and track every element change.
+                        </p>
+                        <span class="feature-status live">Live</span>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon cyan">
+                            <svg data-lucide="terminal"></svg>
+                        </div>
+                        <h3 class="feature-title">Built-in Terminal Output</h3>
+                        <p class="feature-desc">
+                            See printf & cout output in a macOS-style floating terminal
+                            window. Output updates as each step executes.
+                        </p>
+                        <span class="feature-status live">Live</span>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon yellow">
+                            <svg data-lucide="gauge"></svg>
+                        </div>
+                        <h3 class="feature-title">Speed & Playback Control</h3>
+                        <p class="feature-desc">
+                            Adjust speed from 0.5x to 2x. Pause, play, step forward
+                            or backward. Slider to jump to any step instantly.
+                        </p>
+                        <span class="feature-status live">Live</span>
+                    </div>
+
+                    <div class="feature-card">
+                        <div class="feature-icon pink">
+                            <svg data-lucide="maximize-2"></svg>
+                        </div>
+                        <h3 class="feature-title">Fullscreen Code Editor</h3>
+                        <p class="feature-desc">
+                            Expand into a full IDE-like editor with syntax highlighting,
+                            line numbers, and run & visualize buttons.
+                        </p>
+                        <span class="feature-status live">Live</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══ VISUALIZATION TYPES ═══ -->
+            <section class="viz-types" id="visualization">
+                <div class="section-header">
+                    <div class="section-badge purple-badge">
+                        <svg data-lucide="eye"></svg>
+                        Visualization Modes
+                    </div>
+                    <h2 class="section-title">Three Ways to Visualize</h2>
+                    <p class="section-subtitle">
+                        Switch between visualization modes to understand different aspects of your code.
+                    </p>
+                </div>
+
+                <div class="viz-grid">
+                    <!-- Stack Viz -->
+                    <div class="viz-card viz-card--stack">
+                        <div class="viz-card-status live">Available</div>
+                        <div class="viz-card-icon">
+                            <svg data-lucide="layers"></svg>
+                        </div>
+                        <h3 class="viz-card-title">Stack Visualization</h3>
+                        <p class="viz-card-desc">Watch function call stack frames, local variables, data segment & memory layout update step by step.</p>
+                        <div class="viz-card-preview">
+                            <div class="viz-mini-stack">
+                                <div class="mini-frame mini-frame--active"><span>printf()</span><span class="mini-addr">0x9e80</span></div>
+                                <div class="mini-frame"><span>foo()</span><span class="mini-addr">0xa100</span></div>
+                                <div class="mini-frame"><span>main()</span><span class="mini-addr">0x9c00</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- DS Viz -->
+                    <div class="viz-card viz-card--ds">
+                        <div class="viz-card-status live">Available</div>
+                        <div class="viz-card-icon">
+                            <svg data-lucide="network"></svg>
+                        </div>
+                        <h3 class="viz-card-title">Data Structure Visualization</h3>
+                        <p class="viz-card-desc">Arrays, 2D arrays, pointers — all animated with compare, swap, highlight & insert operations.</p>
+                        <div class="viz-card-preview">
+                            <div class="viz-mini-array">
+                                <div class="mini-cell">5</div>
+                                <div class="mini-cell mini-cell--compare">12</div>
+                                <div class="mini-cell mini-cell--sorted">3</div>
+                                <div class="mini-cell">8</div>
+                                <div class="mini-cell mini-cell--compare">1</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ═══ DATA STRUCTURES ROADMAP ═══ -->
+            <section class="ds-roadmap" id="roadmap">
+                <div class="section-header">
+                    <div class="section-badge green-badge">
+                        <svg data-lucide="map"></svg>
+                        Roadmap
+                    </div>
+                    <h2 class="section-title">Data Structures Support</h2>
+                    <p class="section-subtitle">
+                        We're expanding visualization support for all major data structures.
+                    </p>
+                </div>
+
+                <div class="ds-grid">
+                    <div class="ds-card ds-card--done">
+                        <div class="ds-card-badge done">
+                            <svg data-lucide="check-circle-2"></svg>
+                            Available
+                        </div>
+                        <div class="ds-card-icon"><svg data-lucide="grid-3x3"></svg></div>
+                        <h4 class="ds-card-name">Arrays & Matrices</h4>
+                        <p class="ds-card-desc">1D & 2D arrays with sort, compare, swap, insert, highlight operations.</p>
+                    </div>
+
+                    <div class="ds-card ds-card--progress">
+                        <div class="ds-card-badge progress">
+                            <svg data-lucide="loader"></svg>
+                            In Progress
+                        </div>
+                        <div class="ds-card-icon"><svg data-lucide="link"></svg></div>
+                        <h4 class="ds-card-name">Linked Lists</h4>
+                        <p class="ds-card-desc">Singly, doubly & circular linked lists with node insertion, deletion & traversal.</p>
+                    </div>
+
+                    <div class="ds-card ds-card--planned">
+                        <div class="ds-card-badge planned">
+                            <svg data-lucide="clock"></svg>
+                            Planned
+                        </div>
+                        <div class="ds-card-icon"><svg data-lucide="git-fork"></svg></div>
+                        <h4 class="ds-card-name">Trees</h4>
+                        <p class="ds-card-desc">BST, AVL, heap trees with visual insert, delete, balance & traversal animations.</p>
+                    </div>
+
+                    <div class="ds-card ds-card--planned">
+                        <div class="ds-card-badge planned">
+                            <svg data-lucide="clock"></svg>
+                            Planned
+                        </div>
+                        <div class="ds-card-icon"><svg data-lucide="share-2"></svg></div>
+                        <h4 class="ds-card-name">Graphs</h4>
+                        <p class="ds-card-desc">DFS, BFS, Dijkstra with animated node/edge traversal and path highlighting.</p>
+                    </div>
+
+                    <div class="ds-card ds-card--done">
+                        <div class="ds-card-badge done">
+                            <svg data-lucide="check-circle-2"></svg>
+                            Available
+                        </div>
+                        <div class="ds-card-icon"><svg data-lucide="layers"></svg></div>
+                        <h4 class="ds-card-name">Stack & Queue</h4>
+                        <p class="ds-card-desc">Push, pop, enqueue, dequeue operations with call stack visualization.</p>
+                    </div>
+
+                    <div class="ds-card ds-card--planned">
+                        <div class="ds-card-badge planned">
+                            <svg data-lucide="clock"></svg>
+                            Planned
+                        </div>
+                        <div class="ds-card-icon"><svg data-lucide="hash"></svg></div>
+                        <h4 class="ds-card-name">Hash Tables</h4>
+                        <p class="ds-card-desc">Hash function, collision handling, chaining & open addressing visualized step by step.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══ LANGUAGES ═══ -->
+            <section class="languages" id="languages">
+                <div class="section-header">
+                    <div class="section-badge">
+                        <svg data-lucide="file-code-2"></svg>
+                        Languages
+                    </div>
+                    <h2 class="section-title">Language Support</h2>
+                    <p class="section-subtitle">
+                        Currently supporting C language with full visualization.
+                        More languages coming soon.
+                    </p>
+                </div>
+
+                <div class="languages-grid">
+                    <div class="language-card lang-active">
+                        <span class="lang-status-dot active-dot"></span>
+                        <div class="language-icon c-lang">C</div>
+                        <span class="language-name">C Language</span>
+                        <span class="language-ext">.c</span>
+                        <span class="lang-badge lang-badge--active">Active</span>
+                    </div>
+                    <div class="language-card lang-coming">
+                        <div class="language-icon cpp-lang">C++</div>
+                        <span class="language-name">C++</span>
+                        <span class="language-ext">.cpp</span>
+                        <span class="lang-badge lang-badge--soon">Coming Soon</span>
+                    </div>
+                    <div class="language-card lang-coming">
+                        <div class="language-icon java-lang">Ja</div>
+                        <span class="language-name">Java</span>
+                        <span class="language-ext">.java</span>
+                        <span class="lang-badge lang-badge--soon">Coming Soon</span>
+                    </div>
+                    <div class="language-card lang-coming">
+                        <div class="language-icon python-lang">Py</div>
+                        <span class="language-name">Python</span>
+                        <span class="language-ext">.py</span>
+                        <span class="lang-badge lang-badge--soon">Coming Soon</span>
+                    </div>
+                    <div class="language-card lang-coming">
+                        <div class="language-icon js-lang">JS</div>
+                        <span class="language-name">JavaScript</span>
+                        <span class="language-ext">.js</span>
+                        <span class="lang-badge lang-badge--soon">Coming Soon</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══ FUTURE FEATURES ═══ -->
+            <section class="future-section" id="future">
+                <div class="section-header">
+                    <div class="section-badge orange-badge">
+                        <svg data-lucide="rocket"></svg>
+                        Coming Next
+                    </div>
+                    <h2 class="section-title">What's Coming</h2>
+                    <p class="section-subtitle">
+                        Exciting features we're building to make CodeLens even more powerful.
+                    </p>
+                </div>
+
+                <div class="future-grid">
+                    <div class="future-card">
+                        <div class="future-icon orange-icon">
+                            <svg data-lucide="code-2"></svg>
+                        </div>
+                        <div class="future-body">
+                            <div class="future-top">
+                                <h3 class="future-title">Visualize Your Own Code</h3>
+                                <span class="future-badge">Coming Soon</span>
+                            </div>
+                            <p class="future-desc">
+                                Write or paste your own C/C++ code and visualize it instantly.
+                                No pre-built examples needed — just type, run, and watch your code execute step by step.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="future-card">
+                        <div class="future-icon purple-icon">
+                            <svg data-lucide="bot"></svg>
+                        </div>
+                        <div class="future-body">
+                            <div class="future-top">
+                                <h3 class="future-title">AI-Powered Doubt Clearance</h3>
+                                <span class="future-badge">Planned</span>
+                            </div>
+                            <p class="future-desc">
+                                Ask AI to explain any step, variable, or data structure change.
+                                Get instant answers to "Why did this happen?" or "What does this pointer do?"
+                                — right inside the visualizer.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="future-card">
+                        <div class="future-icon green-icon">
+                            <svg data-lucide="brain"></svg>
+                        </div>
+                        <div class="future-body">
+                            <div class="future-top">
+                                <h3 class="future-title">AI Code Understanding</h3>
+                                <span class="future-badge">Planned</span>
+                            </div>
+                            <p class="future-desc">
+                                AI analyzes your code and provides line-by-line explanations,
+                                complexity analysis, and suggests optimization tips before visualization.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- ═══ PRICING PLANS ═══ -->
+            <section class="pricing-section" id="pricing">
+                <div class="section-header">
+                    <div class="section-badge yellow-badge">
+                        <svg data-lucide="crown"></svg>
+                        Plans
+                    </div>
+                    <h2 class="section-title">Choose Your Plan</h2>
+                    <p class="section-subtitle">
+                        Start free for personal use. Upgrade for advanced features as they launch.
+                    </p>
+                </div>
+
+                <div class="pricing-grid">
+                    <!-- Free -->
+                    <div class="plan-card plan-card--free">
+                        <div class="plan-header">
+                            <div class="plan-icon"><svg data-lucide="user"></svg></div>
+                            <h3 class="plan-name">Personal</h3>
+                            <div class="plan-price">
+                                <span class="plan-amount">Free</span>
+                            </div>
+                            <p class="plan-tagline">Limited time — free for all users</p>
+                        </div>
+                        <ul class="plan-features">
+                            <li class="plan-feat"><svg data-lucide="check"></svg> Stack visualization</li>
+                            <li class="plan-feat"><svg data-lucide="check"></svg> DS visualization (Arrays)</li>
+                            <li class="plan-feat"><svg data-lucide="check"></svg> 50+ pre-built examples</li>
+                            <li class="plan-feat"><svg data-lucide="check"></svg> C language support</li>
+                            <li class="plan-feat"><svg data-lucide="check"></svg> Step-by-step playback</li>
+                            <li class="plan-feat"><svg data-lucide="check"></svg> Output terminal</li>
+                            <li class="plan-feat dim"><svg data-lucide="x"></svg> Custom code upload</li>
+                            <li class="plan-feat dim"><svg data-lucide="x"></svg> AI doubt clearance</li>
+                        </ul>
+                        <a href="editor.html" class="plan-btn plan-btn--free">
+                            Get Started Free
+                        </a>
+                    </div>
+
+                    <!-- Student -->
+                    <div class="plan-card plan-card--student">
+                        <div class="plan-header">
+                            <div class="plan-icon"><svg data-lucide="graduation-cap"></svg></div>
+                            <h3 class="plan-name">Student</h3>
+                            <div class="plan-price">
+                                <span class="plan-amount">&#8377;99</span>
+                                <span class="plan-period">/month</span>
+                            </div>
+                            <p class="plan-tagline">Best for college students</p>
+                        </div>
+                        <ul class="plan-features">
+                            <li class="plan-feat"><svg data-lucide="check"></svg> Everything in Personal</li>
+                            <li class="plan-feat"><svg data-lucide="check"></svg> All 5 languages</li>
+                            <li class="plan-feat"><svg data-lucide="check"></svg> Linked lists & trees viz</li>
+                            <li class="plan-feat"><svg data-lucide="check"></svg> Upload your own code</li>
+                            <li class="plan-feat"><svg data-lucide="check"></svg> History & saved sessions</li>
+                            <li class="plan-feat dim"><svg data-lucide="x"></svg> AI doubt clearance</li>
+                            <li class="plan-feat dim"><svg data-lucide="x"></svg> Priority support</li>
+                        </ul>
+                        <button class="plan-btn plan-btn--student" disabled>
+                            Coming Soon
+                        </button>
+                    </div>
+
+                    <!-- Pro -->
+                    <div class="plan-card plan-card--pro">
+                        <div class="plan-header">
+                            <div class="plan-icon"><svg data-lucide="zap"></svg></div>
+                            <h3 class="plan-name">Pro</h3>
+                            <div class="plan-price">
+                                <span class="plan-amount">&#8377;249</span>
+                                <span class="plan-period">/month</span>
+                            </div>
+                            <p class="plan-tagline">For serious learners</p>
+                        </div>
+                        <ul class="plan-features">
+                            <li class="plan-feat"><svg data-lucide="check"></svg> Everything in Student</li>
+                            <li class="plan-feat"><svg data-lucide="check"></svg> AI doubt clearance</li>
+                            <li class="plan-feat"><svg data-lucide="check"></svg> AI code understanding</li>
+                            <li class="plan-feat"><svg data-lucide="check"></svg> Graphs & hash tables viz</li>
+                            <li class="plan-feat"><svg data-lucide="check"></svg> Advanced complexity analysis</li>
+                            <li class="plan-feat"><svg data-lucide="check"></svg> Export visualizations</li>
+                            <li class="plan-feat"><svg data-lucide="check"></svg> Priority support</li>
+                            <li class="plan-feat dim"><svg data-lucide="x"></svg> Team collaboration</li>
+                        </ul>
+                        <button class="plan-btn plan-btn--pro" disabled>
+                            Coming Soon
+                        </button>
+                    </div>
+
+                    <!-- Institution -->
+                    <div class="plan-card plan-card--inst">
+                        <div class="plan-header">
+                            <div class="plan-icon"><svg data-lucide="building-2"></svg></div>
+                            <h3 class="plan-name">Institution</h3>
+                            <div class="plan-price">
+                                <span class="plan-amount">Custom</span>
+                            </div>
+                            <p class="plan-tagline">For colleges & coaching centers</p>
+                        </div>
+                        <ul class="plan-features">
+                            <li class="plan-feat"><svg data-lucide="check"></svg> Everything in Pro</li>
+                            <li class="plan-feat"><svg data-lucide="check"></svg> Multi-user dashboard</li>
+                            <li class="plan-feat"><svg data-lucide="check"></svg> Team collaboration</li>
+                            <li class="plan-feat"><svg data-lucide="check"></svg> Custom example sets</li>
+                            <li class="plan-feat"><svg data-lucide="check"></svg> Student progress tracking</li>
+                            <li class="plan-feat"><svg data-lucide="check"></svg> Admin panel access</li>
+                            <li class="plan-feat"><svg data-lucide="check"></svg> Dedicated support</li>
+                            <li class="plan-feat"><svg data-lucide="check"></svg> Onboarding & training</li>
+                        </ul>
+                        <button class="plan-btn plan-btn--inst" disabled>
+                            Coming Soon
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══ CTA ═══ -->
+            <section class="cta">
+                <div class="cta-container">
+                    <div class="cta-badge">
+                        <svg data-lucide="sparkles"></svg>
+                        Free During Beta
+                    </div>
+                    <h2 class="cta-title">Ready to Visualize?</h2>
+                    <p class="cta-desc">
+                        Jump into the editor and watch your code come alive.
+                        No setup required — just browse examples and visualize.
+                    </p>
+                    <div class="cta-actions">
+                        <a href="editor.html" class="btn btn-primary">
+                            <svg data-lucide="arrow-right"></svg>
+                            Open Editor
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ═══ FOOTER ═══ -->
+            <footer class="footer-main">
+                <div class="footer-container">
+                    <div class="footer-grid">
+                        <!-- Brand -->
+                        <div class="footer-brand">
+                            <div class="footer-logo">
+                                <img src="Assets/Logo.png" alt="CodeLens" class="footer-logo-img">
+                                <span class="footer-logo-text">Code<span class="footer-lens">Lens</span></span>
+                            </div>
+                            <p class="footer-brand-desc">
+                                An open-source step-by-step code visualization
+                                platform built for students to learn data structures
+                                and algorithms visually.
+                            </p>
+                            <div class="footer-built">
+                                <svg data-lucide="heart"></svg>
+                                Built as a Final Year College Project
+                            </div>
+                        </div>
+
+                        <!-- Quick Links -->
+                        <div class="footer-col">
+                            <h4 class="footer-col-title">Platform</h4>
+                            <a href="editor.html" class="footer-link">Code Editor</a>
+                            <a href="editor.html" class="footer-link">Browse Examples</a>
+                            <a href="#pricing" class="footer-link">Pricing Plans</a>
+                        </div>
+
+                        <!-- Visualization -->
+                        <div class="footer-col">
+                            <h4 class="footer-col-title">Visualizations</h4>
+                            <a href="editor.html" class="footer-link">Stack Memory</a>
+                            <a href="editor.html" class="footer-link">Arrays &amp; Matrices</a>
+                            <span class="footer-link footer-link--dim">Linked Lists <span class="footer-soon">Soon</span></span>
+                            <span class="footer-link footer-link--dim">Trees &amp; Graphs <span class="footer-soon">Soon</span></span>
+                        </div>
+
+                        <!-- Contact / Socials -->
+                        <div class="footer-col">
+                            <h4 class="footer-col-title">Connect</h4>
+                            <a href="mailto:kumargaurav933466@gmail.com" class="footer-link footer-social-link">
+                                <svg data-lucide="mail"></svg>
+                                kumargaurav933466@gmail.com
+                            </a>
+                            <a href="https://www.linkedin.com/in/gauravkr-18-builds" target="_blank" rel="noopener noreferrer" class="footer-link footer-social-link">
+                                <svg data-lucide="linkedin"></svg>
+                                in/gauravkr-18-builds
+                            </a>
+                            <a href="https://github.com/Gauravkr-18" target="_blank" rel="noopener noreferrer" class="footer-link footer-social-link">
+                                <svg data-lucide="github"></svg>
+                                github.com/Gauravkr-18
+                            </a>
+                            <a href="https://instagram.com/ankurmehta__18" target="_blank" rel="noopener noreferrer" class="footer-link footer-social-link">
+                                <svg data-lucide="instagram"></svg>
+                                @ankurmehta__18
+                            </a>
+                            <a href="https://x.com/GauravK_18" target="_blank" rel="noopener noreferrer" class="footer-link footer-social-link">
+                                <svg data-lucide="twitter"></svg>
+                                @GauravK_18
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="footer-bottom">
+                        <p class="footer-copy">&copy; 2026 CodeLens — Final Year Project</p>
+                        <div class="footer-bottom-links">
+                            <span>Made with <svg data-lucide="heart" style="width:12px;height:12px;color:var(--accent-pink);display:inline;vertical-align:middle;"></svg> for learning</span>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- ============ PROFILE MODAL ============ -->
+    <div class="profile-overlay" id="profileOverlay">
+        <div class="profile-modal">
+            <button class="profile-modal-close">
+                <svg data-lucide="x"></svg>
+            </button>
+            <div class="profile-modal-banner"></div>
+            <div class="profile-modal-body">
+                <div class="profile-modal-top">
+                    <div class="profile-modal-avatar" id="profileAvatar">
+                        <img id="profileAvatarImg" src="" alt="Avatar">
+                        <span id="profileAvatarInitials">?</span>
+                        <button class="avatar-edit-btn" id="avatarEditBtn" title="Change avatar">
+                            <svg data-lucide="camera"></svg>
+                        </button>
+                    </div>
+                    <span class="profile-modal-role user" id="profileRoleBadge">
+                        <svg data-lucide="user"></svg>
+                        User
+                    </span>
+                </div>
+
+                <!-- Avatar Picker -->
+                <div class="avatar-picker" id="avatarPicker">
+                    <label class="avatar-picker-label">Choose Your Avatar</label>
+                    <div class="avatar-picker-grid">
+                        <div class="avatar-option" data-avatar="1">
+                            <img src="http://localhost:5000/avatars/1.png" alt="Avatar 1">
+                        </div>
+                        <div class="avatar-option" data-avatar="2">
+                            <img src="http://localhost:5000/avatars/2.png" alt="Avatar 2">
+                        </div>
+                        <div class="avatar-option" data-avatar="3">
+                            <img src="http://localhost:5000/avatars/3.png" alt="Avatar 3">
+                        </div>
+                        <div class="avatar-option" data-avatar="4">
+                            <img src="http://localhost:5000/avatars/4.png" alt="Avatar 4">
+                        </div>
+                        <div class="avatar-option" data-avatar="5">
+                            <img src="http://localhost:5000/avatars/5.png" alt="Avatar 5">
+                        </div>
+                        <div class="avatar-option avatar-upload-option" id="avatarUploadOption">
+                            <svg data-lucide="upload"></svg>
+                            <span>Upload</span>
+                        </div>
+                    </div>
+                    <input type="file" id="avatarFileInput" accept="image/*" style="display:none;">
+                </div>
+
+                <div class="profile-fields">
+                    <div class="profile-field">
+                        <label class="profile-field-label">Full Name</label>
+                        <div class="profile-field-value editable">
+                            <svg data-lucide="user"></svg>
+                            <input type="text" class="edit-input" id="nameInput" placeholder="Your name" readonly>
+                            <div class="edit-btn" id="editNameBtn" title="Edit name">
+                                <svg data-lucide="pencil"></svg>
+                            </div>
+                        </div>
+                        <div class="profile-edit-actions" id="nameEditActions">
+                            <button class="profile-save-btn" id="saveNameBtn">Save</button>
+                            <button class="profile-cancel-btn" id="cancelNameBtn">Cancel</button>
+                        </div>
+                    </div>
+                    <div class="profile-field">
+                        <label class="profile-field-label">Email Address</label>
+                        <div class="profile-field-value">
+                            <svg data-lucide="mail"></svg>
+                            <span id="profileEmail">&mdash;</span>
+                        </div>
+                    </div>
+                    <div class="profile-field">
+                        <label class="profile-field-label">Account Role</label>
+                        <div class="profile-field-value">
+                            <svg data-lucide="shield"></svg>
+                            <span id="profileRole">&mdash;</span>
+                        </div>
+                    </div>
+                    <div class="profile-field">
+                        <label class="profile-field-label">Member Since</label>
+                        <div class="profile-field-value">
+                            <svg data-lucide="calendar"></svg>
+                            <span id="profileDate">&mdash;</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="profile-message" id="profileMessage">
+                    <svg data-lucide="check-circle"></svg>
+                    <span id="profileMessageText"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ AVATAR VIEWER MODAL ============ -->
+    <div class="avatar-viewer-overlay" id="avatarViewerOverlay">
+        <div class="avatar-viewer-content">
+            <img id="avatarViewerImage" class="avatar-viewer-image" src="" alt="Avatar">
+            <button class="avatar-viewer-close" id="avatarViewerClose">
+                <svg data-lucide="x"></svg>
+            </button>
+        </div>
+    </div>
+
+    <!-- ============ AVATAR CROP MODAL ============ -->
+    <div class="crop-overlay" id="cropOverlay">
+        <div class="crop-modal">
+            <div class="crop-header">
+                <span class="crop-title">
+                    <svg data-lucide="crop"></svg>
+                    Crop Avatar
+                </span>
+                <button class="crop-close-btn" id="cropCloseBtn">
+                    <svg data-lucide="x"></svg>
+                </button>
+            </div>
+            <div class="crop-body">
+                <div class="crop-canvas-wrapper" id="cropCanvasWrapper">
+                    <img id="cropImage" src="" alt="Crop preview">
+                    <svg class="crop-circle-mask" viewBox="0 0 320 320" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <mask id="circleMask">
+                                <rect width="320" height="320" fill="white"/>
+                                <circle cx="160" cy="160" r="140" fill="black"/>
+                            </mask>
+                        </defs>
+                        <rect width="320" height="320" fill="rgba(0,0,0,0.55)" mask="url(#circleMask)"/>
+                        <circle cx="160" cy="160" r="140" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="2"/>
+                    </svg>
+                </div>
+                <div class="crop-zoom-row">
+                    <svg data-lucide="minus"></svg>
+                    <input type="range" class="crop-zoom-slider" id="cropZoomSlider" min="100" max="300" value="100">
+                    <svg data-lucide="plus"></svg>
+                </div>
+                <span class="crop-hint">Drag to reposition &middot; Scroll to zoom</span>
+            </div>
+            <div class="crop-footer">
+                <button class="crop-cancel-btn" id="cropCancelBtn">Cancel</button>
+                <button class="crop-upload-btn" id="cropUploadBtn">
+                    <svg data-lucide="check"></svg>
+                    Apply & Upload
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ AUTH MODAL ============ -->
+    <div class="auth-overlay" id="authOverlay">
+        <div class="auth-modal">
+            <!-- Close Button -->
+            <button class="auth-close">
+                <svg data-lucide="x"></svg>
+            </button>
+
+            <!-- Header -->
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <div class="auth-logo-icon">
+                        <div class="auth-logo-icon-inner">
+                            <img src="Assets/Logo.png" alt="CodeLens" style="width:100%;height:100%;padding:2px;object-fit:contain;border-radius:8px;">
+                        </div>
+                    </div>
+                    <span class="auth-logo-text">Code<span>Lens</span></span>
+                </div>
+                <h2 class="auth-title" id="authTitle">Welcome Back</h2>
+                <p class="auth-subtitle" id="authSubtitle">Login to access your saved work</p>
+            </div>
+
+            <!-- Tabs -->
+            <div class="auth-tabs">
+                <button class="auth-tab active">Login</button>
+                <button class="auth-tab">Sign Up</button>
+            </div>
+
+            <!-- Error / Success Messages -->
+            <div class="auth-error" id="authError">
+                <svg data-lucide="alert-circle"></svg>
+                <span class="auth-error-text">Error message</span>
+            </div>
+            <div class="auth-success" id="authSuccess">
+                <svg data-lucide="check-circle"></svg>
+                <span class="auth-success-text">Success message</span>
+            </div>
+
+            <!-- Form -->
+            <form class="auth-form" id="authForm">
+                <!-- Name (only for signup) -->
+                <div class="auth-form-group" id="authNameGroup" style="display: none;">
+                    <label class="auth-label">Full Name</label>
+                    <div class="auth-input-wrapper">
+                        <svg data-lucide="user"></svg>
+                        <input type="text" class="auth-input" id="authName" placeholder="Enter your name" autocomplete="name">
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="auth-form-group" id="authEmailGroup">
+                    <label class="auth-label">Email</label>
+                    <div class="auth-input-wrapper">
+                        <svg data-lucide="mail"></svg>
+                        <input type="email" class="auth-input" id="authEmail" placeholder="Enter your email" autocomplete="email">
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div class="auth-form-group" id="authPasswordGroup">
+                    <label class="auth-label">Password</label>
+                    <div class="auth-input-wrapper">
+                        <svg data-lucide="lock"></svg>
+                        <input type="password" class="auth-input" id="authPassword" placeholder="Enter your password" autocomplete="current-password">
+                        <button type="button" class="auth-password-toggle" onclick="togglePasswordVisibility()">
+                            <svg data-lucide="eye"></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Forgot Password link (visible in login mode only) -->
+                <div class="auth-forgot-link" id="authForgotLink">
+                    <a onclick="switchToForgotPassword()">Forgot password?</a>
+                </div>
+
+                <!-- OTP input (forgot password — step 2) -->
+                <div class="auth-form-group" id="authOtpGroup" style="display: none;">
+                    <label class="auth-label">Verification Code</label>
+                    <p class="auth-otp-hint">Enter the 6-digit code sent to <strong id="authOtpEmailHint"></strong></p>
+                    <div class="auth-input-wrapper">
+                        <svg data-lucide="shield-check"></svg>
+                        <input type="text" class="auth-input auth-otp-input" id="authOtp" placeholder="000000" maxlength="6" autocomplete="one-time-code" inputmode="numeric" pattern="[0-9]*">
+                    </div>
+                    <div class="auth-otp-meta">
+                        <span class="auth-otp-timer">Expires in <strong id="authOtpCountdown">10:00</strong></span>
+                        <button type="button" class="auth-otp-resend" id="authOtpResendBtn" disabled onclick="handleResendOtp()">Resend code</button>
+                    </div>
+                </div>
+
+                <!-- New Password (forgot password — step 3) -->
+                <div class="auth-form-group" id="authNewPasswordGroup" style="display: none;">
+                    <label class="auth-label">New Password</label>
+                    <div class="auth-input-wrapper">
+                        <svg data-lucide="lock"></svg>
+                        <input type="password" class="auth-input" id="authNewPassword" placeholder="Min. 6 characters" autocomplete="new-password">
+                    </div>
+                </div>
+
+                <!-- Confirm Password (forgot password — step 3) -->
+                <div class="auth-form-group" id="authConfirmPasswordGroup" style="display: none;">
+                    <label class="auth-label">Confirm Password</label>
+                    <div class="auth-input-wrapper">
+                        <svg data-lucide="lock"></svg>
+                        <input type="password" class="auth-input" id="authConfirmPassword" placeholder="Repeat new password" autocomplete="new-password">
+                    </div>
+                </div>
+
+                <!-- Submit -->
+                <button type="submit" class="auth-submit" id="authSubmitBtn">Login</button>
+            </form>
+
+            <!-- Footer -->
+            <p class="auth-footer" id="authFooter">
+                Don't have an account? <a onclick="switchAuthTab('signup')">Sign up</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Initialize Lucide icons immediately when library loads
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        });
+    </script>
+    <script src="js/config.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/profile-avatar-ui.js"></script>
+    <script src="js/avatar-crop.js"></script>
+    <script>
+        // Auto-show login popup after 5s for guests, close button locked for 7s
+        (function () {
+            var POPUP_DELAY    = 5000;  // show popup after 5s
+            var CLOSE_LOCKOUT  = 7000;  // hide close button for 7s after popup shows
+
+            function isLoggedIn() {
+                try {
+                    var token = localStorage.getItem('codelens-token');
+                    var user  = localStorage.getItem('codelens-user');
+                    return !!(token && user);
+                } catch (e) {
+                    return false;
+                }
+            }
+
+            function showLoginPopup() {
+                if (isLoggedIn()) return; // already signed in — do nothing
+
+                var overlay  = document.getElementById('authOverlay');
+                var closeBtn = overlay ? overlay.querySelector('.auth-close') : null;
+                if (!overlay) return;
+
+                // Hide close button initially
+                if (closeBtn) {
+                    closeBtn.style.opacity    = '0';
+                    closeBtn.style.pointerEvents = 'none';
+                    closeBtn.style.transition = 'opacity 0.4s ease';
+                }
+
+                // Open the modal (uses auth.js's openAuthModal logic)
+                openAuthModal();
+
+                // Re-enable close button after lockout period
+                setTimeout(function () {
+                    if (closeBtn) {
+                        closeBtn.style.opacity       = '1';
+                        closeBtn.style.pointerEvents = '';
+                    }
+                }, CLOSE_LOCKOUT);
+            }
+
+            // Wait for DOM + scripts to settle, then schedule the popup
+            window.addEventListener('load', function () {
+                if (!isLoggedIn()) {
+                    setTimeout(showLoginPopup, POPUP_DELAY);
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
