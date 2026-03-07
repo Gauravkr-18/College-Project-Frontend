@@ -1,0 +1,1738 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeLens - Editor</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/editor.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <link rel="stylesheet" href="css/popups.css" />
+    <link rel="stylesheet" href="css/ds-visualizer.css" />
+    <link rel="stylesheet" href="css/fullscreen-editor.css" />
+    <style>
+      .editor-page .header-container {
+        padding: 10px 24px !important;
+      }
+
+      @media (max-width: 768px) {
+        .editor-page .header-container {
+          padding: 10px 12px !important;
+        }
+      }
+    </style>
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  </head>
+  <body>
+    <div class="editor-page">
+      <!-- ============ HEADER ============ -->
+      <header class="header">
+        <div class="header-container">
+          <div class="header-content">
+            <!-- Logo (Left) -->
+            <a href="index.html" class="logo">
+              <div class="logo-icon-wrapper">
+                <img
+                  src="Assets/Logo.png"
+                  alt="CodeLens Logo"
+                  class="logo-img"
+                />
+              </div>
+              <div class="logo-text">
+                <div class="logo-title">
+                  <span class="logo-title-text"
+                    >C<span class="logo-eye"
+                      ><svg
+                        class="eye-svg"
+                        width="22"
+                        height="18"
+                        viewBox="0 0 24 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <defs>
+                          <radialGradient
+                            id="irisGrad2"
+                            cx="50%"
+                            cy="50%"
+                            r="50%"
+                            fx="35%"
+                            fy="35%"
+                          >
+                            <stop offset="0%" class="iris-stop1" />
+                            <stop offset="100%" class="iris-stop2" />
+                          </radialGradient>
+                          <mask id="eyeMsk2">
+                            <path
+                              d="M3 11C3 11 6 4 12 4C18 4 21 11 21 11C21 11 18 18 12 18C6 18 3 11 3 11Z"
+                              fill="white"
+                            />
+                          </mask>
+                        </defs>
+                        <g class="eye-lashes" fill="none">
+                          <path d="M6 8.5L4.5 6.5" />
+                          <path d="M9.5 6.5L9 3.5" />
+                          <path d="M14.5 6.5L15 3.5" />
+                          <path d="M18 8.5L19.5 6.5" />
+                        </g>
+                        <path
+                          class="eye-white"
+                          d="M3 11C3 11 6 4 12 4C18 4 21 11 21 11C21 11 18 18 12 18C6 18 3 11 3 11Z"
+                        />
+                        <g mask="url(#eyeMsk2)">
+                          <g class="eye-iris-group">
+                            <circle
+                              cx="12"
+                              cy="11"
+                              r="5.5"
+                              fill="url(#irisGrad2)"
+                            />
+                            <circle cx="12" cy="11" r="2.2" class="eye-pupil" />
+                            <circle
+                              cx="13.5"
+                              cy="9.5"
+                              r="1.1"
+                              class="eye-glint"
+                            />
+                            <circle
+                              cx="10.8"
+                              cy="12.8"
+                              r="0.6"
+                              fill="white"
+                              fill-opacity="0.2"
+                            />
+                          </g>
+                        </g>
+                        <path
+                          class="eye-lid-bottom"
+                          d="M3 11C3 11 6 18 12 18C18 18 21 11 21 11"
+                        />
+                        <path
+                          class="eye-lid-top"
+                          d="M3 11C3 11 6 4 12 4C18 4 21 11 21 11"
+                        /></svg></span
+                    >de<span>Lens</span></span
+                  >
+                  <span class="logo-beta">BETA</span>
+                </div>
+                <div class="logo-subtitle">
+                  Code Visualizer
+                  <i data-lucide="search"></i>
+                </div>
+              </div>
+            </a>
+
+            <!-- Mobile Menu Button (visible on mobile only) -->
+            <button
+              class="mobile-menu-btn"
+              onclick="toggleMobileMenu()"
+              title="Menu"
+            >
+              <svg data-lucide="menu"></svg>
+            </button>
+
+            <!-- Navigation Bar (Center) -->
+            <nav class="nav-bar">
+              <!-- Editor -->
+              <a href="editor.html" class="nav-button active">
+                <svg class="nav-icon" data-lucide="code"></svg>
+                Editor
+              </a>
+
+              <div class="nav-divider"></div>
+
+              <!-- Examples (with Dropdown) -->
+              <div class="nav-dropdown-wrapper" data-dropdown="examples">
+                <button class="nav-button" aria-expanded="false">
+                  <svg class="nav-icon" data-lucide="book-open"></svg>
+                  Examples
+                  <svg class="chevron" data-lucide="chevron-down"></svg>
+                </button>
+                <div class="dropdown dropdown-enhanced" id="dropdown-examples">
+                  <button class="dropdown-item browse-all">
+                    <svg data-lucide="grid-3x3"></svg>
+                    <span class="item-label">Browse All</span>
+                  </button>
+
+                  <div class="dropdown-section-title">QUICK ACCESS</div>
+
+                  <button class="dropdown-item lang-item c">
+                    <div class="lang-icon">
+                      <svg data-lucide="file-code"></svg>
+                    </div>
+                    <span class="item-label">C</span>
+                    <span class="item-ext">.c</span>
+                    <span class="item-badge new">NEW</span>
+                  </button>
+                  <button class="dropdown-item lang-item cpp">
+                    <div class="lang-icon">
+                      <svg data-lucide="file-code"></svg>
+                    </div>
+                    <span class="item-label">C++</span>
+                    <span class="item-ext">.cpp</span>
+                  </button>
+                  <button class="dropdown-item lang-item java">
+                    <div class="lang-icon">
+                      <svg data-lucide="file-code"></svg>
+                    </div>
+                    <span class="item-label">Java</span>
+                    <span class="item-ext">.java</span>
+                  </button>
+                  <button class="dropdown-item lang-item python">
+                    <div class="lang-icon">
+                      <svg data-lucide="file-code"></svg>
+                    </div>
+                    <span class="item-label">Python</span>
+                    <span class="item-ext">.py</span>
+                  </button>
+                  <button class="dropdown-item lang-item javascript">
+                    <div class="lang-icon">
+                      <svg data-lucide="file-code"></svg>
+                    </div>
+                    <span class="item-label">JavaScript</span>
+                    <span class="item-ext">.js</span>
+                  </button>
+                </div>
+              </div>
+            </nav>
+
+            <!-- Header Actions (Right) -->
+            <div class="header-actions">
+              <!-- Search -->
+              <div
+                class="search-input-wrapper"
+                id="globalSearchWrapper"
+                style="position: relative"
+              >
+                <svg data-lucide="search"></svg>
+                <input
+                  type="text"
+                  class="search-input"
+                  id="globalSearchInput"
+                  placeholder="Search examples..."
+                />
+                <div class="search-shortcut" id="searchShortcut">
+                  <kbd>Ctrl</kbd>
+                  <kbd>K</kbd>
+                </div>
+                <button
+                  class="search-clear-inline"
+                  id="searchClearBtn"
+                  style="
+                    display: none;
+                    background: none;
+                    border: none;
+                    cursor: pointer;
+                    color: var(--text-muted);
+                    padding: 4px;
+                  "
+                >
+                  <svg data-lucide="x" style="width: 14px; height: 14px"></svg>
+                </button>
+
+                <!-- Search Dropdown -->
+                <div class="search-dropdown" id="searchDropdown">
+                  <div class="search-results-list" id="searchResultsList"></div>
+                  <div class="search-dropdown-footer">
+                    <button
+                      class="search-browse-all-btn"
+                      id="searchBrowseAllBtn"
+                    >
+                      <svg data-lucide="grid-3x3"></svg>
+                      Browse All Examples
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="header-divider"></div>
+
+              <!-- History -->
+              <button class="icon-btn" id="historyBtn" title="History">
+                <svg data-lucide="history"></svg>
+              </button>
+
+              <!-- Fullscreen -->
+              <button class="icon-btn" title="Fullscreen">
+                <svg data-lucide="maximize"></svg>
+              </button>
+
+              <div class="header-divider"></div>
+
+              <!-- Theme Toggle -->
+              <button
+                class="theme-toggle"
+                id="themeToggle"
+                title="Toggle theme"
+              >
+                <svg data-lucide="moon"></svg>
+              </button>
+
+              <!-- Login / Signup (shown when logged out) -->
+              <button class="login-btn">
+                <svg data-lucide="user"></svg>
+                Login / Signup
+              </button>
+
+              <!-- User Profile (shown when logged in) -->
+              <div class="profile-dropdown-wrapper">
+                <button class="profile-btn">
+                  <div class="profile-avatar">?</div>
+                  <span class="profile-name">User</span>
+                  <svg class="profile-chevron" data-lucide="chevron-down"></svg>
+                </button>
+                <div class="profile-dropdown">
+                  <div class="profile-info">
+                    <div class="profile-info-name">User</div>
+                    <div class="profile-info-email">user@email.com</div>
+                  </div>
+                  <button class="dropdown-item profile-modal-btn">
+                    <svg data-lucide="user"></svg>
+                    <span>My Profile</span>
+                  </button>
+                  <a
+                    href="admin.html"
+                    class="dropdown-item admin-only-link"
+                    style="display: none"
+                  >
+                    <svg data-lucide="shield"></svg>
+                    <span>Admin Panel</span>
+                  </a>
+                  <a
+                    href="admin.html"
+                    class="dropdown-item tester-only-link"
+                    style="display: none"
+                  >
+                    <svg data-lucide="flag"></svg>
+                    <span>Reports</span>
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <button class="dropdown-item logout logout-btn">
+                    <svg data-lucide="log-out"></svg>
+                    <span>Logout</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ============ EDITOR MAIN AREA ============ -->
+      <main class="editor-main">
+        <div class="editor-container">
+          <!-- ====== CODE VIEWER PANEL (Left - 25%) ====== -->
+          <section class="code-panel">
+            <div class="code-viewer">
+              <!-- Header: Traffic Lights + File Badge + Actions -->
+              <div class="code-viewer-header">
+                <div class="code-viewer-header-left">
+                  <div class="traffic-lights">
+                    <span class="traffic-dot red"></span>
+                    <span class="traffic-dot yellow"></span>
+                    <span class="traffic-dot green"></span>
+                  </div>
+                </div>
+                <div class="code-viewer-header-center">
+                  <div class="file-badge">
+                    <svg data-lucide="file-code-2"></svg>
+                    <span>welcome<span class="ext">.c</span></span>
+                  </div>
+                </div>
+                <div class="code-viewer-header-right">
+                  <button class="action-btn" title="Copy code">
+                    <svg data-lucide="copy"></svg>
+                  </button>
+                  <button class="action-btn" title="Reset">
+                    <svg data-lucide="rotate-ccw"></svg>
+                  </button>
+                  <button class="action-btn" title="Expand">
+                    <svg data-lucide="expand"></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Inner Code Container -->
+              <div class="code-container">
+                <div class="code-container-header">
+                  <span class="label">Source Code</span>
+                  <span class="info">C · 7 lines</span>
+                </div>
+                <div class="code-content">
+                  <!-- Welcome Code -->
+                  <div class="code-line"><span class="line-number">1</span><span class="code-text"><span class="syn-keyword">#include</span> <span class="syn-string">&lt;stdio.h&gt;</span></span></div>
+                  <div class="code-line"><span class="line-number">2</span><span class="code-text"></span></div>
+                  <div class="code-line"><span class="line-number">3</span><span class="code-text"><span class="syn-type">int</span> <span class="syn-function">main</span>() {</span></div>
+                  <div class="code-line"><span class="line-number">4</span><span class="code-text">&nbsp;&nbsp;<span class="syn-function">printf</span>(<span class="syn-string">"Welcome to CodeLens!\n"</span>);</span></div>
+                  <div class="code-line"><span class="line-number">5</span><span class="code-text">&nbsp;&nbsp;<span class="syn-function">printf</span>(<span class="syn-string">"Step-by-Step Code Visualization\n"</span>);</span></div>
+                  <div class="code-line"><span class="line-number">6</span><span class="code-text">&nbsp;&nbsp;<span class="syn-keyword">return</span> <span class="syn-number">0</span>;</span></div>
+                  <div class="code-line"><span class="line-number">7</span><span class="code-text">}</span></div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ====== RESIZER ====== -->
+          <div class="resizer">
+            <div class="resizer-bar"></div>
+          </div>
+
+          <!-- ====== VISUALIZER PANEL (Right - flex 1) ====== -->
+          <section class="visualizer-panel">
+            <!-- Floating Header -->
+            <div class="visualizer-header">
+              <!-- Center: Tabs -->
+              <div class="vis-tabs">
+                <button class="vis-tab active" data-vis-type="stack">
+                  Stack
+                </button>
+                <button class="vis-tab" data-vis-type="ds">
+                  Data Structure
+                </button>
+              </div>
+            </div>
+
+            <!-- Guest free-run counter (top-right, hidden for logged-in users) -->
+            <div class="guest-run-badge" id="guestRunBadge" style="display:none;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span id="guestRunText">5 free runs left</span>
+            </div>
+
+            <!-- Step Description Capsule (shown when example loaded) -->
+            <div class="step-info-capsule" id="stepInfoCapsule">
+              <div class="step-info-badge">
+                <span class="step-info-word">Step</span>
+                <span id="capsuleStep">0</span>
+                <span class="step-info-sep">/</span>
+                <span id="capsuleTotal">0</span>
+              </div>
+              <div class="step-info-divider"></div>
+              <span class="step-info-desc" id="capsuleDesc"
+                >Ready to start</span
+              >
+            </div>
+
+            <!-- End Step Overlay (shown when final step reached) -->
+            <div class="vis-end-overlay" id="visEndOverlay">
+              <div class="vis-end-card">
+                <div class="vis-end-checkmark">
+                  <svg data-lucide="check-circle-2"></svg>
+                </div>
+                <h3 class="vis-end-title">Visualization Complete</h3>
+                <p class="vis-end-desc">
+                  You've stepped through all
+                  <span id="visEndStepsCount">0</span> steps
+                </p>
+                <div class="vis-end-actions">
+                  <button
+                    class="vis-end-btn vis-end-btn--next"
+                    id="visNextExampleBtn"
+                  >
+                    <svg data-lucide="arrow-right"></svg>
+                    Next Example
+                  </button>
+                  <button
+                    class="vis-end-btn vis-end-btn--browse"
+                    id="visBrowseBtn"
+                  >
+                    <svg data-lucide="grid-3x3"></svg>
+                    Browse Examples
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Visualization Content Area -->
+            <div class="vis-content">
+              <!-- ===== STACK PANE ===== -->
+              <div class="vis-pane active" data-vis-pane="stack">
+                <!-- ===== VISUALIZATION AREA (shown when example loaded) ===== -->
+                <div class="vis-area" id="visArea">
+                  <!-- Data Segment Container (left, 25%) — hidden by default -->
+                  <div class="vis-ds-column" id="visDataSegment">
+                    <div class="vis-memory-container vis-memory-container--ds">
+                      <div class="vis-mem-label">
+                        <svg data-lucide="database"></svg>
+                        <span>Data Segment</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Stack Memory Container (right, takes remaining space) -->
+                  <div class="vis-stack-column" id="visStackColumn">
+                    <div
+                      class="vis-memory-container vis-memory-container--stack"
+                    >
+                      <div class="vis-mem-label">
+                        <svg data-lucide="layers"></svg>
+                        <span>Stack Memory</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- macOS-style floating terminal output window -->
+                  <div class="vis-terminal-window" id="visTerminalWindow">
+                    <div class="vis-term-header" id="visTermHeader">
+                      <div class="vis-term-controls">
+                        <span
+                          class="vis-term-dot vis-term-dot--close"
+                          id="visTermClose"
+                          title="Close"
+                        ></span>
+                        <span
+                          class="vis-term-dot vis-term-dot--min"
+                          id="visTermMin"
+                          title="Minimize"
+                        ></span>
+                        <span
+                          class="vis-term-dot vis-term-dot--max"
+                          title="Maximize"
+                        ></span>
+                      </div>
+                      <div class="vis-term-title">
+                        <svg
+                          data-lucide="terminal"
+                          class="vis-term-title-icon"
+                        ></svg>
+                        <span>Output</span>
+                      </div>
+                      <div style="width: 50px"></div>
+                    </div>
+                    <div class="vis-term-body" id="visTerminalContent">
+                      <div class="vis-term-line vis-term-empty">
+                        <span class="vis-term-prompt">$</span>
+                        <span>Waiting for output…</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="vis-placeholder vis-placeholder--stack">
+                  <!-- Icon -->
+                  <div class="vis-ph-icon vis-ph-icon--stack">
+                    <svg data-lucide="layers"></svg>
+                  </div>
+
+                  <!-- Heading -->
+                  <h3 class="vis-ph-title">Stack Visualization</h3>
+                  <p class="vis-ph-desc">
+                    Step through function calls and watch the call stack grow
+                    and shrink in real time.
+                  </p>
+
+                  <!-- Mini call-stack diagram -->
+                  <div class="vis-ph-diagram vis-ph-diagram--stack">
+                    <div class="vis-ph-stack-hdr">
+                      <span>CALL STACK</span>
+                      <span class="vis-ph-sp">SP ▼</span>
+                    </div>
+                    <div class="vis-ph-frame vis-ph-frame--dim">
+                      <span class="vis-ph-frame-fn">foo()</span>
+                      <span class="vis-ph-frame-addr">0x7fff·a100</span>
+                    </div>
+                    <div class="vis-ph-frame vis-ph-frame--active">
+                      <span class="vis-ph-frame-dot"></span>
+                      <span class="vis-ph-frame-fn">printf()</span>
+                      <span class="vis-ph-frame-addr">0x7fff·9e80</span>
+                    </div>
+                    <div class="vis-ph-frame">
+                      <span class="vis-ph-frame-fn">main()</span>
+                      <span class="vis-ph-frame-addr">0x7fff·9c00</span>
+                    </div>
+                  </div>
+
+                  <!-- Feature tags -->
+                  <div class="vis-ph-tags">
+                    <span class="vis-ph-tag vis-ph-tag--blue">Push</span>
+                    <span class="vis-ph-tag vis-ph-tag--cyan">Pop</span>
+                    <span class="vis-ph-tag vis-ph-tag--teal">Call Frames</span>
+                    <span class="vis-ph-tag vis-ph-tag--indigo"
+                      >Local Variables</span
+                    >
+                  </div>
+
+                  <!-- CTA -->
+                  <button
+                    class="vis-ph-btn vis-ph-btn--stack vis-open-examples-btn"
+                    data-open-type="stack"
+                  >
+                    <svg data-lucide="search"></svg>
+                    Explore Stack Examples
+                  </button>
+                </div>
+              </div>
+
+              <!-- ===== DATA STRUCTURE PANE ===== -->
+              <div class="vis-pane" data-vis-pane="ds">
+                <!-- DS Visualization Area (shown when DS example loaded) -->
+                <div class="ds-vis-area" id="dsVisArea">
+                  <!-- Rendered by DSRenderer -->
+                </div>
+
+                <!-- DS Terminal Window -->
+                <div class="ds-terminal-window" id="dsTerminalWindow">
+                  <div class="ds-term-header">
+                    <div class="ds-term-controls">
+                      <span
+                        class="ds-term-dot ds-term-dot--close"
+                        id="dsTermClose"
+                        title="Close"
+                      ></span>
+                      <span
+                        class="ds-term-dot ds-term-dot--min"
+                        id="dsTermMin"
+                        title="Minimize"
+                      ></span>
+                      <span
+                        class="ds-term-dot ds-term-dot--max"
+                        title="Maximize"
+                      ></span>
+                    </div>
+                    <div class="ds-term-title">
+                      <svg data-lucide="terminal"></svg>
+                      <span>Output</span>
+                    </div>
+                    <div style="width: 50px"></div>
+                  </div>
+                  <div class="ds-term-body" id="dsTerminalContent">
+                    <div class="vis-term-line vis-term-empty">
+                      <span class="vis-term-prompt">$</span>
+                      <span>Waiting for output…</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="vis-placeholder vis-placeholder--ds">
+                  <!-- Icon -->
+                  <div class="vis-ph-icon vis-ph-icon--ds">
+                    <svg data-lucide="network"></svg>
+                  </div>
+
+                  <!-- Heading -->
+                  <h3 class="vis-ph-title">Data Structure Visualization</h3>
+                  <p class="vis-ph-desc">
+                    Visualize arrays, linked lists, trees, and graphs — node by
+                    node, step by step.
+                  </p>
+
+                  <!-- Mini linked-list diagram -->
+                  <div class="vis-ph-diagram vis-ph-diagram--ds">
+                    <div class="vis-ph-node-row">
+                      <div class="vis-ph-ll-node">
+                        <span class="vis-ph-ll-data">10</span>
+                        <span class="vis-ph-ll-ptr">→</span>
+                      </div>
+                      <div class="vis-ph-ll-node">
+                        <span class="vis-ph-ll-data">25</span>
+                        <span class="vis-ph-ll-ptr">→</span>
+                      </div>
+                      <div class="vis-ph-ll-node vis-ph-ll-node--active">
+                        <span class="vis-ph-ll-data">37</span>
+                        <span class="vis-ph-ll-ptr">→</span>
+                      </div>
+                      <div class="vis-ph-ll-null">NULL</div>
+                    </div>
+                    <span class="vis-ph-ds-label">Singly Linked List</span>
+                  </div>
+
+                  <!-- Feature tags -->
+                  <div class="vis-ph-tags">
+                    <span class="vis-ph-tag vis-ph-tag--purple">Arrays</span>
+                    <span class="vis-ph-tag vis-ph-tag--pink"
+                      >Linked Lists</span
+                    >
+                    <span class="vis-ph-tag vis-ph-tag--orange">Trees</span>
+                    <span class="vis-ph-tag vis-ph-tag--yellow">Graphs</span>
+                  </div>
+
+                  <!-- CTA -->
+                  <button
+                    class="vis-ph-btn vis-ph-btn--ds vis-open-examples-btn"
+                    data-open-type="ds"
+                  >
+                    <svg data-lucide="search"></svg>
+                    Explore Data Structure Examples
+                  </button>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+
+      <!-- ============ ANIMATION CONTROLLER (Bottom Bar) ============ -->
+      <div class="animation-controller" id="animationController">
+        <!-- Reset -->
+        <button class="ctrl-btn" id="ctrlAnimReset" title="Reset animation">
+          <svg data-lucide="rotate-ccw"></svg>
+        </button>
+
+        <div class="ctrl-divider"></div>
+
+        <!-- Step Back -->
+        <button class="ctrl-btn" id="ctrlPrev" title="Previous step">
+          <svg data-lucide="skip-back"></svg>
+        </button>
+
+        <!-- Play/Pause -->
+        <button class="play-btn" id="ctrlPlay" title="Play">
+          <svg data-lucide="play"></svg>
+        </button>
+
+        <!-- Step Forward -->
+        <button class="ctrl-btn" id="ctrlNext" title="Next step">
+          <svg data-lucide="skip-forward"></svg>
+        </button>
+
+        <div class="ctrl-divider"></div>
+
+        <!-- Progress Slider -->
+        <div class="step-slider-wrapper">
+          <div class="step-slider-track">
+            <div class="step-slider-fill" id="sliderFill"></div>
+          </div>
+          <input
+            type="range"
+            class="step-slider-input"
+            id="stepSlider"
+            min="0"
+            max="0"
+            value="0"
+            aria-label="Animation progress"
+          />
+          <div class="step-slider-thumb" id="sliderThumb"></div>
+        </div>
+
+        <div class="ctrl-divider"></div>
+
+        <!-- Speed Control -->
+        <div class="speed-wrapper" id="speedWrapper">
+          <button class="speed-control" id="ctrlSpeed" title="Playback Speed">
+            <svg data-lucide="gauge"></svg>
+            <span id="speedLabel">1.0x</span>
+          </button>
+          <div class="speed-dropdown" id="speedDropdown">
+            <button class="speed-option" data-speed="0.5">0.5x</button>
+            <button class="speed-option" data-speed="1">1.0x</button>
+            <button class="speed-option" data-speed="1.5">1.5x</button>
+            <button class="speed-option" data-speed="2">2.0x</button>
+          </div>
+        </div>
+
+        <div class="ctrl-divider"></div>
+
+        <!-- Step Counter -->
+        <div class="step-counter">
+          <span class="step-label">STEP</span>
+          <span id="stepCurrent">1</span>
+          <span class="step-sep">/</span>
+          <span id="stepTotal">0</span>
+        </div>
+
+        <div class="ctrl-divider"></div>
+
+        <!-- Report Issue Button -->
+        <button class="ctrl-btn report-issue-btn" id="ctrlReport" title="Report an issue">
+          <svg data-lucide="flag"></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ FULL-SCREEN EDITOR POPUP ============ -->
+    <div class="fse-overlay" id="fseOverlay">
+      <div class="fse-container">
+        <!-- Header -->
+        <div class="fse-header">
+          <!-- Left: Traffic Lights + Branding -->
+          <div class="fse-header-left">
+            <div class="fse-traffic-lights">
+              <button
+                class="fse-dot fse-dot--red"
+                id="fseDotRed"
+                title="Close"
+              ></button>
+              <div class="fse-dot fse-dot--yellow" title="Minimize"></div>
+              <div class="fse-dot fse-dot--green" title="Maximize"></div>
+            </div>
+            <div class="fse-divider"></div>
+            <div class="fse-branding">Code<span>Lens</span></div>
+          </div>
+
+          <!-- Center: File Badge -->
+          <div class="fse-header-center">
+            <div class="fse-file-badge">
+              <svg data-lucide="file-code-2"></svg>
+              <span class="fse-file-badge-text" id="fseFileBadgeText"
+                >welcome<span class="ext">.c</span></span
+              >
+            </div>
+          </div>
+
+          <!-- Right: Tools + Execution + Close -->
+          <div class="fse-header-right">
+            <!-- Tool Buttons -->
+            <div class="fse-tool-group">
+              <button
+                class="fse-tool-btn fse-tool-btn--examples"
+                id="fseBtnExamples"
+                title="Browse Examples"
+              >
+                <svg data-lucide="book-open"></svg>
+                <span>Examples</span>
+              </button>
+              <button
+                class="fse-tool-btn fse-tool-btn--icon fse-tool-btn--format"
+                title="Format Code"
+              >
+                <svg data-lucide="wand-2"></svg>
+              </button>
+              <button
+                class="fse-tool-btn fse-tool-btn--copy"
+                id="fseBtnCopy"
+                title="Copy Code"
+              >
+                <svg data-lucide="copy"></svg>
+                <span>Copy</span>
+              </button>
+            </div>
+
+            <div class="fse-divider"></div>
+
+            <!-- Execution Controls -->
+            <div class="fse-exec-group">
+              <button
+                class="fse-btn-visualize"
+                id="fseBtnVisualize"
+                title="Start Visualization"
+              >
+                <svg data-lucide="eye"></svg>
+                <span>Visualize</span>
+              </button>
+              <button class="fse-btn-run" id="fseBtnRun" title="Run Code">
+                <svg data-lucide="play"></svg>
+                <span>Run</span>
+              </button>
+            </div>
+
+            <div class="fse-divider"></div>
+
+            <!-- Close -->
+            <button class="fse-close-btn" id="fseCloseBtn" title="Close">
+              <svg data-lucide="x"></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content: Code Area -->
+        <div class="fse-content">
+          <div class="fse-code-area" id="fseCodeArea">
+            <!-- Code lines cloned from main editor -->
+          </div>
+        </div>
+
+        <!-- Terminal -->
+        <div class="fse-terminal" id="fseTerminal">
+          <div class="fse-terminal-header" id="fseTerminalHeader">
+            <div class="fse-terminal-header-left">
+              <svg data-lucide="terminal"></svg>
+              <span class="fse-terminal-title">Terminal</span>
+              <div class="fse-terminal-running" id="fseTerminalRunning">
+                <div class="fse-terminal-running-dot"></div>
+                <span>Running</span>
+              </div>
+            </div>
+            <div class="fse-terminal-header-right">
+              <button
+                class="fse-terminal-icon-btn fse-terminal-icon-btn--clear"
+                id="fseTerminalClear"
+                title="Clear Terminal"
+              >
+                <svg data-lucide="trash-2"></svg>
+              </button>
+              <button
+                class="fse-terminal-icon-btn"
+                id="fseTerminalExpand"
+                title="Expand Terminal"
+              >
+                <svg data-lucide="maximize-2"></svg>
+              </button>
+              <button
+                class="fse-terminal-icon-btn"
+                id="fseTerminalToggle"
+                title="Toggle Terminal"
+              >
+                <svg data-lucide="chevron-up"></svg>
+              </button>
+            </div>
+          </div>
+          <div class="fse-terminal-content" id="fseTerminalBody">
+            <span class="fse-terminal-empty">Click "Run" to execute code</span>
+          </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="fse-status-bar">
+          <div class="fse-status-left">
+            <div class="fse-status-ready">
+              <div class="fse-status-dot"></div>
+              <span>Ready</span>
+            </div>
+            <span class="fse-status-lang" id="fseStatusLang">C</span>
+            <span class="fse-status-lines" id="fseStatusLines">7 lines</span>
+          </div>
+          <div class="fse-status-right">
+            <span>Ln 1, Col 1</span>
+            <span>UTF-8</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ PROFILE MODAL ============ -->
+    <div class="profile-overlay" id="profileOverlay">
+      <div class="profile-modal">
+        <button class="profile-modal-close">
+          <svg data-lucide="x"></svg>
+        </button>
+        <div class="profile-modal-banner"></div>
+        <div class="profile-modal-body">
+          <div class="profile-modal-top">
+            <div class="profile-modal-avatar" id="profileAvatar">
+              <img id="profileAvatarImg" src="" alt="Avatar" />
+              <span id="profileAvatarInitials">?</span>
+              <button
+                class="avatar-edit-btn"
+                id="avatarEditBtn"
+                title="Change avatar"
+              >
+                <svg data-lucide="camera"></svg>
+              </button>
+            </div>
+            <span class="profile-modal-role user" id="profileRoleBadge">
+              <svg data-lucide="user"></svg>
+              User
+            </span>
+          </div>
+
+          <!-- Avatar Picker -->
+          <div class="avatar-picker" id="avatarPicker">
+            <label class="avatar-picker-label">Choose Your Avatar</label>
+            <div class="avatar-picker-grid">
+              <div class="avatar-option" data-avatar="1">
+                <img src="http://localhost:5000/avatars/1.png" alt="Avatar 1" />
+              </div>
+              <div class="avatar-option" data-avatar="2">
+                <img src="http://localhost:5000/avatars/2.png" alt="Avatar 2" />
+              </div>
+              <div class="avatar-option" data-avatar="3">
+                <img src="http://localhost:5000/avatars/3.png" alt="Avatar 3" />
+              </div>
+              <div class="avatar-option" data-avatar="4">
+                <img src="http://localhost:5000/avatars/4.png" alt="Avatar 4" />
+              </div>
+              <div class="avatar-option" data-avatar="5">
+                <img src="http://localhost:5000/avatars/5.png" alt="Avatar 5" />
+              </div>
+              <div
+                class="avatar-option avatar-upload-option"
+                id="avatarUploadOption"
+              >
+                <svg data-lucide="upload"></svg>
+                <span>Upload</span>
+              </div>
+            </div>
+            <input
+              type="file"
+              id="avatarFileInput"
+              accept="image/*"
+              style="display: none"
+            />
+          </div>
+
+          <div class="profile-fields">
+            <div class="profile-field">
+              <label class="profile-field-label">Full Name</label>
+              <div class="profile-field-value editable">
+                <svg data-lucide="user"></svg>
+                <input
+                  type="text"
+                  class="edit-input"
+                  id="nameInput"
+                  placeholder="Your name"
+                  readonly
+                />
+                <div class="edit-btn" id="editNameBtn" title="Edit name">
+                  <svg data-lucide="pencil"></svg>
+                </div>
+              </div>
+              <div class="profile-edit-actions" id="nameEditActions">
+                <button class="profile-save-btn" id="saveNameBtn">Save</button>
+                <button class="profile-cancel-btn" id="cancelNameBtn">
+                  Cancel
+                </button>
+              </div>
+            </div>
+            <div class="profile-field">
+              <label class="profile-field-label">Email Address</label>
+              <div class="profile-field-value">
+                <svg data-lucide="mail"></svg>
+                <span id="profileEmail">&mdash;</span>
+              </div>
+            </div>
+            <div class="profile-field">
+              <label class="profile-field-label">Account Role</label>
+              <div class="profile-field-value">
+                <svg data-lucide="shield"></svg>
+                <span id="profileRole">&mdash;</span>
+              </div>
+            </div>
+            <div class="profile-field">
+              <label class="profile-field-label">Member Since</label>
+              <div class="profile-field-value">
+                <svg data-lucide="calendar"></svg>
+                <span id="profileDate">&mdash;</span>
+              </div>
+            </div>
+          </div>
+          <div class="profile-message" id="profileMessage">
+            <svg data-lucide="check-circle"></svg>
+            <span id="profileMessageText"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ AVATAR VIEWER MODAL ============ -->
+    <div class="avatar-viewer-overlay" id="avatarViewerOverlay">
+      <div class="avatar-viewer-content">
+        <img
+          id="avatarViewerImage"
+          class="avatar-viewer-image"
+          src=""
+          alt="Avatar"
+        />
+        <button class="avatar-viewer-close" id="avatarViewerClose">
+          <svg data-lucide="x"></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ AVATAR CROP MODAL ============ -->
+    <div class="crop-overlay" id="cropOverlay">
+      <div class="crop-modal">
+        <div class="crop-header">
+          <span class="crop-title">
+            <svg data-lucide="crop"></svg>
+            Crop Avatar
+          </span>
+          <button class="crop-close-btn" id="cropCloseBtn">
+            <svg data-lucide="x"></svg>
+          </button>
+        </div>
+        <div class="crop-body">
+          <div class="crop-canvas-wrapper" id="cropCanvasWrapper">
+            <img id="cropImage" src="" alt="Crop preview" />
+            <svg
+              class="crop-circle-mask"
+              viewBox="0 0 320 320"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <mask id="circleMask">
+                  <rect width="320" height="320" fill="white" />
+                  <circle cx="160" cy="160" r="140" fill="black" />
+                </mask>
+              </defs>
+              <rect
+                width="320"
+                height="320"
+                fill="rgba(0,0,0,0.55)"
+                mask="url(#circleMask)"
+              />
+              <circle
+                cx="160"
+                cy="160"
+                r="140"
+                fill="none"
+                stroke="rgba(255,255,255,0.4)"
+                stroke-width="2"
+              />
+            </svg>
+          </div>
+          <div class="crop-zoom-row">
+            <svg data-lucide="minus"></svg>
+            <input
+              type="range"
+              class="crop-zoom-slider"
+              id="cropZoomSlider"
+              min="100"
+              max="300"
+              value="100"
+            />
+            <svg data-lucide="plus"></svg>
+          </div>
+          <span class="crop-hint"
+            >Drag to reposition &middot; Scroll to zoom</span
+          >
+        </div>
+        <div class="crop-footer">
+          <button class="crop-cancel-btn" id="cropCancelBtn">Cancel</button>
+          <button class="crop-upload-btn" id="cropUploadBtn">
+            <svg data-lucide="check"></svg>
+            Apply & Upload
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ AUTH MODAL ============ -->
+    <div class="auth-overlay" id="authOverlay">
+      <div class="auth-modal">
+        <!-- Close Button -->
+        <button class="auth-close">
+          <svg data-lucide="x"></svg>
+        </button>
+
+        <!-- Header -->
+        <div class="auth-header">
+          <div class="auth-logo">
+            <div class="auth-logo-icon">
+              <div class="auth-logo-icon-inner">
+                <img
+                  src="Assets/Logo.png"
+                  alt="CodeLens"
+                  style="
+                    width: 100%;
+                    height: 100%;
+                    padding: 2px;
+                    object-fit: contain;
+                    border-radius: 8px;
+                  "
+                />
+              </div>
+            </div>
+            <span class="auth-logo-text">Code<span>Lens</span></span>
+          </div>
+          <h2 class="auth-title" id="authTitle">Welcome Back</h2>
+          <p class="auth-subtitle" id="authSubtitle">
+            Login to access your saved work
+          </p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="auth-tabs">
+          <button class="auth-tab active">Login</button>
+          <button class="auth-tab">Sign Up</button>
+        </div>
+
+        <!-- Error / Success Messages -->
+        <div class="auth-error" id="authError">
+          <svg data-lucide="alert-circle"></svg>
+          <span class="auth-error-text">Error message</span>
+        </div>
+        <div class="auth-success" id="authSuccess">
+          <svg data-lucide="check-circle"></svg>
+          <span class="auth-success-text">Success message</span>
+        </div>
+
+        <!-- Form -->
+        <form class="auth-form" id="authForm">
+          <!-- Name (only for signup) -->
+          <div class="auth-form-group" id="authNameGroup" style="display: none">
+            <label class="auth-label">Full Name</label>
+            <div class="auth-input-wrapper">
+              <svg data-lucide="user"></svg>
+              <input
+                type="text"
+                class="auth-input"
+                id="authName"
+                placeholder="Enter your name"
+                autocomplete="name"
+              />
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="auth-form-group">
+            <label class="auth-label">Email</label>
+            <div class="auth-input-wrapper">
+              <svg data-lucide="mail"></svg>
+              <input
+                type="email"
+                class="auth-input"
+                id="authEmail"
+                placeholder="Enter your email"
+                autocomplete="email"
+              />
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="auth-form-group">
+            <label class="auth-label">Password</label>
+            <div class="auth-input-wrapper">
+              <svg data-lucide="lock"></svg>
+              <input
+                type="password"
+                class="auth-input"
+                id="authPassword"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+              />
+              <button
+                type="button"
+                class="auth-password-toggle"
+                onclick="togglePasswordVisibility()"
+              >
+                <svg data-lucide="eye"></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="auth-submit" id="authSubmitBtn">
+            Login
+          </button>
+        </form>
+
+        <!-- Footer -->
+        <p class="auth-footer" id="authFooter">
+          Don't have an account?
+          <a onclick="switchAuthTab('signup')">Sign up</a>
+        </p>
+      </div>
+    </div>
+
+    <!-- ============ BROWSE EXAMPLES POPUP ============ -->
+    <div class="popup-overlay" id="browseExamplesPopup">
+      <div class="popup-container">
+        <!-- Header -->
+        <div class="popup-header">
+          <div class="popup-header-left">
+            <svg
+              class="popup-title-icon"
+              data-lucide="sparkles"
+              style="color: var(--accent-yellow)"
+            ></svg>
+            <span class="popup-title">Browse Examples</span>
+          </div>
+          <div class="popup-header-center">
+            <div class="example-type-tabs">
+              <span class="example-type-label">Type</span>
+              <button class="example-type-btn active" data-type="stack">
+                <svg data-lucide="layers"></svg>
+                Stack
+              </button>
+              <button class="example-type-btn" data-type="ds">
+                <svg data-lucide="network"></svg>
+                Data Structure
+              </button>
+            </div>
+          </div>
+          <div class="popup-header-right">
+            <div class="popup-search-box">
+              <svg data-lucide="search"></svg>
+              <input
+                type="text"
+                class="popup-search-input"
+                id="examplePopupSearch"
+                placeholder="Search examples..."
+              />
+              <button
+                class="popup-search-clear"
+                id="exampleSearchClear"
+                style="display: none"
+              >
+                <svg data-lucide="scissors"></svg>
+              </button>
+            </div>
+            <button
+              class="popup-close-btn"
+              data-close-popup="browseExamplesPopup"
+            >
+              <svg data-lucide="x"></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="examples-toolbar">
+          <div class="lang-tabs" id="exampleLangTabs">
+            <button class="lang-tab active" data-lang="c">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lang-icon"
+              >
+                <path
+                  d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
+                />
+                <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                <path d="m10 13-2 2 2 2" />
+                <path d="m14 17 2-2-2-2" />
+              </svg>
+              C
+              <span class="lang-tab-count" id="countC">0</span>
+            </button>
+            <button class="lang-tab" data-lang="cpp">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lang-icon"
+              >
+                <path
+                  d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
+                />
+                <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                <path d="m10 13-2 2 2 2" />
+                <path d="m14 17 2-2-2-2" />
+              </svg>
+              C++
+              <span class="lang-tab-count" id="countCpp">0</span>
+            </button>
+            <button class="lang-tab" data-lang="java">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lang-icon"
+              >
+                <path
+                  d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
+                />
+                <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                <path d="m10 13-2 2 2 2" />
+                <path d="m14 17 2-2-2-2" />
+              </svg>
+              Java
+              <span class="lang-tab-count" id="countJava">0</span>
+            </button>
+            <button class="lang-tab" data-lang="python">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lang-icon"
+              >
+                <path
+                  d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
+                />
+                <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                <path d="m10 13-2 2 2 2" />
+                <path d="m14 17 2-2-2-2" />
+              </svg>
+              Python
+              <span class="lang-tab-count" id="countPython">0</span>
+            </button>
+            <button class="lang-tab" data-lang="javascript">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lang-icon"
+              >
+                <path
+                  d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"
+                />
+                <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                <path d="m10 13-2 2 2 2" />
+                <path d="m14 17 2-2-2-2" />
+              </svg>
+              JavaScript
+              <span class="lang-tab-count" id="countJavascript">0</span>
+            </button>
+          </div>
+          <div class="category-filter-group">
+            <span class="category-filter-label">
+              <svg data-lucide="filter"></svg>
+              Category
+            </span>
+            <div class="category-select-wrapper" id="categorySelectWrapper">
+              <button class="category-select-btn" id="categorySelectBtn">
+                <span class="selected-label">All Categories</span>
+                <svg class="chevron-icon" data-lucide="chevron-down"></svg>
+              </button>
+              <div class="category-dropdown" id="categoryDropdown"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Split View -->
+        <div class="examples-split-view">
+          <!-- Left Sidebar -->
+          <div class="examples-sidebar">
+            <div class="examples-sidebar-header">
+              <div class="sidebar-label">
+                <svg data-lucide="list"></svg>
+                <span>Examples</span>
+              </div>
+              <span class="examples-count-badge" id="examplesCountBadge"
+                >0</span
+              >
+            </div>
+            <div class="examples-list" id="examplesList">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Right Preview -->
+          <div class="example-preview" id="examplePreview">
+            <div class="preview-empty" id="previewEmpty">
+              <div class="preview-empty-icon">
+                <svg data-lucide="code-2"></svg>
+              </div>
+              <h3>Select an Example</h3>
+              <p>
+                Choose an example from the list to preview its code and details
+              </p>
+            </div>
+            <div
+              id="previewContent"
+              style="display: none; flex-direction: column; height: 100%"
+            >
+              <div class="preview-header">
+                <div class="preview-header-top">
+                  <div>
+                    <h2 class="preview-title" id="previewTitle"></h2>
+                    <div class="preview-meta">
+                      <span
+                        class="preview-level-badge"
+                        id="previewLevel"
+                      ></span>
+                      <span
+                        class="preview-category-badge"
+                        id="previewCategory"
+                      ></span>
+                      <div class="preview-steps-badge">
+                        <svg data-lucide="footprints"></svg>
+                        <span class="steps-num" id="previewStepsNum"></span>
+                        <span class="steps-label">steps</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="preview-header-actions">
+                    <button
+                      class="admin-visibility-btn"
+                      id="toggleVisibilityBtn"
+                      title="Hide from students"
+                      style="display: none"
+                    ></button>
+                    <button class="load-example-btn" id="loadExampleBtn">
+                      <svg data-lucide="play"></svg>
+                      Load Example
+                    </button>
+                  </div>
+                </div>
+                <p class="preview-description" id="previewDescription"></p>
+              </div>
+              <div class="preview-body">
+                <div class="code-preview-header">
+                  <span class="code-preview-label">
+                    <svg data-lucide="code"></svg>
+                    Source Code
+                    <span class="lang-hint" id="previewLangHint"></span>
+                  </span>
+                  <button class="code-copy-btn" id="previewCopyBtn">
+                    <svg data-lucide="copy"></svg>
+                    Copy
+                  </button>
+                </div>
+                <div class="preview-code-block" id="previewCodeBlock">
+                  <div class="preview-line-numbers" id="previewLineNums"></div>
+                  <pre
+                    class="preview-code-content"
+                  ><code id="previewCodeContent"></code></pre>
+                </div>
+
+                <div
+                  class="output-header"
+                  id="outputSection"
+                  style="display: none"
+                >
+                  <svg data-lucide="terminal"></svg>
+                  Expected Output
+                </div>
+                <div
+                  class="preview-output-block"
+                  id="previewOutputBlock"
+                  style="display: none"
+                >
+                  <pre id="previewOutputContent"></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ HISTORY POPUP ============ -->
+    <div class="popup-overlay" id="historyPopup">
+      <div class="popup-container">
+        <div class="popup-header">
+          <div class="popup-header-left">
+            <svg
+              class="popup-title-icon"
+              data-lucide="clock"
+              style="color: var(--accent-purple)"
+            ></svg>
+            <span class="popup-title">History</span>
+          </div>
+          <div class="popup-header-center"></div>
+          <div class="popup-header-right">
+            <button class="popup-close-btn" data-close-popup="historyPopup">
+              <svg data-lucide="x"></svg>
+            </button>
+          </div>
+        </div>
+        <div class="popup-content" id="historyContent">
+          <div class="history-controls">
+            <div class="history-search-box">
+              <svg data-lucide="search"></svg>
+              <input
+                type="text"
+                id="historySearchInput"
+                placeholder="Search history..."
+              />
+            </div>
+            <div class="history-filter-wrapper" id="historyFilterWrapper">
+              <button class="history-filter-btn" id="historyFilterBtn">
+                <svg data-lucide="clock"></svg>
+                <span id="historyFilterLabel">All Time</span>
+                <svg
+                  data-lucide="chevron-down"
+                  style="width: 12px; height: 12px"
+                ></svg>
+              </button>
+              <div class="history-filter-menu" id="historyFilterMenu">
+                <button class="history-filter-option" data-filter="hour">
+                  <svg data-lucide="clock"></svg>
+                  Last Hour
+                </button>
+                <button class="history-filter-option" data-filter="today">
+                  <svg data-lucide="calendar"></svg>
+                  Today
+                </button>
+                <button class="history-filter-option" data-filter="week">
+                  <svg data-lucide="calendar-days"></svg>
+                  This Week
+                </button>
+                <button class="history-filter-option" data-filter="month">
+                  <svg data-lucide="calendar-range"></svg>
+                  This Month
+                </button>
+                <button class="history-filter-option active" data-filter="all">
+                  <svg data-lucide="infinity"></svg>
+                  All Time
+                </button>
+              </div>
+            </div>
+            <button class="history-clear-btn" id="historyClearBtn">
+              <svg data-lucide="trash-2"></svg>
+              Clear
+            </button>
+          </div>
+          <div class="history-list-container" id="historyListContainer">
+            <div class="history-empty" id="historyEmpty">
+              <div class="history-empty-icon">
+                <svg data-lucide="file-text"></svg>
+              </div>
+              <h3>No history yet</h3>
+              <p>Examples you open will appear here</p>
+            </div>
+            <div id="historyListInner"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      // Initialize Lucide icons immediately when library loads
+      document.addEventListener("DOMContentLoaded", function () {
+        if (window.lucide) {
+          lucide.createIcons();
+        }
+
+        // Terminal window close / minimize buttons
+        var termWin = document.getElementById("visTerminalWindow");
+        var termClose = document.getElementById("visTermClose");
+        var termMin = document.getElementById("visTermMin");
+        var termBody = document.getElementById("visTerminalContent");
+        var minimized = false;
+
+        if (termClose) {
+          termClose.addEventListener("click", function () {
+            if (termWin) termWin.classList.remove("active");
+          });
+        }
+        if (termMin) {
+          termMin.addEventListener("click", function () {
+            if (!termWin || !termBody) return;
+            minimized = !minimized;
+            termBody.style.display = minimized ? "none" : "";
+            termWin.style.maxHeight = minimized ? "44px" : "260px";
+          });
+        }
+      });
+    </script>
+    <!-- ============ REPORT ISSUE POPUP ============ -->
+    <div class="report-overlay" id="reportOverlay">
+      <div class="report-modal">
+        <div class="report-header">
+          <div class="report-header-left">
+            <div class="report-header-icon">
+              <svg data-lucide="flag"></svg>
+            </div>
+            <div>
+              <h2 class="report-title">Report an Issue</h2>
+              <p class="report-subtitle">Help us improve by reporting visualization errors</p>
+            </div>
+          </div>
+          <button class="report-close-btn" id="reportCloseBtn">
+            <svg data-lucide="x"></svg>
+          </button>
+        </div>
+
+        <div class="report-body">
+          <!-- Auto-detected fields -->
+          <div class="report-fields-grid">
+            <div class="report-field">
+              <label class="report-field-label">
+                <svg data-lucide="code-2"></svg>
+                Language
+              </label>
+              <div class="report-field-value" id="reportLang">—</div>
+            </div>
+            <div class="report-field">
+              <label class="report-field-label">
+                <svg data-lucide="hash"></svg>
+                Example
+              </label>
+              <div class="report-field-value" id="reportExample">—</div>
+            </div>
+            <div class="report-field">
+              <label class="report-field-label">
+                <svg data-lucide="footprints"></svg>
+                Step No
+              </label>
+              <div class="report-field-value" id="reportStep">—</div>
+            </div>
+            <div class="report-field">
+              <label class="report-field-label">
+                <svg data-lucide="text-cursor-input"></svg>
+                Line No
+              </label>
+              <div class="report-field-value" id="reportLine">—</div>
+            </div>
+            <div class="report-field">
+              <label class="report-field-label">
+                <svg data-lucide="database"></svg>
+                Data Segment
+              </label>
+              <div class="report-field-value" id="reportDataSegment">—</div>
+            </div>
+            <div class="report-field">
+              <label class="report-field-label">
+                <svg data-lucide="layers"></svg>
+                Visualization Type
+              </label>
+              <div class="report-field-value" id="reportVisType">—</div>
+            </div>
+          </div>
+
+          <!-- Report Category -->
+          <div class="report-input-group">
+            <label class="report-input-label">
+              <svg data-lucide="tag"></svg>
+              Issue Category
+            </label>
+            <select class="report-select" id="reportCategory">
+              <option value="incorrect_visualization">Incorrect Visualization</option>
+              <option value="wrong_variable_value">Wrong Variable Value</option>
+              <option value="missing_step">Missing Step</option>
+              <option value="wrong_line_highlight">Wrong Line Highlight</option>
+              <option value="ui_glitch">UI / Display Glitch</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <!-- Description -->
+          <div class="report-input-group">
+            <label class="report-input-label">
+              <svg data-lucide="message-square"></svg>
+              Description
+            </label>
+            <textarea class="report-textarea" id="reportDescription" rows="3" maxlength="500" placeholder="Briefly describe the issue you noticed..."></textarea>
+            <span class="report-char-count"><span id="reportCharCount">0</span>/500</span>
+          </div>
+        </div>
+
+        <div class="report-footer">
+          <button class="report-cancel-btn" id="reportCancelBtn">Cancel</button>
+          <button class="report-submit-btn" id="reportSubmitBtn">
+            <svg data-lucide="send"></svg>
+            Submit Report
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/header.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/profile-avatar-ui.js"></script>
+    <script src="js/avatar-crop.js"></script>
+    <script src="js/category-colors.js"></script>
+    <script src="js/syntax.js"></script>
+    <script src="js/popup-core.js"></script>
+    <script src="js/browse-examples.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/history.js"></script>
+    <script src="Visualization Engine/Memory Engine/visualization-engine.js"></script>
+    <script src="Visualization Engine/Memory Engine/visualization-renderer.js"></script>
+    <script src="Visualization Engine/D.S Engine/ds-engine.js"></script>
+    <script src="Visualization Engine/D.S Engine/ds-renderer.js"></script>
+    <script src="js/animation-controller.js"></script>
+    <script src="js/report.js"></script>
+    <script src="js/fullscreen-editor.js"></script>
+    <script src="js/editor.js"></script>
+  </body>
+</html>
