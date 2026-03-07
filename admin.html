@@ -1,0 +1,739 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel - CodeLens</title>
+    <link rel="stylesheet" href="css/theme.css" />
+    <link rel="stylesheet" href="css/common.css" />
+    <link rel="stylesheet" href="css/auth.css" />
+    <link rel="stylesheet" href="css/dashboard.css" />
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  </head>
+  <body>
+    <div class="admin-page">
+      <!-- ============ HEADER ============ -->
+      <header class="header">
+        <div class="header-container">
+          <div class="header-content">
+            <!-- Logo -->
+            <a href="index.html" class="logo">
+              <div class="logo-icon-wrapper">
+                <img
+                  src="Assets/Logo.png"
+                  alt="CodeLens Logo"
+                  class="logo-img"
+                />
+              </div>
+              <div class="logo-text">
+                <div class="logo-title">
+                  <span class="logo-title-text"
+                    >C<span class="logo-eye"
+                      ><svg
+                        class="eye-svg"
+                        width="22"
+                        height="18"
+                        viewBox="0 0 24 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <defs>
+                          <radialGradient
+                            id="irisGrad3"
+                            cx="50%"
+                            cy="50%"
+                            r="50%"
+                            fx="35%"
+                            fy="35%"
+                          >
+                            <stop offset="0%" class="iris-stop1" />
+                            <stop offset="100%" class="iris-stop2" />
+                          </radialGradient>
+                          <mask id="eyeMsk3">
+                            <path
+                              d="M3 11C3 11 6 4 12 4C18 4 21 11 21 11C21 11 18 18 12 18C6 18 3 11 3 11Z"
+                              fill="white"
+                            />
+                          </mask>
+                        </defs>
+                        <g class="eye-lashes" fill="none">
+                          <path d="M6 8.5L4.5 6.5" />
+                          <path d="M9.5 6.5L9 3.5" />
+                          <path d="M14.5 6.5L15 3.5" />
+                          <path d="M18 8.5L19.5 6.5" />
+                        </g>
+                        <path
+                          class="eye-white"
+                          d="M3 11C3 11 6 4 12 4C18 4 21 11 21 11C21 11 18 18 12 18C6 18 3 11 3 11Z"
+                        />
+                        <g mask="url(#eyeMsk3)">
+                          <g class="eye-iris-group">
+                            <circle
+                              cx="12"
+                              cy="11"
+                              r="5.5"
+                              fill="url(#irisGrad3)"
+                            />
+                            <circle cx="12" cy="11" r="2.2" class="eye-pupil" />
+                            <circle
+                              cx="13.5"
+                              cy="9.5"
+                              r="1.1"
+                              class="eye-glint"
+                            />
+                            <circle
+                              cx="10.8"
+                              cy="12.8"
+                              r="0.6"
+                              fill="white"
+                              fill-opacity="0.2"
+                            />
+                          </g>
+                        </g>
+                        <path
+                          class="eye-lid-bottom"
+                          d="M3 11C3 11 6 18 12 18C18 18 21 11 21 11"
+                        />
+                        <path
+                          class="eye-lid-top"
+                          d="M3 11C3 11 6 4 12 4C18 4 21 11 21 11"
+                        /></svg></span
+                    >de<span>Lens</span></span
+                  >
+                  <span class="logo-beta">BETA</span>
+                </div>
+                <div class="logo-subtitle">
+                  Code Visualizer
+                  <i data-lucide="search"></i>
+                </div>
+              </div>
+            </a>
+
+            <!-- Navigation Bar (Center) -->
+            <nav class="nav-bar">
+              <a href="editor.html" class="nav-button">
+                <svg class="nav-icon" data-lucide="code"></svg>
+                Editor
+              </a>
+              <div class="nav-divider"></div>
+              <a href="admin.html" class="nav-button active">
+                <svg class="nav-icon" data-lucide="shield"></svg>
+                Admin Panel
+              </a>
+            </nav>
+
+            <!-- Actions -->
+            <div class="header-actions">
+              <!-- Theme Toggle -->
+              <button
+                class="theme-toggle"
+                id="themeToggle"
+                title="Toggle theme"
+              >
+                <svg data-lucide="moon"></svg>
+              </button>
+
+              <!-- Profile Dropdown -->
+              <div class="profile-dropdown-wrapper">
+                <button class="profile-btn show">
+                  <div class="profile-avatar">?</div>
+                  <span class="profile-name">User</span>
+                  <svg class="profile-chevron" data-lucide="chevron-down"></svg>
+                </button>
+                <div class="profile-dropdown">
+                  <div class="profile-info">
+                    <div class="profile-info-name">User</div>
+                    <div class="profile-info-email">user@email.com</div>
+                  </div>
+                  <button class="dropdown-item profile-modal-btn">
+                    <svg data-lucide="user"></svg>
+                    <span>My Profile</span>
+                  </button>
+                  <a
+                    href="admin.html"
+                    class="dropdown-item admin-only-link active"
+                  >
+                    <svg data-lucide="shield"></svg>
+                    <span>Admin Panel</span>
+                  </a>
+                  <a
+                    href="admin.html"
+                    class="dropdown-item tester-only-link active"
+                    style="display: none"
+                  >
+                    <svg data-lucide="flag"></svg>
+                    <span>Reports</span>
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <button class="dropdown-item logout logout-btn">
+                    <svg data-lucide="log-out"></svg>
+                    <span>Logout</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- ============ ADMIN CONTENT ============ -->
+      <main class="admin-content" id="adminContent" style="display: none">
+        <!-- Admin Title Bar -->
+        <div class="admin-title-bar">
+          <div class="admin-title-left">
+            <div class="admin-title-icon">
+              <svg data-lucide="shield"></svg>
+            </div>
+            <div>
+              <h1 class="admin-title-text">Admin Dashboard</h1>
+              <p class="admin-title-sub">
+                Overview of platform users and activity
+              </p>
+            </div>
+          </div>
+          <span class="admin-title-badge">
+            <svg data-lucide="badge-check"></svg>
+            Administrator
+          </span>
+        </div>
+
+        <!-- Admin Tabs -->
+        <div class="admin-tabs">
+          <button class="admin-tab active" data-admin-tab="dashboard">
+            <svg data-lucide="layout-dashboard"></svg>
+            Dashboard
+          </button>
+          <button class="admin-tab" data-admin-tab="reports">
+            <svg data-lucide="flag"></svg>
+            Reports
+            <span class="admin-tab-badge" id="reportsTabBadge" style="display:none">0</span>
+          </button>
+        </div>
+
+        <!-- ===== DASHBOARD TAB ===== -->
+        <div class="admin-tab-pane active" id="adminDashboardPane" data-pane="dashboard">
+
+        <!-- Dashboard Toolbar -->
+        <div class="admin-pane-toolbar">
+          <button class="admin-refresh-btn" id="dashboardRefreshBtn" title="Refresh data">
+            <svg data-lucide="refresh-cw"></svg>
+            Refresh
+          </button>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-card-icon blue">
+                <svg data-lucide="users"></svg>
+              </div>
+            </div>
+            <div class="stat-card-value" id="statTotalUsers">&mdash;</div>
+            <div class="stat-card-label">Total Users</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-card-icon green">
+                <svg data-lucide="user-plus"></svg>
+              </div>
+            </div>
+            <div class="stat-card-value" id="statNewToday">&mdash;</div>
+            <div class="stat-card-label">New Today</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-card-icon yellow">
+                <svg data-lucide="calendar"></svg>
+              </div>
+            </div>
+            <div class="stat-card-value" id="statNewWeek">&mdash;</div>
+            <div class="stat-card-label">This Week</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-card-icon purple">
+                <svg data-lucide="shield"></svg>
+              </div>
+            </div>
+            <div class="stat-card-value" id="statTotalAdmins">&mdash;</div>
+            <div class="stat-card-label">Total Admins</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-card-icon orange">
+                <svg data-lucide="flag"></svg>
+              </div>
+            </div>
+            <div class="stat-card-value" id="statTotalTesters">&mdash;</div>
+            <div class="stat-card-label">Total Testers</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-card-icon cyan">
+                <svg data-lucide="play"></svg>
+              </div>
+            </div>
+            <div class="stat-card-value" id="statExecToday">&mdash;</div>
+            <div class="stat-card-label">Executions Today</div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-card-header">
+              <div class="stat-card-icon orange">
+                <svg data-lucide="bar-chart-3"></svg>
+              </div>
+            </div>
+            <div class="stat-card-value" id="statExecMonth">&mdash;</div>
+            <div class="stat-card-label">This Month</div>
+          </div>
+        </div>
+
+        <!-- Section Title -->
+        <div class="admin-section-title">
+          <svg data-lucide="list"></svg>
+          <span>All Registered Users</span>
+          <span class="table-count" id="tableCount">0 users</span>
+        </div>
+
+        <!-- Users Table -->
+        <div class="table-section">
+          <table class="users-table">
+            <thead>
+              <tr>
+                <th>User</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Examples Viewed</th>
+                <th>Joined</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="usersTableBody">
+              <tr>
+                <td colspan="6" class="loading-text">Loading users...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        </div><!-- end dashboard pane -->
+
+        <!-- ===== REPORTS TAB ===== -->
+        <div class="admin-tab-pane" id="adminReportsPane" data-pane="reports">
+          <!-- Report Stats Cards -->
+          <div class="report-stats-grid">
+            <div class="report-stat-card report-stat-card--open">
+              <div class="report-stat-icon">
+                <svg data-lucide="alert-circle"></svg>
+              </div>
+              <div class="report-stat-value" id="rStatOpen">0</div>
+              <div class="report-stat-label">Open</div>
+            </div>
+            <div class="report-stat-card report-stat-card--progress">
+              <div class="report-stat-icon">
+                <svg data-lucide="loader"></svg>
+              </div>
+              <div class="report-stat-value" id="rStatProgress">0</div>
+              <div class="report-stat-label">In Progress</div>
+            </div>
+            <div class="report-stat-card report-stat-card--resolved">
+              <div class="report-stat-icon">
+                <svg data-lucide="check-circle-2"></svg>
+              </div>
+              <div class="report-stat-value" id="rStatResolved">0</div>
+              <div class="report-stat-label">Resolved</div>
+            </div>
+            <div class="report-stat-card report-stat-card--total">
+              <div class="report-stat-icon">
+                <svg data-lucide="flag"></svg>
+              </div>
+              <div class="report-stat-value" id="rStatTotal">0</div>
+              <div class="report-stat-label">Total</div>
+            </div>
+          </div>
+
+          <!-- Filters Bar -->
+          <div class="reports-filters">
+            <div class="reports-search-box">
+              <svg data-lucide="search"></svg>
+              <input type="text" id="reportSearchInput" placeholder="Search reports..." />
+            </div>
+
+            <!-- Status -->
+            <div class="rf-select-wrap">
+              <input type="hidden" id="reportStatusFilter" value="open">
+              <button class="rf-select-btn" type="button">
+                <span class="rf-select-label"><span class="rf-dot rf-dot--open"></span>Open</span>
+                <svg data-lucide="chevron-down" class="rf-chevron"></svg>
+              </button>
+              <div class="rf-dropdown">
+                <div class="rf-dropdown-header">Status</div>
+                <div class="rf-dropdown-item" data-value="all"><span class="rf-dot rf-dot--all"></span>All Status</div>
+                <div class="rf-dropdown-divider"></div>
+                <div class="rf-dropdown-item active" data-value="open"><span class="rf-dot rf-dot--open"></span>Open</div>
+                <div class="rf-dropdown-item" data-value="in_progress"><span class="rf-dot rf-dot--in_progress"></span>In Progress</div>
+                <div class="rf-dropdown-item" data-value="resolved"><span class="rf-dot rf-dot--resolved"></span>Resolved</div>
+                <div class="rf-dropdown-item" data-value="dismissed"><span class="rf-dot rf-dot--dismissed"></span>Dismissed</div>
+              </div>
+            </div>
+
+            <!-- Category -->
+            <div class="rf-select-wrap">
+              <input type="hidden" id="reportCategoryFilter" value="all">
+              <button class="rf-select-btn" type="button">
+                <span class="rf-select-label">All Categories</span>
+                <svg data-lucide="chevron-down" class="rf-chevron"></svg>
+              </button>
+              <div class="rf-dropdown">
+                <div class="rf-dropdown-header">Category</div>
+                <div class="rf-dropdown-item active" data-value="all">All Categories</div>
+                <div class="rf-dropdown-divider"></div>
+                <div class="rf-dropdown-item" data-value="incorrect_visualization">
+                  <span class="rf-cat-icon" style="background:rgba(239,68,68,0.12);color:#ef4444"><svg data-lucide="monitor-x"></svg></span>Incorrect Visualization
+                </div>
+                <div class="rf-dropdown-item" data-value="wrong_variable_value">
+                  <span class="rf-cat-icon" style="background:rgba(245,158,11,0.12);color:#f59e0b"><svg data-lucide="variable"></svg></span>Wrong Variable Value
+                </div>
+                <div class="rf-dropdown-item" data-value="missing_step">
+                  <span class="rf-cat-icon" style="background:rgba(14,165,233,0.12);color:#0ea5e9"><svg data-lucide="skip-forward"></svg></span>Missing Step
+                </div>
+                <div class="rf-dropdown-item" data-value="wrong_line_highlight">
+                  <span class="rf-cat-icon" style="background:rgba(168,85,247,0.12);color:#a855f7"><svg data-lucide="text-cursor-input"></svg></span>Wrong Line Highlight
+                </div>
+                <div class="rf-dropdown-item" data-value="ui_glitch">
+                  <span class="rf-cat-icon" style="background:rgba(236,72,153,0.12);color:#ec4899"><svg data-lucide="layout-dashboard"></svg></span>UI Glitch
+                </div>
+                <div class="rf-dropdown-item" data-value="other">
+                  <span class="rf-cat-icon" style="background:rgba(148,163,184,0.12);color:#94a3b8"><svg data-lucide="help-circle"></svg></span>Other
+                </div>
+              </div>
+            </div>
+
+            <!-- Language -->
+            <div class="rf-select-wrap">
+              <input type="hidden" id="reportLanguageFilter" value="all">
+              <button class="rf-select-btn" type="button">
+                <span class="rf-select-label">All Languages</span>
+                <svg data-lucide="chevron-down" class="rf-chevron"></svg>
+              </button>
+              <div class="rf-dropdown">
+                <div class="rf-dropdown-header">Language</div>
+                <div class="rf-dropdown-item active" data-value="all">All Languages</div>
+                <div class="rf-dropdown-divider"></div>
+                <div class="rf-dropdown-item" data-value="C"><span class="rf-lang-badge" style="background:rgba(6,182,212,0.15);color:#06b6d4">C</span>C</div>
+                <div class="rf-dropdown-item" data-value="C++"><span class="rf-lang-badge" style="background:rgba(56,189,248,0.15);color:#38bdf8">C++</span>C++</div>
+                <div class="rf-dropdown-item" data-value="Java"><span class="rf-lang-badge" style="background:rgba(249,115,22,0.15);color:#f97316">Jv</span>Java</div>
+                <div class="rf-dropdown-item" data-value="JavaScript"><span class="rf-lang-badge" style="background:rgba(251,191,36,0.15);color:#fbbf24">JS</span>JavaScript</div>
+                <div class="rf-dropdown-item" data-value="Python"><span class="rf-lang-badge" style="background:rgba(74,222,128,0.15);color:#4ade80">Py</span>Python</div>
+              </div>
+            </div>
+
+            <!-- Example (populated dynamically from stats) -->
+            <div class="rf-select-wrap">
+              <input type="hidden" id="reportExampleFilter" value="all">
+              <button class="rf-select-btn" type="button">
+                <span class="rf-select-label">All Examples</span>
+                <svg data-lucide="chevron-down" class="rf-chevron"></svg>
+              </button>
+              <div class="rf-dropdown" id="reportExampleDropdown">
+                <div class="rf-dropdown-header">Most Reported</div>
+                <div class="rf-dropdown-item active" data-value="all">All Examples</div>
+              </div>
+            </div>
+
+            <!-- Sort -->
+            <div class="rf-select-wrap">
+              <input type="hidden" id="reportSortFilter" value="newest">
+              <button class="rf-select-btn" type="button">
+                <span class="rf-select-label"><svg data-lucide="arrow-down" class="rf-sort-icon"></svg>Newest First</span>
+                <svg data-lucide="chevron-down" class="rf-chevron"></svg>
+              </button>
+              <div class="rf-dropdown">
+                <div class="rf-dropdown-header">Sort by Date</div>
+                <div class="rf-dropdown-item active" data-value="newest"><svg data-lucide="arrow-down" class="rf-sort-icon"></svg>Newest First</div>
+                <div class="rf-dropdown-item" data-value="oldest"><svg data-lucide="arrow-up" class="rf-sort-icon"></svg>Oldest First</div>
+              </div>
+            </div>
+
+            <button class="admin-refresh-btn" id="reportsRefreshBtn" title="Refresh reports">
+              <svg data-lucide="refresh-cw"></svg>
+              Refresh
+            </button>
+          </div>
+
+          <!-- Reports List -->
+          <div class="admin-section-title">
+            <svg data-lucide="flag"></svg>
+            <span>Reports</span>
+            <span class="table-count" id="reportsCount">0 reports</span>
+          </div>
+          <div class="reports-list" id="reportsList">
+            <div class="reports-loading">Loading reports...</div>
+          </div>
+
+          <!-- Pagination -->
+          <div class="reports-pagination" id="reportsPagination"></div>
+        </div><!-- end reports pane -->
+      </main>
+
+      <!-- ============ NOT AUTHORIZED ============ -->
+      <div class="not-authorized" id="notAuthorized" style="display: none">
+        <div class="not-authorized-icon">
+          <svg data-lucide="shield-x"></svg>
+        </div>
+        <h2>Access Denied</h2>
+        <p>
+          You don't have permission to view this page. Only administrators can
+          access the admin panel.
+        </p>
+        <a href="index.html" class="btn btn-primary" style="margin-top: 8px">
+          <svg data-lucide="arrow-left"></svg>
+          Back to Home
+        </a>
+      </div>
+    </div>
+
+    <!-- ============ PROFILE MODAL ============ -->
+    <div class="profile-overlay" id="profileOverlay">
+      <div class="profile-modal">
+        <button class="profile-modal-close">
+          <svg data-lucide="x"></svg>
+        </button>
+        <div class="profile-modal-banner"></div>
+        <div class="profile-modal-body">
+          <div class="profile-modal-top">
+            <div class="profile-modal-avatar" id="profileAvatar">
+              <img id="profileAvatarImg" src="" alt="Avatar" />
+              <span id="profileAvatarInitials">?</span>
+              <button
+                class="avatar-edit-btn"
+                id="avatarEditBtn"
+                title="Change avatar"
+              >
+                <svg data-lucide="camera"></svg>
+              </button>
+            </div>
+            <span class="profile-modal-role user" id="profileRoleBadge">
+              <svg data-lucide="user"></svg>
+              User
+            </span>
+          </div>
+
+          <!-- Avatar Picker -->
+          <div class="avatar-picker" id="avatarPicker">
+            <label class="avatar-picker-label">Choose Your Avatar</label>
+            <div class="avatar-picker-grid">
+              <div class="avatar-option" data-avatar="1">
+                <img src="http://localhost:5000/avatars/1.png" alt="Avatar 1" />
+              </div>
+              <div class="avatar-option" data-avatar="2">
+                <img src="http://localhost:5000/avatars/2.png" alt="Avatar 2" />
+              </div>
+              <div class="avatar-option" data-avatar="3">
+                <img src="http://localhost:5000/avatars/3.png" alt="Avatar 3" />
+              </div>
+              <div class="avatar-option" data-avatar="4">
+                <img src="http://localhost:5000/avatars/4.png" alt="Avatar 4" />
+              </div>
+              <div class="avatar-option" data-avatar="5">
+                <img src="http://localhost:5000/avatars/5.png" alt="Avatar 5" />
+              </div>
+              <div
+                class="avatar-option avatar-upload-option"
+                id="avatarUploadOption"
+              >
+                <svg data-lucide="upload"></svg>
+                <span>Upload</span>
+              </div>
+            </div>
+            <input
+              type="file"
+              id="avatarFileInput"
+              accept="image/*"
+              style="display: none"
+            />
+          </div>
+
+          <div class="profile-fields">
+            <div class="profile-field">
+              <label class="profile-field-label">Full Name</label>
+              <div class="profile-field-value editable">
+                <svg data-lucide="user"></svg>
+                <input
+                  type="text"
+                  class="edit-input"
+                  id="nameInput"
+                  placeholder="Your name"
+                  readonly
+                />
+                <div class="edit-btn" id="editNameBtn" title="Edit name">
+                  <svg data-lucide="pencil"></svg>
+                </div>
+              </div>
+              <div class="profile-edit-actions" id="nameEditActions">
+                <button class="profile-save-btn" id="saveNameBtn">Save</button>
+                <button class="profile-cancel-btn" id="cancelNameBtn">
+                  Cancel
+                </button>
+              </div>
+            </div>
+            <div class="profile-field">
+              <label class="profile-field-label">Email Address</label>
+              <div class="profile-field-value">
+                <svg data-lucide="mail"></svg>
+                <span id="profileEmail">&mdash;</span>
+              </div>
+            </div>
+            <div class="profile-field">
+              <label class="profile-field-label">Account Role</label>
+              <div class="profile-field-value">
+                <svg data-lucide="shield"></svg>
+                <span id="profileRole">&mdash;</span>
+              </div>
+            </div>
+            <div class="profile-field">
+              <label class="profile-field-label">Member Since</label>
+              <div class="profile-field-value">
+                <svg data-lucide="calendar"></svg>
+                <span id="profileDate">&mdash;</span>
+              </div>
+            </div>
+          </div>
+          <div class="profile-message" id="profileMessage">
+            <svg data-lucide="check-circle"></svg>
+            <span id="profileMessageText"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ AVATAR VIEWER MODAL ============ -->
+    <div class="avatar-viewer-overlay" id="avatarViewerOverlay">
+      <div class="avatar-viewer-content">
+        <img
+          id="avatarViewerImage"
+          class="avatar-viewer-image"
+          src=""
+          alt="Avatar"
+        />
+        <button class="avatar-viewer-close" id="avatarViewerClose">
+          <svg data-lucide="x"></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ============ AVATAR CROP MODAL ============ -->
+    <div class="crop-overlay" id="cropOverlay">
+      <div class="crop-modal">
+        <div class="crop-header">
+          <span class="crop-title">
+            <svg data-lucide="crop"></svg>
+            Crop Avatar
+          </span>
+          <button class="crop-close-btn" id="cropCloseBtn">
+            <svg data-lucide="x"></svg>
+          </button>
+        </div>
+        <div class="crop-body">
+          <div class="crop-canvas-wrapper" id="cropCanvasWrapper">
+            <img id="cropImage" src="" alt="Crop preview" />
+            <svg
+              class="crop-circle-mask"
+              viewBox="0 0 320 320"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <defs>
+                <mask id="circleMask">
+                  <rect width="320" height="320" fill="white" />
+                  <circle cx="160" cy="160" r="140" fill="black" />
+                </mask>
+              </defs>
+              <rect
+                width="320"
+                height="320"
+                fill="rgba(0,0,0,0.55)"
+                mask="url(#circleMask)"
+              />
+              <circle
+                cx="160"
+                cy="160"
+                r="140"
+                fill="none"
+                stroke="rgba(255,255,255,0.4)"
+                stroke-width="2"
+              />
+            </svg>
+          </div>
+          <div class="crop-zoom-row">
+            <svg data-lucide="minus"></svg>
+            <input
+              type="range"
+              class="crop-zoom-slider"
+              id="cropZoomSlider"
+              min="100"
+              max="300"
+              value="100"
+            />
+            <svg data-lucide="plus"></svg>
+          </div>
+          <span class="crop-hint"
+            >Drag to reposition &middot; Scroll to zoom</span
+          >
+        </div>
+        <div class="crop-footer">
+          <button class="crop-cancel-btn" id="cropCancelBtn">Cancel</button>
+          <button class="crop-upload-btn" id="cropUploadBtn">
+            <svg data-lucide="check"></svg>
+            Apply & Upload
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============ DELETE CONFIRM MODAL ============ -->
+    <div class="delete-confirm-overlay" id="deleteConfirmOverlay">
+      <div class="delete-confirm-modal">
+        <div class="delete-confirm-icon">
+          <svg data-lucide="trash-2"></svg>
+        </div>
+        <h3 class="delete-confirm-title">Delete User?</h3>
+        <p class="delete-confirm-desc">
+          You are about to permanently delete
+          <strong id="deleteConfirmName"></strong>. This will also remove all
+          their analytics data. This action cannot be undone.
+        </p>
+        <div class="delete-confirm-actions">
+          <button class="delete-cancel-btn" id="deleteConfirmCancel">
+            Cancel
+          </button>
+          <button class="delete-confirm-btn" id="deleteConfirmOk">
+            <svg data-lucide="trash-2"></svg>
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        if (window.lucide) {
+          lucide.createIcons();
+        }
+      });
+    </script>
+    <script src="js/config.js"></script>
+    <script src="js/theme.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/admin-reports.js"></script>
+    <script src="js/profile.js"></script>
+    <script src="js/profile-avatar-ui.js"></script>
+    <script src="js/avatar-crop.js"></script>
+  </body>
+</html>
