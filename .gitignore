@@ -1,0 +1,82 @@
+# ============================================
+# .gitignore — CodeLens Project
+# ============================================
+
+# ---- Documentation / Development Guides ----
+development.md
+
+# ---- Node.js ----
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+
+# ---- Environment Variables (NEVER commit secrets) ----
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+Backend/.env
+
+# ---- User Uploaded Avatars (runtime data, not source code) ----
+Backend/Data/Avatar/uploads/*
+!Backend/Data/Avatar/uploads/.gitkeep
+
+# ---- OS Files ----
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ---- IDE / Editor ----
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+*.swp
+*.bak
+
+# ---- Logs ----
+logs/
+*.log
+pids/
+*.pid
+*.seed
+*.pid.lock
+
+# ---- Build / Distribution ----
+dist/
+build/
+out/
+.next/
+.nuxt/
+
+# ---- Coverage & Testing ----
+coverage/
+.nyc_output/
+.cache/
+
+# ---- PM2 Runtime ----
+.pm2/
+
+# ---- Temporary Files ----
+tmp/
+temp/
+
+# ---- Python Scripts ----
+push_commits.py
+__pycache__/
+*.py[cod]
+*.egg-info/
+.Python
