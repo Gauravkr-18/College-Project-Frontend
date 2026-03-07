@@ -16,17 +16,41 @@ var pendingDeleteName = null;
 
 async function initAdmin() {
     var token = localStorage.getItem('codelens-token');
-    var savedUser = localStorage.getItem('codelens-user');
 
-    // If no token, redirect to home
-    if (!token || !savedUser) {
+    // If no token, redirect to home immediately
+    if (!token) {
         window.location.href = 'index.html';
         return;
     }
 
+    // Always verify role server-side — never trust localStorage for access control
     try {
-        currentUser = JSON.parse(savedUser);
+        var meResponse = await fetch(API_URL + '/auth/me', {
+            headers: { 'Authorization': 'Bearer ' + token }
+        });
+
+        if (!meResponse.ok) {
+            // Token invalid or expired — clear stale data and redirect
+            localStorage.removeItem('codelens-token');
+            localStorage.removeItem('codelens-user');
+            window.location.href = 'index.html';
+            return;
+        }
+
+        var meData = await meResponse.json();
+        if (!meData.success || !meData.user) {
+            window.location.href = 'index.html';
+            return;
+        }
+
+        // Use server-verified user data — not localStorage
+        currentUser = meData.user;
+
+        // Sync localStorage with fresh server data
+        localStorage.setItem('codelens-user', JSON.stringify(currentUser));
+
     } catch (e) {
+        // Network error — cannot verify role, block access
         window.location.href = 'index.html';
         return;
     }
@@ -35,7 +59,7 @@ async function initAdmin() {
     updateHeaderAvatars(currentUser);
     updateHeaderProfileInfo(currentUser);
 
-    // Check if user is admin or tester
+    // Role check uses server-verified role
     if (currentUser.role !== 'admin' && currentUser.role !== 'tester') {
         // Show not authorized screen
         document.getElementById('notAuthorized').style.display = '';
