@@ -40,6 +40,9 @@ connectDB();
 // Create Express app
 const app = express();
 
+// Trust Vercel/proxy headers (required for rate limiting behind a reverse proxy)
+app.set('trust proxy', 1);
+
 // ---- Security Middleware ----
 
 // HTTP security headers (XSS protection, content-type sniffing, etc.)
@@ -144,32 +147,39 @@ app.use(function(err, req, res, next) {
     });
 });
 
-// ---- Start Server ----
-const PORT = process.env.PORT || 5000;
+// ---- Export for Vercel Serverless ----
+// Vercel imports this module and invokes the handler directly.
+// When running locally with `node server.js`, the listen() block runs instead.
+module.exports = app;
 
-const server = app.listen(PORT, function() {
-    console.log('');
-    console.log('  CodeLens Backend Server');
-    console.log('  -----------------------');
-    console.log('  Server running on port ' + PORT);
-    console.log('  API: http://localhost:' + PORT + '/api');
-    console.log('  Environment: ' + (process.env.NODE_ENV || 'development'));
-    console.log('');
-});
+// ---- Start Server (local dev only) ----
+if (require.main === module) {
+    const PORT = process.env.PORT || 5000;
 
-// ---- Graceful Shutdown ----
-function shutdown(signal) {
-    console.log('\n  ' + signal + ' received. Shutting down gracefully...');
-    server.close(function() {
-        console.log('  Server closed.');
-        process.exit(0);
+    const server = app.listen(PORT, function() {
+        console.log('');
+        console.log('  CodeLens Backend Server');
+        console.log('  -----------------------');
+        console.log('  Server running on port ' + PORT);
+        console.log('  API: http://localhost:' + PORT + '/api');
+        console.log('  Environment: ' + (process.env.NODE_ENV || 'development'));
+        console.log('');
     });
-    // Force close after 10 seconds
-    setTimeout(function() {
-        console.error('  Forced shutdown.');
-        process.exit(1);
-    }, 10000);
-}
 
-process.on('SIGTERM', function() { shutdown('SIGTERM'); });
-process.on('SIGINT', function() { shutdown('SIGINT'); });
+    // ---- Graceful Shutdown ----
+    function shutdown(signal) {
+        console.log('\n  ' + signal + ' received. Shutting down gracefully...');
+        server.close(function() {
+            console.log('  Server closed.');
+            process.exit(0);
+        });
+        // Force close after 10 seconds
+        setTimeout(function() {
+            console.error('  Forced shutdown.');
+            process.exit(1);
+        }, 10000);
+    }
+
+    process.on('SIGTERM', function() { shutdown('SIGTERM'); });
+    process.on('SIGINT', function() { shutdown('SIGINT'); });
+}
