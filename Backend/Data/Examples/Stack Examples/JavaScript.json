@@ -1,0 +1,321 @@
+[
+  {
+    "meta": {
+      "title": "Hello World",
+      "total_steps": 2,
+      "code": "console.log(\"Hello, World!\");",
+      "final_output": "Hello, World!",
+      "level": "easy",
+      "category": "basics",
+      "description": "Your first JavaScript program using console.log()."
+    }
+  },
+  {
+    "meta": {
+      "title": "Variables (let & const)",
+      "total_steps": 6,
+      "code": "let name = \"Alice\";\nlet age = 25;\nconst PI = 3.14159;\n\nconsole.log(\"Name:\", name);\nconsole.log(\"Age:\", age);\nconsole.log(\"PI:\", PI);",
+      "final_output": "Name: Alice\nAge: 25\nPI: 3.14159",
+      "level": "easy",
+      "category": "basics",
+      "description": "Declare variables using let and const keywords."
+    }
+  },
+  {
+    "meta": {
+      "title": "Data Types",
+      "total_steps": 8,
+      "code": "let num = 42;\nlet price = 19.99;\nlet text = \"Hello\";\nlet isActive = true;\nlet empty = null;\nlet notDefined = undefined;\n\nconsole.log(typeof num);\nconsole.log(typeof price);\nconsole.log(typeof text);\nconsole.log(typeof isActive);",
+      "final_output": "number\nnumber\nstring\nboolean",
+      "level": "easy",
+      "category": "basics",
+      "description": "Explore JavaScript data types using typeof operator."
+    }
+  },
+  {
+    "meta": {
+      "title": "Add Two Numbers",
+      "total_steps": 4,
+      "code": "let a = 10;\nlet b = 20;\nlet sum = a + b;\nconsole.log(`Sum of ${a} and ${b} is: ${sum}`);",
+      "final_output": "Sum of 10 and 20 is: 30",
+      "level": "easy",
+      "category": "arithmetic",
+      "description": "Add two numbers using template literals for output."
+    }
+  },
+  {
+    "meta": {
+      "title": "Swap Two Numbers",
+      "total_steps": 4,
+      "code": "let a = 5;\nlet b = 10;\n[a, b] = [b, a];\nconsole.log(`After swap: a = ${a}, b = ${b}`);",
+      "final_output": "After swap: a = 10, b = 5",
+      "level": "easy",
+      "category": "variable",
+      "description": "Swap variables using destructuring assignment."
+    }
+  },
+  {
+    "meta": {
+      "title": "If-Else Condition",
+      "total_steps": 5,
+      "code": "let num = 15;\n\nif (num > 10) {\n    console.log(`${num} is greater than 10`);\n} else {\n    console.log(`${num} is not greater than 10`);\n}",
+      "final_output": "15 is greater than 10",
+      "level": "easy",
+      "category": "conditional",
+      "description": "Use if-else to make decisions based on conditions."
+    }
+  },
+  {
+    "meta": {
+      "title": "Even or Odd",
+      "total_steps": 5,
+      "code": "let num = 7;\n\nif (num % 2 === 0) {\n    console.log(`${num} is Even`);\n} else {\n    console.log(`${num} is Odd`);\n}",
+      "final_output": "7 is Odd",
+      "level": "easy",
+      "category": "conditional",
+      "description": "Check if a number is even or odd using modulus."
+    }
+  },
+  {
+    "meta": {
+      "title": "Ternary Operator",
+      "total_steps": 4,
+      "code": "let age = 20;\nlet status = age >= 18 ? \"Adult\" : \"Minor\";\nconsole.log(`Status: ${status}`);",
+      "final_output": "Status: Adult",
+      "level": "easy",
+      "category": "conditional",
+      "description": "Use ternary operator for concise conditional expressions."
+    }
+  },
+  {
+    "meta": {
+      "title": "For Loop Basics",
+      "total_steps": 10,
+      "code": "for (let i = 1; i <= 5; i++) {\n    console.log(i);\n}",
+      "final_output": "1\n2\n3\n4\n5",
+      "level": "easy",
+      "category": "loop",
+      "description": "Print numbers 1 to 5 using a for loop."
+    }
+  },
+  {
+    "meta": {
+      "title": "While Loop",
+      "total_steps": 12,
+      "code": "let count = 1;\n\nwhile (count <= 5) {\n    console.log(`Count: ${count}`);\n    count++;\n}",
+      "final_output": "Count: 1\nCount: 2\nCount: 3\nCount: 4\nCount: 5",
+      "level": "easy",
+      "category": "loop",
+      "description": "Use while loop to repeat until condition is false."
+    }
+  },
+  {
+    "meta": {
+      "title": "Sum of N Numbers",
+      "total_steps": 12,
+      "code": "let n = 5;\nlet sum = 0;\n\nfor (let i = 1; i <= n; i++) {\n    sum += i;\n}\n\nconsole.log(`Sum from 1 to ${n} = ${sum}`);",
+      "final_output": "Sum from 1 to 5 = 15",
+      "level": "intermediate",
+      "category": "loop",
+      "description": "Calculate sum of numbers from 1 to N using a loop."
+    }
+  },
+  {
+    "meta": {
+      "title": "Factorial",
+      "total_steps": 14,
+      "code": "let n = 5;\nlet fact = 1;\n\nfor (let i = 1; i <= n; i++) {\n    fact *= i;\n}\n\nconsole.log(`Factorial of ${n} = ${fact}`);",
+      "final_output": "Factorial of 5 = 120",
+      "level": "intermediate",
+      "category": "loop",
+      "description": "Calculate factorial of a number using a for loop."
+    }
+  },
+  {
+    "meta": {
+      "title": "Simple Function",
+      "total_steps": 8,
+      "code": "function add(a, b) {\n    let result = a + b;\n    return result;\n}\n\nlet x = 5;\nlet y = 10;\nlet sum = add(x, y);\nconsole.log(`Sum = ${sum}`);",
+      "final_output": "Sum = 15",
+      "level": "intermediate",
+      "category": "function",
+      "description": "Create a function that adds two numbers."
+    }
+  },
+  {
+    "meta": {
+      "title": "Arrow Function",
+      "total_steps": 6,
+      "code": "const add = (a, b) => a + b;\nconst square = x => x * x;\n\nconsole.log(`Add: ${add(5, 10)}`);\nconsole.log(`Square: ${square(7)}`);",
+      "final_output": "Add: 15\nSquare: 49",
+      "level": "intermediate",
+      "category": "function",
+      "description": "Create concise functions using arrow syntax."
+    }
+  },
+  {
+    "meta": {
+      "title": "Default Parameters",
+      "total_steps": 8,
+      "code": "function greet(name = \"Guest\") {\n    console.log(`Welcome, ${name}!`);\n}\n\ngreet();\ngreet(\"Alice\");",
+      "final_output": "Welcome, Guest!\nWelcome, Alice!",
+      "level": "intermediate",
+      "category": "function",
+      "description": "Use default parameter values in functions."
+    }
+  },
+  {
+    "meta": {
+      "title": "Array Basics",
+      "total_steps": 10,
+      "code": "let fruits = [\"apple\", \"banana\", \"cherry\"];\n\nfor (let fruit of fruits) {\n    console.log(fruit);\n}\n\nconsole.log(`Total: ${fruits.length}`);",
+      "final_output": "apple\nbanana\ncherry\nTotal: 3",
+      "level": "intermediate",
+      "category": "array",
+      "description": "Create an array and iterate using for...of loop."
+    }
+  },
+  {
+    "meta": {
+      "title": "Array Methods",
+      "total_steps": 12,
+      "code": "let numbers = [1, 2, 3];\nnumbers.push(4);\nnumbers.unshift(0);\nlet removed = numbers.pop();\n\nconsole.log(`Array: ${numbers}`);\nconsole.log(`Removed: ${removed}`);\nconsole.log(`First: ${numbers[0]}, Last: ${numbers[numbers.length - 1]}`);",
+      "final_output": "Array: 0,1,2,3\nRemoved: 4\nFirst: 0, Last: 3",
+      "level": "intermediate",
+      "category": "array",
+      "description": "Use push, pop, unshift methods to modify arrays."
+    }
+  },
+  {
+    "meta": {
+      "title": "Array Map",
+      "total_steps": 8,
+      "code": "let numbers = [1, 2, 3, 4, 5];\nlet squares = numbers.map(x => x * x);\n\nconsole.log(`Numbers: ${numbers}`);\nconsole.log(`Squares: ${squares}`);",
+      "final_output": "Numbers: 1,2,3,4,5\nSquares: 1,4,9,16,25",
+      "level": "intermediate",
+      "category": "array",
+      "description": "Transform arrays using map() with arrow functions."
+    }
+  },
+  {
+    "meta": {
+      "title": "Array Filter",
+      "total_steps": 8,
+      "code": "let numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];\nlet evens = numbers.filter(x => x % 2 === 0);\n\nconsole.log(`All: ${numbers}`);\nconsole.log(`Evens: ${evens}`);",
+      "final_output": "All: 1,2,3,4,5,6,7,8,9,10\nEvens: 2,4,6,8,10",
+      "level": "intermediate",
+      "category": "array",
+      "description": "Filter arrays using filter() with conditions."
+    }
+  },
+  {
+    "meta": {
+      "title": "Array Reduce",
+      "total_steps": 8,
+      "code": "let numbers = [1, 2, 3, 4, 5];\nlet sum = numbers.reduce((acc, curr) => acc + curr, 0);\n\nconsole.log(`Numbers: ${numbers}`);\nconsole.log(`Sum: ${sum}`);",
+      "final_output": "Numbers: 1,2,3,4,5\nSum: 15",
+      "level": "intermediate",
+      "category": "array",
+      "description": "Reduce array to single value using reduce()."
+    }
+  },
+  {
+    "meta": {
+      "title": "Object Basics",
+      "total_steps": 10,
+      "code": "let person = {\n    name: \"Alice\",\n    age: 25,\n    city: \"New York\"\n};\n\nconsole.log(`Name: ${person.name}`);\nconsole.log(`Age: ${person.age}`);\nconsole.log(`City: ${person.city}`);",
+      "final_output": "Name: Alice\nAge: 25\nCity: New York",
+      "level": "intermediate",
+      "category": "object",
+      "description": "Create and access object properties."
+    }
+  },
+  {
+    "meta": {
+      "title": "Object Methods",
+      "total_steps": 12,
+      "code": "let calculator = {\n    add: function(a, b) {\n        return a + b;\n    },\n    subtract(a, b) {\n        return a - b;\n    }\n};\n\nconsole.log(`Add: ${calculator.add(10, 5)}`);\nconsole.log(`Subtract: ${calculator.subtract(10, 5)}`);",
+      "final_output": "Add: 15\nSubtract: 5",
+      "level": "intermediate",
+      "category": "object",
+      "description": "Create objects with method functions."
+    }
+  },
+  {
+    "meta": {
+      "title": "Destructuring",
+      "total_steps": 10,
+      "code": "let person = { name: \"Alice\", age: 25, city: \"NYC\" };\nlet { name, age } = person;\n\nlet numbers = [1, 2, 3, 4, 5];\nlet [first, second, ...rest] = numbers;\n\nconsole.log(`Name: ${name}, Age: ${age}`);\nconsole.log(`First: ${first}, Second: ${second}, Rest: ${rest}`);",
+      "final_output": "Name: Alice, Age: 25\nFirst: 1, Second: 2, Rest: 3,4,5",
+      "level": "intermediate",
+      "category": "object",
+      "description": "Extract values using destructuring syntax."
+    }
+  },
+  {
+    "meta": {
+      "title": "Spread Operator",
+      "total_steps": 10,
+      "code": "let arr1 = [1, 2, 3];\nlet arr2 = [4, 5, 6];\nlet combined = [...arr1, ...arr2];\n\nlet obj1 = { a: 1, b: 2 };\nlet obj2 = { ...obj1, c: 3 };\n\nconsole.log(`Combined array: ${combined}`);\nconsole.log(\"Combined object:\", obj2);",
+      "final_output": "Combined array: 1,2,3,4,5,6\nCombined object: { a: 1, b: 2, c: 3 }",
+      "level": "intermediate",
+      "category": "object",
+      "description": "Merge arrays and objects using spread operator."
+    }
+  },
+  {
+    "meta": {
+      "title": "Simple Class",
+      "total_steps": 14,
+      "code": "class Rectangle {\n    constructor(width, height) {\n        this.width = width;\n        this.height = height;\n    }\n    \n    area() {\n        return this.width * this.height;\n    }\n}\n\nlet rect = new Rectangle(5, 10);\nconsole.log(`Area: ${rect.area()}`);",
+      "final_output": "Area: 50",
+      "level": "hard",
+      "category": "oop",
+      "description": "Create a class with constructor and method."
+    }
+  },
+  {
+    "meta": {
+      "title": "Class Inheritance",
+      "total_steps": 18,
+      "code": "class Animal {\n    constructor(name) {\n        this.name = name;\n    }\n    speak() {\n        console.log(`${this.name} makes a sound`);\n    }\n}\n\nclass Dog extends Animal {\n    speak() {\n        console.log(`${this.name} says Woof!`);\n    }\n}\n\nlet dog = new Dog(\"Buddy\");\ndog.speak();",
+      "final_output": "Buddy says Woof!",
+      "level": "hard",
+      "category": "oop",
+      "description": "Use extends keyword for class inheritance."
+    }
+  },
+  {
+    "meta": {
+      "title": "Try-Catch",
+      "total_steps": 10,
+      "code": "function divide(a, b) {\n    if (b === 0) {\n        throw new Error(\"Cannot divide by zero!\");\n    }\n    return a / b;\n}\n\ntry {\n    console.log(divide(10, 2));\n    console.log(divide(10, 0));\n} catch (error) {\n    console.log(`Error: ${error.message}`);\n}",
+      "final_output": "5\nError: Cannot divide by zero!",
+      "level": "hard",
+      "category": "exception",
+      "description": "Handle errors using try-catch blocks."
+    }
+  },
+  {
+    "meta": {
+      "title": "Promise Basics",
+      "total_steps": 12,
+      "code": "let promise = new Promise((resolve, reject) => {\n    let success = true;\n    if (success) {\n        resolve(\"Operation successful!\");\n    } else {\n        reject(\"Operation failed!\");\n    }\n});\n\npromise\n    .then(result => console.log(result))\n    .catch(error => console.log(error));",
+      "final_output": "Operation successful!",
+      "level": "hard",
+      "category": "async",
+      "description": "Create and handle Promises with then/catch."
+    }
+  },
+  {
+    "meta": {
+      "title": "Async/Await",
+      "total_steps": 14,
+      "code": "function delay(ms) {\n    return new Promise(resolve => setTimeout(resolve, ms));\n}\n\nasync function greet() {\n    console.log(\"Starting...\");\n    await delay(1000);\n    console.log(\"Hello after 1 second!\");\n}\n\ngreet();",
+      "final_output": "Starting...\nHello after 1 second!",
+      "level": "hard",
+      "category": "async",
+      "description": "Use async/await for cleaner asynchronous code."
+    }
+  }
+]

@@ -1,0 +1,310 @@
+[
+  {
+    "meta": {
+      "title": "Hello World",
+      "total_steps": 2,
+      "code": "print(\"Hello, World!\")",
+      "final_output": "Hello, World!",
+      "level": "easy",
+      "category": "basics",
+      "description": "Your first Python program using print() function."
+    }
+  },
+  {
+    "meta": {
+      "title": "Variables & Data Types",
+      "total_steps": 5,
+      "code": "name = \"Alice\"\nage = 25\nheight = 5.9\nis_student = True\n\nprint(\"Name:\", name)\nprint(\"Age:\", age)\nprint(\"Height:\", height)\nprint(\"Is Student:\", is_student)",
+      "final_output": "Name: Alice\nAge: 25\nHeight: 5.9\nIs Student: True",
+      "level": "easy",
+      "category": "basics",
+      "description": "Declare string, int, float, and boolean variables."
+    }
+  },
+  {
+    "meta": {
+      "title": "Add Two Numbers",
+      "total_steps": 4,
+      "code": "a = 10\nb = 20\nsum = a + b\nprint(f\"Sum of {a} and {b} is: {sum}\")",
+      "final_output": "Sum of 10 and 20 is: 30",
+      "level": "easy",
+      "category": "arithmetic",
+      "description": "Add two numbers using f-string for formatted output."
+    }
+  },
+  {
+    "meta": {
+      "title": "User Input",
+      "total_steps": 4,
+      "code": "name = input(\"Enter your name: \")\nprint(f\"Hello, {name}!\")",
+      "final_output": "Enter your name: \nHello, [name]!",
+      "level": "easy",
+      "category": "input",
+      "description": "Read user input and display a greeting message."
+    }
+  },
+  {
+    "meta": {
+      "title": "Type Conversion",
+      "total_steps": 5,
+      "code": "num_str = \"42\"\nnum_int = int(num_str)\nnum_float = float(num_str)\n\nprint(f\"String: {num_str}\")\nprint(f\"Integer: {num_int}\")\nprint(f\"Float: {num_float}\")",
+      "final_output": "String: 42\nInteger: 42\nFloat: 42.0",
+      "level": "easy",
+      "category": "basics",
+      "description": "Convert between string, int, and float types."
+    }
+  },
+  {
+    "meta": {
+      "title": "Swap Two Numbers",
+      "total_steps": 4,
+      "code": "a = 5\nb = 10\na, b = b, a\nprint(f\"After swap: a = {a}, b = {b}\")",
+      "final_output": "After swap: a = 10, b = 5",
+      "level": "easy",
+      "category": "variable",
+      "description": "Swap variables using Python's tuple unpacking."
+    }
+  },
+  {
+    "meta": {
+      "title": "If-Else Condition",
+      "total_steps": 5,
+      "code": "num = 15\n\nif num > 10:\n    print(f\"{num} is greater than 10\")\nelse:\n    print(f\"{num} is not greater than 10\")",
+      "final_output": "15 is greater than 10",
+      "level": "easy",
+      "category": "conditional",
+      "description": "Use if-else to make decisions based on conditions."
+    }
+  },
+  {
+    "meta": {
+      "title": "Even or Odd",
+      "total_steps": 5,
+      "code": "num = 7\n\nif num % 2 == 0:\n    print(f\"{num} is Even\")\nelse:\n    print(f\"{num} is Odd\")",
+      "final_output": "7 is Odd",
+      "level": "easy",
+      "category": "conditional",
+      "description": "Check if a number is even or odd using modulus."
+    }
+  },
+  {
+    "meta": {
+      "title": "Find Maximum",
+      "total_steps": 5,
+      "code": "a, b, c = 25, 18, 32\nmax_val = max(a, b, c)\nprint(f\"Maximum is: {max_val}\")",
+      "final_output": "Maximum is: 32",
+      "level": "easy",
+      "category": "conditional",
+      "description": "Find the largest number using built-in max() function."
+    }
+  },
+  {
+    "meta": {
+      "title": "For Loop Basics",
+      "total_steps": 8,
+      "code": "for i in range(1, 6):\n    print(i)",
+      "final_output": "1\n2\n3\n4\n5",
+      "level": "easy",
+      "category": "loop",
+      "description": "Print numbers 1 to 5 using for loop with range()."
+    }
+  },
+  {
+    "meta": {
+      "title": "While Loop",
+      "total_steps": 10,
+      "code": "count = 1\n\nwhile count <= 5:\n    print(f\"Count: {count}\")\n    count += 1",
+      "final_output": "Count: 1\nCount: 2\nCount: 3\nCount: 4\nCount: 5",
+      "level": "easy",
+      "category": "loop",
+      "description": "Use while loop to repeat until condition is false."
+    }
+  },
+  {
+    "meta": {
+      "title": "Sum of N Numbers",
+      "total_steps": 10,
+      "code": "n = 5\ntotal = sum(range(1, n + 1))\nprint(f\"Sum from 1 to {n} = {total}\")",
+      "final_output": "Sum from 1 to 5 = 15",
+      "level": "intermediate",
+      "category": "loop",
+      "description": "Calculate sum using built-in sum() and range()."
+    }
+  },
+  {
+    "meta": {
+      "title": "Factorial",
+      "total_steps": 12,
+      "code": "n = 5\nfact = 1\n\nfor i in range(1, n + 1):\n    fact *= i\n\nprint(f\"Factorial of {n} = {fact}\")",
+      "final_output": "Factorial of 5 = 120",
+      "level": "intermediate",
+      "category": "loop",
+      "description": "Calculate factorial using a for loop."
+    }
+  },
+  {
+    "meta": {
+      "title": "Star Pattern Triangle",
+      "total_steps": 12,
+      "code": "for i in range(1, 6):\n    print(\"* \" * i)",
+      "final_output": "* \n* * \n* * * \n* * * * \n* * * * * ",
+      "level": "intermediate",
+      "category": "loop",
+      "description": "Create triangle pattern using string multiplication."
+    }
+  },
+  {
+    "meta": {
+      "title": "Simple Function",
+      "total_steps": 8,
+      "code": "def add(a, b):\n    result = a + b\n    return result\n\nx = 5\ny = 10\nsum = add(x, y)\nprint(f\"Sum = {sum}\")",
+      "final_output": "Sum = 15",
+      "level": "intermediate",
+      "category": "function",
+      "description": "Create a function that adds two numbers and returns result."
+    }
+  },
+  {
+    "meta": {
+      "title": "Default Parameters",
+      "total_steps": 8,
+      "code": "def greet(name=\"Guest\"):\n    print(f\"Welcome, {name}!\")\n\ngreet()\ngreet(\"Alice\")",
+      "final_output": "Welcome, Guest!\nWelcome, Alice!",
+      "level": "intermediate",
+      "category": "function",
+      "description": "Use default parameter values in functions."
+    }
+  },
+  {
+    "meta": {
+      "title": "Multiple Return Values",
+      "total_steps": 10,
+      "code": "def calculate(a, b):\n    sum = a + b\n    diff = a - b\n    return sum, diff\n\nx, y = 20, 5\nadd, sub = calculate(x, y)\nprint(f\"Sum: {add}, Difference: {sub}\")",
+      "final_output": "Sum: 25, Difference: 15",
+      "level": "intermediate",
+      "category": "function",
+      "description": "Return multiple values from a function using tuples."
+    }
+  },
+  {
+    "meta": {
+      "title": "Lambda Function",
+      "total_steps": 6,
+      "code": "square = lambda x: x * x\n\nprint(f\"Square of 5 = {square(5)}\")\nprint(f\"Square of 7 = {square(7)}\")",
+      "final_output": "Square of 5 = 25\nSquare of 7 = 49",
+      "level": "intermediate",
+      "category": "function",
+      "description": "Create anonymous functions using lambda expressions."
+    }
+  },
+  {
+    "meta": {
+      "title": "List Basics",
+      "total_steps": 10,
+      "code": "fruits = [\"apple\", \"banana\", \"cherry\"]\n\nfor fruit in fruits:\n    print(fruit)\n\nprint(f\"Total fruits: {len(fruits)}\")",
+      "final_output": "apple\nbanana\ncherry\nTotal fruits: 3",
+      "level": "intermediate",
+      "category": "list",
+      "description": "Create a list and iterate through its elements."
+    }
+  },
+  {
+    "meta": {
+      "title": "List Operations",
+      "total_steps": 12,
+      "code": "numbers = [1, 2, 3]\nnumbers.append(4)\nnumbers.insert(0, 0)\nnumbers.remove(2)\n\nprint(f\"List: {numbers}\")\nprint(f\"First: {numbers[0]}, Last: {numbers[-1]}\")",
+      "final_output": "List: [0, 1, 3, 4]\nFirst: 0, Last: 4",
+      "level": "intermediate",
+      "category": "list",
+      "description": "Use append, insert, remove and indexing on lists."
+    }
+  },
+  {
+    "meta": {
+      "title": "List Comprehension",
+      "total_steps": 6,
+      "code": "numbers = [1, 2, 3, 4, 5]\nsquares = [x ** 2 for x in numbers]\n\nprint(f\"Numbers: {numbers}\")\nprint(f\"Squares: {squares}\")",
+      "final_output": "Numbers: [1, 2, 3, 4, 5]\nSquares: [1, 4, 9, 16, 25]",
+      "level": "intermediate",
+      "category": "list",
+      "description": "Create lists efficiently using list comprehension."
+    }
+  },
+  {
+    "meta": {
+      "title": "Dictionary Basics",
+      "total_steps": 10,
+      "code": "person = {\n    \"name\": \"Alice\",\n    \"age\": 25,\n    \"city\": \"New York\"\n}\n\nprint(f\"Name: {person['name']}\")\nprint(f\"Age: {person['age']}\")\nprint(f\"City: {person['city']}\")",
+      "final_output": "Name: Alice\nAge: 25\nCity: New York",
+      "level": "intermediate",
+      "category": "dictionary",
+      "description": "Create and access dictionary key-value pairs."
+    }
+  },
+  {
+    "meta": {
+      "title": "Dictionary Loop",
+      "total_steps": 10,
+      "code": "scores = {\"Math\": 90, \"Science\": 85, \"English\": 88}\n\nfor subject, score in scores.items():\n    print(f\"{subject}: {score}\")",
+      "final_output": "Math: 90\nScience: 85\nEnglish: 88",
+      "level": "intermediate",
+      "category": "dictionary",
+      "description": "Iterate through dictionary using items() method."
+    }
+  },
+  {
+    "meta": {
+      "title": "String Methods",
+      "total_steps": 10,
+      "code": "text = \"Hello, World!\"\n\nprint(f\"Upper: {text.upper()}\")\nprint(f\"Lower: {text.lower()}\")\nprint(f\"Replace: {text.replace('World', 'Python')}\")\nprint(f\"Split: {text.split(', ')}\")",
+      "final_output": "Upper: HELLO, WORLD!\nLower: hello, world!\nReplace: Hello, Python!\nSplit: ['Hello', 'World!']",
+      "level": "intermediate",
+      "category": "string",
+      "description": "Use common string methods for text manipulation."
+    }
+  },
+  {
+    "meta": {
+      "title": "Simple Class",
+      "total_steps": 14,
+      "code": "class Rectangle:\n    def __init__(self, width, height):\n        self.width = width\n        self.height = height\n    \n    def area(self):\n        return self.width * self.height\n\nrect = Rectangle(5, 10)\nprint(f\"Area: {rect.area()}\")",
+      "final_output": "Area: 50",
+      "level": "hard",
+      "category": "oop",
+      "description": "Create a class with constructor and method."
+    }
+  },
+  {
+    "meta": {
+      "title": "Class Inheritance",
+      "total_steps": 18,
+      "code": "class Animal:\n    def __init__(self, name):\n        self.name = name\n    \n    def speak(self):\n        pass\n\nclass Dog(Animal):\n    def speak(self):\n        return f\"{self.name} says Woof!\"\n\nclass Cat(Animal):\n    def speak(self):\n        return f\"{self.name} says Meow!\"\n\ndog = Dog(\"Buddy\")\ncat = Cat(\"Whiskers\")\nprint(dog.speak())\nprint(cat.speak())",
+      "final_output": "Buddy says Woof!\nWhiskers says Meow!",
+      "level": "hard",
+      "category": "oop",
+      "description": "Use inheritance to create specialized classes."
+    }
+  },
+  {
+    "meta": {
+      "title": "Try-Except",
+      "total_steps": 10,
+      "code": "def divide(a, b):\n    try:\n        result = a / b\n        return result\n    except ZeroDivisionError:\n        return \"Cannot divide by zero!\"\n\nprint(divide(10, 2))\nprint(divide(10, 0))",
+      "final_output": "5.0\nCannot divide by zero!",
+      "level": "hard",
+      "category": "exception",
+      "description": "Handle errors gracefully using try-except blocks."
+    }
+  },
+  {
+    "meta": {
+      "title": "File Write & Read",
+      "total_steps": 12,
+      "code": "# Write to file\nwith open(\"test.txt\", \"w\") as f:\n    f.write(\"Hello, File!\")\n\n# Read from file\nwith open(\"test.txt\", \"r\") as f:\n    content = f.read()\n    print(f\"File content: {content}\")",
+      "final_output": "File content: Hello, File!",
+      "level": "hard",
+      "category": "file",
+      "description": "Write and read files using context manager."
+    }
+  }
+]
