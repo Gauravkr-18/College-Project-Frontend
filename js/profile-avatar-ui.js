@@ -1,0 +1,178 @@
+/* ============================================
+   Profile Avatar UI
+   Picker, viewer, and preset avatar selection
+   Depends on: config.js  (API_URL, getAvatarUrl, updateHeaderAvatars)
+               profile.js (showProfileMsg, updateProfileAvatarDisplay,
+                           highlightSelectedAvatar, isAvatarPickerOpen)
+   ============================================ */
+
+// ============================================
+// AVATAR PICKER
+// ============================================
+
+function toggleAvatarPicker() {
+    var picker = document.getElementById('avatarPicker');
+    if (!picker) return;
+
+    isAvatarPickerOpen = !isAvatarPickerOpen;
+
+    if (isAvatarPickerOpen) {
+        picker.classList.add('open');
+        // Highlight current avatar
+        var stored = localStorage.getItem('codelens-user');
+        if (stored) {
+            var user = JSON.parse(stored);
+            highlightSelectedAvatar(user.avatar || '');
+        }
+    } else {
+        picker.classList.remove('open');
+    }
+}
+
+// ============================================
+// AVATAR VIEWER (Click to enlarge)
+// ============================================
+
+function openAvatarViewer() {
+    var stored = localStorage.getItem('codelens-user');
+    if (!stored) return;
+
+    var user = JSON.parse(stored);
+    if (!user.avatar) return;
+
+    var overlay = document.getElementById('avatarViewerOverlay');
+    var viewerImage = document.getElementById('avatarViewerImage');
+    
+    if (!overlay || !viewerImage) return;
+
+    viewerImage.src = getAvatarUrl(user.avatar);
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeAvatarViewer() {
+    var overlay = document.getElementById('avatarViewerOverlay');
+    if (!overlay) return;
+
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+// ============================================
+// SAVE AVATAR SELECTION
+// ============================================
+
+async function saveAvatarSelection(avatarValue) {
+    var token = localStorage.getItem('codelens-token');
+    if (!token) return;
+
+    try {
+        var response = await fetch(API_URL + '/auth/me', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token
+            },
+            body: JSON.stringify({ avatar: avatarValue })
+        });
+
+        var data = await response.json();
+
+        if (!data.success) {
+            showProfileMsg(data.message || 'Failed to update avatar', 'error');
+            return;
+        }
+
+        // Update localStorage
+        var user = data.user;
+        localStorage.setItem('codelens-user', JSON.stringify(user));
+
+        // Update displays
+        updateProfileAvatarDisplay(user.avatar);
+        updateHeaderAvatars(user);
+        highlightSelectedAvatar(user.avatar);
+
+        showProfileMsg('Avatar updated!', 'success');
+
+    } catch (err) {
+        console.error('Failed to save avatar:', err);
+        showProfileMsg('Failed to update avatar', 'error');
+    }
+}
+
+// ============================================
+// INITIALIZATION
+// ============================================
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    // ---- Avatar edit button → toggle picker ----
+    var avatarEditBtn = document.getElementById('avatarEditBtn');
+    if (avatarEditBtn) {
+        avatarEditBtn.addEventListener('click', function(e) {
+            e.stopPropagation();
+            toggleAvatarPicker();
+        });
+    }
+
+    // ---- Profile modal avatar → click to enlarge ----
+    var profileAvatar = document.getElementById('profileAvatar');
+    if (profileAvatar) {
+        profileAvatar.addEventListener('click', function(e) {
+            // Don't open viewer if clicking the edit button
+            if (e.target.closest('.avatar-edit-btn')) return;
+            
+            var stored = localStorage.getItem('codelens-user');
+            if (stored) {
+                var user = JSON.parse(stored);
+                if (user.avatar) {
+                    openAvatarViewer();
+                }
+            }
+        });
+    }
+
+    // ---- Avatar viewer close button ----
+    var avatarViewerClose = document.getElementById('avatarViewerClose');
+    if (avatarViewerClose) {
+        avatarViewerClose.addEventListener('click', function(e) {
+            e.stopPropagation();
+            closeAvatarViewer();
+        });
+    }
+
+    // ---- Avatar viewer overlay → close on click ----
+    var avatarViewerOverlay = document.getElementById('avatarViewerOverlay');
+    if (avatarViewerOverlay) {
+        avatarViewerOverlay.addEventListener('click', function(e) {
+            if (e.target === avatarViewerOverlay) {
+                closeAvatarViewer();
+            }
+        });
+    }
+
+    // ---- Avatar option clicks → select preset ----
+    var avatarOptions = document.querySelectorAll('.avatar-option[data-avatar]');
+    avatarOptions.forEach(function(opt) {
+        opt.addEventListener('click', function() {
+            var avatarValue = opt.dataset.avatar;
+            saveAvatarSelection(avatarValue);
+        });
+    });
+
+    // ---- Upload option click → open file picker ----
+    var uploadOption = document.getElementById('avatarUploadOption');
+    var fileInput = document.getElementById('avatarFileInput');
+    if (uploadOption && fileInput) {
+        uploadOption.addEventListener('click', function() {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', function() {
+            if (fileInput.files && fileInput.files[0]) {
+                handleAvatarUpload(fileInput.files[0]);
+                fileInput.value = ''; // Reset so same file can be selected again
+            }
+        });
+    }
+});

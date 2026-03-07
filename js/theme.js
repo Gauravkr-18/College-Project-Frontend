@@ -1,0 +1,58 @@
+/* ============================================
+   Theme Toggle - Dark/Light Switch
+   Simple toggle with localStorage persistence
+   ============================================ */
+
+// Get saved theme or default to dark
+function getTheme() {
+    return localStorage.getItem('codelens-theme') || 'dark';
+}
+
+// Apply theme to document
+function applyTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    
+    // Update toggle button icon
+    var toggleBtn = document.getElementById('themeToggle');
+    if (toggleBtn) {
+        var svg = toggleBtn.querySelector('svg');
+        if (svg) {
+            // Change the lucide icon attribute
+            if (theme === 'dark') {
+                svg.setAttribute('data-lucide', 'moon');
+            } else {
+                svg.setAttribute('data-lucide', 'sun');
+            }
+            // Re-render lucide icons
+            if (window.lucide) {
+                lucide.createIcons();
+            }
+        }
+    }
+}
+
+// Toggle between dark and light
+function toggleTheme() {
+    var current = getTheme();
+    var next = current === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('codelens-theme', next);
+    applyTheme(next);
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    var savedTheme = getTheme();
+    applyTheme(savedTheme);
+
+    var toggleBtn = document.getElementById('themeToggle');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', toggleTheme);
+    }
+    
+    // Re-initialize Lucide icons after theme is applied
+    setTimeout(function() {
+        if (window.lucide) {
+            lucide.createIcons();
+        }
+    }, 100);
+});
