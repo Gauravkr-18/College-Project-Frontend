@@ -1457,10 +1457,16 @@
                       title="Hide from students"
                       style="display: none"
                     ></button>
-                    <button class="load-example-btn" id="loadExampleBtn">
-                      <svg data-lucide="play"></svg>
-                      Load Example
-                    </button>
+                    <div class="load-example-wrap">
+                      <button class="load-example-btn" id="loadExampleBtn">
+                        <svg data-lucide="play"></svg>
+                        Load Example
+                      </button>
+                      <div class="no-steps-notice" id="noStepsNotice" style="display:none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>
+                        Execution steps coming soon &mdash; we&rsquo;re still working on this one!
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <p class="preview-description" id="previewDescription"></p>

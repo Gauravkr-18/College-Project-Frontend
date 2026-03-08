@@ -799,6 +799,30 @@
     transform: none;
 }
 
+/* Wrapper so notice sits flush below the button */
+.load-example-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+}
+
+/* "Coming soon" notice shown when example has no execution steps */
+.no-steps-notice {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11.5px;
+    color: var(--accent-yellow, #eab308);
+    opacity: 0.9;
+    line-height: 1.3;
+}
+
+.no-steps-notice svg {
+    flex-shrink: 0;
+    opacity: 0.85;
+}
+
 /* Preview header right-side action group */
 .preview-header-actions {
     display: flex;

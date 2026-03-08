@@ -356,6 +356,8 @@
         $('#previewContent').style.display = 'none';
         var loadBtn = $('#loadExampleBtn');
         if (loadBtn) { loadBtn.disabled = true; loadBtn.title = ''; }
+        var noStepsNotice = $('#noStepsNotice');
+        if (noStepsNotice) noStepsNotice.style.display = 'none';
     }
 
     function showPreview(ex) {
@@ -405,10 +407,12 @@
 
         // Disable Load Example if no execution steps available
         var loadBtn = $('#loadExampleBtn');
+        var noStepsNotice = $('#noStepsNotice');
         if (loadBtn) {
             var hasSteps = !!ex.has_steps;
             loadBtn.disabled = !hasSteps;
-            loadBtn.title = hasSteps ? '' : 'No execution steps available for this example';
+            loadBtn.title = '';
+            if (noStepsNotice) noStepsNotice.style.display = hasSteps ? 'none' : 'flex';
         }
     }
 
