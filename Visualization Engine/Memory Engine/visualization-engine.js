@@ -1,27 +1,7 @@
-/* ============================================
-   Visualization Engine — Step-by-step memory visualization
-   Handles Stack + Data Segment (no Heap).
-   Port of CodeLens React engine to vanilla JS.
-   Exposed globally as window.VisualizationEngine
-
-   Architecture:
-     - Maintains immutable-style state (stacks, data segment)
-     - executeStep() processes one step JSON object
-     - executeUpTo() replays all steps from scratch up to N
-     - State drives VisualizationRenderer.render()
-
-   Action types handled:
-     create_stack_frame | create_temporary_stack_frame |
-     update_variable | update_multiple_variables |
-     update_array | update_array_element |
-     update_2d_array | update_2d_array_element |
-     clear_frame | remove_stack_frame | clear_all_frames |
-     data_segment_update (global/static variables)
-   ============================================ */
 window.VisualizationEngine = (function () {
     'use strict';
 
-    /* ------- State ------- */
+
     var state = createInitialState();
 
     function createInitialState() {
@@ -47,14 +27,14 @@ window.VisualizationEngine = (function () {
         state.isLoaded = loaded;
     }
 
-    /* ------- ID generator ------- */
+
     var _frameCounter = 0;
     function generateFrameId(name) {
         _frameCounter++;
         return 'frame_' + name + '_' + _frameCounter;
     }
 
-    /* ------- Data frame parser ------- */
+
     function parseDataFrames(dataFrame) {
         if (!dataFrame) return [];
         var variables = [];
@@ -107,7 +87,7 @@ window.VisualizationEngine = (function () {
         return variables;
     }
 
-    /* ------- Variable locator ------- */
+
     function normalizeAddress(addr) {
         if (!addr) return null;
         return addr.toLowerCase().trim();
@@ -156,13 +136,7 @@ window.VisualizationEngine = (function () {
         return null;
     }
 
-    /* ===================================================
-       ACTION HANDLERS
-       Each handler mutates state immutably by
-       replacing arrays/objects (standard for vis engines).
-    =================================================== */
 
-    /* -- Clear all highlights -- */
     function clearAllHighlights() {
         state.stackFrames = state.stackFrames.map(function (f) {
             return Object.assign({}, f, {
@@ -177,12 +151,12 @@ window.VisualizationEngine = (function () {
         state.dataSegment = state.dataSegment.map(function (v) { return Object.assign({}, v, { isHighlighted: false }); });
     }
 
-    /* -- Remove temporary frames (printf etc.) -- */
+
     function removeTemporaryFrames() {
         state.stackFrames = state.stackFrames.filter(function (f) { return !f.isTemporary; });
     }
 
-    /* 1. create_stack_frame */
+
     function handleCreateStackFrame(su) {
         var funcName = su.function_name;
         if (!funcName) return;
@@ -205,7 +179,7 @@ window.VisualizationEngine = (function () {
         }
     }
 
-    /* 2. create_temporary_stack_frame */
+
     function handleCreateTemporaryStackFrame(su) {
         var funcName = su.function_name || 'temp';
         var variables = su.stack_data_frame ? parseDataFrames(su.stack_data_frame) : [];
@@ -219,7 +193,7 @@ window.VisualizationEngine = (function () {
         }]);
     }
 
-    /* 3. update_variable */
+
     function handleUpdateVariable(su) {
         var loc = findVariableLocation(su.variable_name, su.address);
         if (!loc) return;
@@ -250,7 +224,7 @@ window.VisualizationEngine = (function () {
         }
     }
 
-    /* 4. update_multiple_variables */
+
     function handleUpdateMultipleVariables(su) {
         if (!su.updates || !su.updates.length) return;
 
@@ -284,7 +258,7 @@ window.VisualizationEngine = (function () {
         rebuildDataSegment();
     }
 
-    /* 5. update_array / update_array_element */
+
     function handleUpdateArray(su) {
         var loc = findVariableLocation(su.variable_name, su.address);
         if (!loc) return;
@@ -344,7 +318,7 @@ window.VisualizationEngine = (function () {
         if (loc.type === 'dsf') rebuildDataSegment();
     }
 
-    /* 6. clear_frame / remove_stack_frame */
+
     function handleClearFrame(su, stepData) {
         var funcName = (su.frame && su.frame.function_name) || su.function_name;
         if (!funcName) return;
@@ -357,13 +331,13 @@ window.VisualizationEngine = (function () {
         if (stepData.return_value !== undefined) state.returnValue = stepData.return_value;
     }
 
-    /* 7. clear_all_frames */
+
     function handleClearAllFrames() {
         state.stackFrames = [];
         // Data segment persists
     }
 
-    /* 8. data_segment_update (create_data_segment_variable) */
+
     function handleDataSegmentUpdate(dsu) {
         if (!dsu || dsu.action !== 'create_data_segment_variable') return;
 
@@ -420,17 +394,13 @@ window.VisualizationEngine = (function () {
         rebuildDataSegment();
     }
 
-    /* -- DS rebuild helper -- */
+
     function rebuildDataSegment() {
         var all = [];
         state.dataSegmentFrames.forEach(function (f) { all = all.concat(f.variables); });
         state.dataSegment = all;
     }
 
-    /* ===================================================
-       STEP EXECUTOR
-       Given a step JSON object, update state accordingly.
-    =================================================== */
     function executeStep(stepData) {
         if (!stepData) return;
 
@@ -480,7 +450,7 @@ window.VisualizationEngine = (function () {
         }
     }
 
-    /* Execute all steps up to index (1-based) */
+
     function executeUpTo(steps, targetStep) {
         _frameCounter = 0;
         state = createInitialState();
@@ -493,7 +463,7 @@ window.VisualizationEngine = (function () {
         return state;
     }
 
-    /* ------- Public API ------- */
+
     return {
         createInitialState: createInitialState,
         executeStep: executeStep,

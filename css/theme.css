@@ -1,12 +1,8 @@
-/* ============================================
-   Theme System - Central Theme Configuration
-   Two themes: Dark (default) and Light
-   All styling values come from these variables
-   ============================================ */
 
-/* ---- Dark Theme (Default) ---- */
+
+
 [data-theme="dark"] {
-    /* Surface Colors (Backgrounds) */
+
     --surface-base: #020203;
     --surface-raised: #050509;
     --surface-overlay: #0d0d13;
@@ -14,19 +10,19 @@
     --surface-hover: #1d1d28;
     --surface-active: #252532;
 
-    /* Text Colors */
+
     --text-primary: #ffffff;
     --text-secondary: rgba(255, 255, 255, 0.85);
     --text-muted: rgba(255, 255, 255, 0.65);
     --text-disabled: rgba(255, 255, 255, 0.4);
     --text-inverse: #020203;
 
-    /* Border Colors */
+
     --border-default: rgba(255, 255, 255, 0.1);
     --border-subtle: rgba(255, 255, 255, 0.05);
     --border-focus: #0ea5e9;
 
-    /* Accent Colors */
+
     --accent-green: #00d4aa;
     --accent-green-glow: #00ffcc;
     --accent-blue: #0ea5e9;
@@ -41,50 +37,50 @@
     --accent-teal: #2dd4bf;
     --accent-indigo: #818cf8;
 
-    /* Glass Overlays */
+
     --glass-subtle: rgba(255, 255, 255, 0.03);
     --glass-light: rgba(255, 255, 255, 0.05);
     --glass-medium: rgba(255, 255, 255, 0.08);
     --glass-strong: rgba(255, 255, 255, 0.1);
     --glass-heavy: rgba(255, 255, 255, 0.15);
 
-    /* Dark Overlays */
+
     --dark-subtle: rgba(0, 0, 0, 0.1);
     --dark-light: rgba(0, 0, 0, 0.2);
     --dark-medium: rgba(0, 0, 0, 0.4);
     --dark-strong: rgba(0, 0, 0, 0.6);
     --dark-heavy: rgba(0, 0, 0, 0.85);
 
-    /* Language Colors */
+
     --lang-c: #3b82f6;
     --lang-cpp: #a855f7;
     --lang-java: #f97316;
     --lang-python: #22c55e;
     --lang-javascript: #eab308;
 
-    /* Syntax Highlighting */
-    --syntax-keyword:      #ff79c6;   /* hot pink       */
-    --syntax-function:     #61dafb;   /* bright cyan    */
-    --syntax-string:       #a8ff78;   /* bright lime    */
-    --syntax-comment:      #6272a4;   /* muted blue     */
-    --syntax-type:         #ffb86c;   /* bright orange  */
-    --syntax-number:       #bd93f9;   /* light purple   */
-    --syntax-constant:     #ff5555;   /* coral red      */
-    --syntax-builtin:      #8be9fd;   /* sky blue       */
-    --syntax-class:        #f1fa8c;   /* bright yellow  */
-    --syntax-variable:     #9ad0ff;   /* light blue     */
-    --syntax-operator:     #ff79c6;   /* hot pink       */
-    --syntax-punctuation:  #9ca3af;
-    --syntax-preprocessor: #ffb347;   /* amber orange   */
-    --syntax-include:      #ff8fab;   /* pink           */
-    --syntax-header:       #22d3ee;   /* cyan           */
-    --syntax-print:        #ffffff;   /* white only     */
-    --syntax-decorator:    #e2c08d;   /* warm tan       */
-    --syntax-regex:        #ff9ac1;   /* soft pink      */
-    --syntax-escape:       #00e5c9;   /* bright teal    */
-    --syntax-label:        #c9e07f;   /* lime green     */
 
-    /* Code Viewer */
+    --syntax-keyword:      #ff79c6;
+    --syntax-function:     #61dafb;
+    --syntax-string:       #a8ff78;
+    --syntax-comment:      #6272a4;
+    --syntax-type:         #ffb86c;
+    --syntax-number:       #bd93f9;
+    --syntax-constant:     #ff5555;
+    --syntax-builtin:      #8be9fd;
+    --syntax-class:        #f1fa8c;
+    --syntax-variable:     #9ad0ff;
+    --syntax-operator:     #ff79c6;
+    --syntax-punctuation:  #9ca3af;
+    --syntax-preprocessor: #ffb347;
+    --syntax-include:      #ff8fab;
+    --syntax-header:       #22d3ee;
+    --syntax-print:        #ffffff;
+    --syntax-decorator:    #e2c08d;
+    --syntax-regex:        #ff9ac1;
+    --syntax-escape:       #00e5c9;
+    --syntax-label:        #c9e07f;
+
+
     --code-viewer-bg: #08080c;
     --code-viewer-header-bg: #050509;
     --code-viewer-inner-bg: #020203;
@@ -100,23 +96,23 @@
     --code-viewer-file-badge-text: rgba(255, 255, 255, 0.85);
     --code-viewer-file-badge-icon: #0ea5e9;
 
-    /* Visualizer */
+
     --visualizer-dot-color: rgba(255, 255, 255, 0.1);
     --visualizer-grid-color: rgba(255, 255, 255, 0.03);
     --canvas-bg: #131316;
     --canvas-border: #18b527;
 
-    /* Traffic Lights */
+
     --traffic-red: #ff5f57;
     --traffic-yellow: #febc2e;
     --traffic-green: #28c840;
 
-    /* Controller */
+
     --controller-bg: #0d0d13;
     --controller-play-bg: linear-gradient(180deg, #0ea5e9 0%, #22d3ee 100%);
     --controller-play-glow: rgba(14, 165, 233, 0.55);
 
-    /* Shadows */
+
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.5);
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.5);
     --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.5);
@@ -127,19 +123,19 @@
     --shadow-glow-blue: 0 0 20px rgba(56, 189, 248, 0.25);
     --shadow-glow-purple: 0 0 20px rgba(192, 132, 252, 0.25);
 
-    /* Gradients */
+
     --gradient-logo: linear-gradient(135deg, #00d4aa, #0ea5e9, #a855f7);
     --gradient-accent: linear-gradient(90deg, #00d4aa, #0ea5e9);
     --gradient-text: linear-gradient(90deg, #fff, #fff, rgba(255, 255, 255, 0.7));
 
-    /* Scrollbar */
+
     --scrollbar-thumb: rgba(255, 255, 255, 0.1);
     --scrollbar-thumb-hover: rgba(255, 255, 255, 0.2);
 }
 
-/* ---- Light Theme ---- */
+
 [data-theme="light"] {
-    /* Surface Colors — soft neutral white */
+
     --surface-base: #fafafa;
     --surface-raised: #fcfcfc;
     --surface-overlay: #f5f5f5;
@@ -147,19 +143,19 @@
     --surface-hover: #ebebeb;
     --surface-active: #e0e0e0;
 
-    /* Text Colors — neutral dark */
+
     --text-primary: #1a1a1a;
     --text-secondary: #4a4a4a;
     --text-muted: #888888;
     --text-disabled: #b8b8b8;
     --text-inverse: #ffffff;
 
-    /* Border Colors — light gray */
+
     --border-default: #d8d8d8;
     --border-subtle: #efefef;
     --border-focus: #337FF4;
 
-    /* Accent Colors — full palette */
+
     --accent-green: #87D74B;
     --accent-green-glow: #a3e86a;
     --accent-blue: #337FF4;
@@ -174,50 +170,50 @@
     --accent-teal: #4A8C35;
     --accent-indigo: #905DE6;
 
-    /* Glass Overlays — neutral overlay */
+
     --glass-subtle: rgba(26, 26, 26, 0.03);
     --glass-light: rgba(26, 26, 26, 0.05);
     --glass-medium: rgba(26, 26, 26, 0.08);
     --glass-strong: rgba(26, 26, 26, 0.12);
     --glass-heavy: rgba(26, 26, 26, 0.18);
 
-    /* Dark Overlays */
+
     --dark-subtle: rgba(26, 26, 26, 0.05);
     --dark-light: rgba(26, 26, 26, 0.1);
     --dark-medium: rgba(26, 26, 26, 0.2);
     --dark-strong: rgba(26, 26, 26, 0.4);
     --dark-heavy: rgba(26, 26, 26, 0.6);
 
-    /* Language Colors — palette */
+
     --lang-c: #337FF4;
     --lang-cpp: #905DE6;
     --lang-java: #F4802B;
     --lang-python: #4A8C35;
     --lang-javascript: #F9C93D;
 
-    /* Syntax Highlighting — vibrant & readable */
-    --syntax-keyword:      #E25A4C;   /* coral red      */
-    --syntax-function:     #337FF4;   /* blue           */
-    --syntax-string:       #4A8C35;   /* forest green   */
-    --syntax-comment:      #888888;   /* neutral gray   */
-    --syntax-type:         #F4802B;   /* orange         */
-    --syntax-number:       #905DE6;   /* purple         */
-    --syntax-constant:     #E25A4C;   /* coral          */
-    --syntax-builtin:      #337FF4;   /* blue           */
-    --syntax-class:        #b8860b;   /* dark gold      */
-    --syntax-variable:     #2d1a10;   /* dark           */
-    --syntax-operator:     #E25A4C;   /* coral          */
-    --syntax-punctuation:  #4a4a4a;   /* neutral dark   */
-    --syntax-preprocessor: #F4802B;   /* orange         */
-    --syntax-include:      #F690A4;   /* pink           */
-    --syntax-header:       #337FF4;   /* blue           */
-    --syntax-print:        #1a1a1a;   /* dark           */
-    --syntax-decorator:    #F4802B;   /* orange         */
-    --syntax-regex:        #E25A4C;   /* coral          */
-    --syntax-escape:       #87D74B;   /* light green    */
-    --syntax-label:        #4A8C35;   /* forest green   */
 
-    /* Code Viewer — neutral white panels */
+    --syntax-keyword:      #E25A4C;
+    --syntax-function:     #337FF4;
+    --syntax-string:       #4A8C35;
+    --syntax-comment:      #888888;
+    --syntax-type:         #F4802B;
+    --syntax-number:       #905DE6;
+    --syntax-constant:     #E25A4C;
+    --syntax-builtin:      #337FF4;
+    --syntax-class:        #b8860b;
+    --syntax-variable:     #2d1a10;
+    --syntax-operator:     #E25A4C;
+    --syntax-punctuation:  #4a4a4a;
+    --syntax-preprocessor: #F4802B;
+    --syntax-include:      #F690A4;
+    --syntax-header:       #337FF4;
+    --syntax-print:        #1a1a1a;
+    --syntax-decorator:    #F4802B;
+    --syntax-regex:        #E25A4C;
+    --syntax-escape:       #87D74B;
+    --syntax-label:        #4A8C35;
+
+
     --code-viewer-bg: #f5f5f5;
     --code-viewer-header-bg: #f0f0f0;
     --code-viewer-inner-bg: #fcfcfc;
@@ -233,23 +229,23 @@
     --code-viewer-file-badge-text: #4a4a4a;
     --code-viewer-file-badge-icon: #337FF4;
 
-    /* Visualizer — neutral dot */
+
     --visualizer-dot-color: rgba(26, 26, 26, 0.12);
     --visualizer-grid-color: rgba(26, 26, 26, 0.04);
     --canvas-bg: #fcfcfc;
     --canvas-border: #87D74B;
 
-    /* Traffic Lights */
+
     --traffic-red: #ff5f57;
     --traffic-yellow: #febc2e;
     --traffic-green: #28c840;
 
-    /* Controller */
+
     --controller-bg: #f5f5f5;
     --controller-play-bg: linear-gradient(180deg, #F4802B 0%, #F9C93D 100%);
     --controller-play-glow: rgba(244, 128, 43, 0.4);
 
-    /* Shadows — subtle neutral */
+
     --shadow-sm: 0 1px 3px rgba(26, 26, 26, 0.08);
     --shadow-md: 0 4px 8px rgba(26, 26, 26, 0.1);
     --shadow-lg: 0 10px 20px rgba(26, 26, 26, 0.1);
@@ -260,12 +256,12 @@
     --shadow-glow-blue: 0 0 15px rgba(51, 127, 244, 0.25);
     --shadow-glow-purple: 0 0 15px rgba(144, 93, 230, 0.25);
 
-    /* Gradients — palette-driven */
+
     --gradient-logo: linear-gradient(135deg, #F4802B, #905DE6, #337FF4);
     --gradient-accent: linear-gradient(90deg, #F4802B, #F9C93D);
     --gradient-text: linear-gradient(90deg, #1a1a1a, #4a4a4a, rgba(74, 74, 74, 0.6));
 
-    /* Scrollbar */
+
     --scrollbar-thumb: rgba(26, 26, 26, 0.2);
     --scrollbar-thumb-hover: rgba(26, 26, 26, 0.35);
 }

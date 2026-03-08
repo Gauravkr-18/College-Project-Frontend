@@ -1,15 +1,6 @@
-/* ============================================
-   Visualization Renderer — DOM rendering for
-   Stack Memory + Data Segment panels.
-   Same visual design as CodeLens (React) but vanilla JS.
-   Exposed globally as window.VisualizationRenderer
-
-   Dependencies: config.js (escapeHtml, loaded first)
-   ============================================ */
 window.VisualizationRenderer = (function () {
     'use strict';
 
-    // Uses global escapeHtml() from config.js — single shared implementation
     var stackContainer = null;   // #visStackColumn .vis-memory-container
     var dsContainer    = null;   // #visDataSegment .vis-memory-container
 
@@ -17,7 +8,7 @@ window.VisualizationRenderer = (function () {
     var stackBody = null;
     var dsBody    = null;
 
-    /* ------- Initialization ------- */
+
     function init() {
         stackContainer = document.querySelector('#visStackColumn .vis-memory-container');
         dsContainer    = document.querySelector('#visDataSegment .vis-memory-container');
@@ -41,11 +32,6 @@ window.VisualizationRenderer = (function () {
         }
     }
 
-    /* ===================================================
-       RENDER from current engine state
-       Called by AnimationController.renderStep after
-       the engine executes the step.
-    =================================================== */
     function render(state) {
         if (!stackBody) init();
         if (!state) return;
@@ -55,7 +41,7 @@ window.VisualizationRenderer = (function () {
         renderTerminal(state.terminalOutput);
     }
 
-    /* ------- Clear all rendered frames ------- */
+
     function clear() {
         if (stackBody) stackBody.innerHTML = '';
         if (dsBody)    dsBody.innerHTML = '';
@@ -65,12 +51,6 @@ window.VisualizationRenderer = (function () {
         if (contentEl) contentEl.innerHTML = '';
     }
 
-    /* ===================================================
-       STACK FRAMES RENDERING
-       Renders frames left-to-right: index 0 (main) on
-       the left, index N-1 (top/newest) on the right.
-       Arrow connectors between frames — matches CodeLens.
-    =================================================== */
     function renderStackFrames(frames) {
         if (!stackBody) return;
         stackBody.innerHTML = '';
@@ -94,10 +74,6 @@ window.VisualizationRenderer = (function () {
         autoScrollActiveFrame(stackBody);
     }
 
-    /* ===================================================
-       DATA SEGMENT RENDERING
-       Separate Global and Static frames
-    =================================================== */
     function renderDataSegment(dsFrames) {
         if (!dsBody) return;
         dsBody.innerHTML = '';
@@ -112,9 +88,6 @@ window.VisualizationRenderer = (function () {
         refreshIcons(dsBody);
     }
 
-    /* ===================================================
-       CREATE STACK FRAME DOM ELEMENT
-    =================================================== */
     function createFrameElement(frame, isTop, isDS) {
         var el = document.createElement('div');
         el.className = 'vis-stack-frame' + (isTop ? ' vis-stack-frame--top' : '') + (frame.isTemporary ? ' vis-stack-frame--temp' : '');
@@ -159,9 +132,6 @@ window.VisualizationRenderer = (function () {
         return el;
     }
 
-    /* ===================================================
-       CREATE DATA SEGMENT FRAME DOM ELEMENT
-    =================================================== */
     function createDSFrameElement(frame, isGlobal) {
         var el = document.createElement('div');
         el.className = 'vis-ds-frame' + (isGlobal ? ' vis-ds-frame--global' : ' vis-ds-frame--static');
@@ -184,11 +154,6 @@ window.VisualizationRenderer = (function () {
         return el;
     }
 
-    /* ===================================================
-       CREATE VARIABLE DOM ELEMENT
-       Renders: Name | Size | Value box | Address
-       Matches CodeLens VariableList component exactly.
-    =================================================== */
     function createVariableElement(v) {
         var box = document.createElement('div');
         box.className = 'vis-var-box' + (v.isHighlighted ? ' vis-var-box--highlighted' : '');
@@ -250,7 +215,7 @@ window.VisualizationRenderer = (function () {
         return box;
     }
 
-    /* ------- 1D Array ------- */
+
     function createArray1D(v) {
         var wrap = document.createElement('div');
         wrap.className = 'vis-array-1d';
@@ -313,7 +278,7 @@ window.VisualizationRenderer = (function () {
         return wrap;
     }
 
-    /* ------- 2D Array ------- */
+
     function createArray2D(v) {
         var wrap = document.createElement('div');
         wrap.className = 'vis-array-2d';
@@ -409,14 +374,13 @@ window.VisualizationRenderer = (function () {
         return wrap;
     }
 
-    /* ------- Terminal output (macOS floating window) ------- */
+
     function renderTerminal(output) {
         var win = document.getElementById('visTerminalWindow');
         var contentEl = document.getElementById('visTerminalContent');
         if (!win || !contentEl) return;
 
         if (output) {
-            // Build lines
             var html = '<div class="vis-term-line"><span class="vis-term-prompt">$</span><span class="vis-term-text">' + escapeHtml(output) + '</span></div>';
             html += '<div class="vis-term-line"><span class="vis-term-prompt">$</span><span class="vis-term-cursor"></span></div>';
             contentEl.innerHTML = html;
@@ -429,10 +393,7 @@ window.VisualizationRenderer = (function () {
         }
     }
 
-    /* ------- Helpers ------- */
-    // escapeHtml() — uses global from config.js (avoids duplicate implementation)
 
-    /** Scoped Lucide icon refresh — limits DOM scan to a specific subtree */
     function refreshIcons(root) {
         if (window.lucide) {
             try { lucide.createIcons({ rootElement: root }); } catch (_) {}
@@ -448,7 +409,7 @@ window.VisualizationRenderer = (function () {
         }
     }
 
-    /* ------- Public API ------- */
+
     return {
         init: init,
         render: render,

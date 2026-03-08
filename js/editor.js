@@ -1,14 +1,3 @@
-/* ============================================
-   Editor Page — Code Viewer Interactions
-   Copy code | Reset | Resizer drag (20-30%)
-
-   Responsibilities:
-     - Toolbar buttons: copy, reset, fullscreen, expand
-     - Resizer drag between code panel & visualizer
-     - Visualizer tab switching (Stack / DS)
-     - Initializes AnimationController on page load
-   ============================================ */
-
 (function () {
     'use strict';
 
@@ -29,10 +18,8 @@
     var defaultBadgeHTML = '';
     var activeVisType    = 'stack';
 
-    // AnimationController is now in animation-controller.js
     var AnimCtrl = window.AnimationController;
 
-    /* ---- Bootstrap ---- */
     function init() {
         codePanel = document.querySelector('.code-panel');
         resizer   = document.querySelector('.resizer');
@@ -50,7 +37,7 @@
             var extEl  = badgeSpan.querySelector('.ext');
             var ext    = extEl ? extEl.textContent : '';
             var base   = badgeSpan.firstChild ? (badgeSpan.firstChild.textContent || '') : '';
-            badgeSpan.innerHTML = truncateFileName(base.trim()) + '<span class="ext">' + escapeHtml(ext) + '</span>';
+            badgeSpan.innerHTML = escapeHtml(truncateFileName(base.trim())) + '<span class="ext">' + escapeHtml(ext) + '</span>';
             defaultBadgeHTML = badgeSpan.innerHTML;
         }
 
@@ -78,11 +65,6 @@
         AnimCtrl.init();
     }
 
-    /* ====================================================
-       VISUALIZER TABS
-       Enables Stack / Data Structure tab switching and
-       keeps popup example type in sync.
-    ==================================================== */
     function initVisualizerTabs() {
         var tabs = document.querySelectorAll('.vis-tab[data-vis-type]');
         var panes = document.querySelectorAll('.vis-pane[data-vis-pane]');
@@ -135,11 +117,6 @@
         applyTab(activeVisType, false);
     }
 
-    /* ====================================================
-       COPY CODE
-       Reads text from every .code-text span and joins
-       with newlines, then writes to clipboard.
-    ==================================================== */
     function handleCopy() {
         var spans = document.querySelectorAll('.code-content .code-text');
         var text  = Array.prototype.map.call(spans, function (s) {
@@ -178,11 +155,6 @@
         }, 1500);
     }
 
-    /* ====================================================
-       RESET CODE
-       Restores the code-content innerHTML that was saved
-       on page load, so any loaded example is cleared.
-    ==================================================== */
     function handleReset() {
         var codeContent = document.querySelector('.code-content');
         var infoEl      = document.querySelector('.code-container-header .info');
@@ -194,11 +166,6 @@
         if (window.lucide) lucide.createIcons();
     }
 
-    /* ====================================================
-       FULLSCREEN
-       Toggles browser fullscreen; icon swaps between
-       maximize (enter) and minimize (exit).
-    ==================================================== */
     function handleFullscreen() {
         if (!document.fullscreenElement) {
             document.documentElement.requestFullscreen().catch(function () {});
@@ -222,10 +189,6 @@
         if (window.lucide) lucide.createIcons();
     }
 
-    /* ====================================================
-       RESIZER DRAG  (20% – 30% of editor-container)
-       Text selection is disabled for the entire drag.
-    ==================================================== */
     function onResizerDown(e) {
         e.preventDefault();
         isDragging  = true;
@@ -261,7 +224,6 @@
         document.removeEventListener('mouseup',   onMouseUp);
     }
 
-    /* ---- Init ---- */
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {

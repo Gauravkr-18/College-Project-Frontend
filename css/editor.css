@@ -1,10 +1,6 @@
-/* ============================================
-   Editor Page Styles - Layout Only
-   Code Viewer (25%) | Resizer | Visualizer (75%)
-   Production exact match
-   ============================================ */
 
-/* ---- Header Padding Override (Editor page only) ---- */
+
+
 .editor-page .header-container {
     padding: 10px 24px !important;
 }
@@ -15,7 +11,7 @@
     }
 }
 
-/* ---- Editor Page Layout ---- */
+
 .editor-page {
     display: flex;
     flex-direction: column;
@@ -41,11 +37,7 @@
     overflow: hidden;
 }
 
-/* ============================================
-   CODE VIEWER PANEL (Left)
-   Outer: bg #08080c, radius xl(16px)
-   Inner: bg base, radius lg(12px), margin 8px
-   ============================================ */
+
 .code-panel {
     width: 25%;
     height: 100%;
@@ -64,7 +56,7 @@
     overflow: hidden;
 }
 
-/* Code Viewer Header - 40px with traffic lights + file badge */
+
 .code-viewer-header {
     height: 40px;
     display: flex;
@@ -103,7 +95,7 @@
     z-index: 1;
 }
 
-/* Traffic Lights */
+
 .traffic-lights {
     display: flex;
     align-items: center;
@@ -131,7 +123,7 @@
     box-shadow: 0 0 6px rgba(40, 200, 64, 0.4);
 }
 
-/* File Badge */
+
 .file-badge {
     display: flex;
     align-items: center;
@@ -155,7 +147,7 @@
     margin-left: 2px;
 }
 
-/* Action Buttons (Copy, Reset, Expand) */
+
 .action-btn {
     display: flex;
     align-items: center;
@@ -178,7 +170,7 @@
     height: 14px;
 }
 
-/* Code Container (Inner) */
+
 .code-container {
     flex: 1;
     display: flex;
@@ -191,7 +183,7 @@
     box-shadow: var(--shadow-sm);
 }
 
-/* Inner Header - 28px */
+
 .code-container-header {
     height: 28px;
     display: flex;
@@ -216,7 +208,7 @@
     font-weight: 500;
 }
 
-/* Code Lines Area */
+
 .code-content {
     flex: 1;
     overflow-y: auto;
@@ -274,7 +266,7 @@
     font-weight: 500;
 }
 
-/* Syntax Colors */
+
 .syn-keyword { color: var(--syntax-keyword); }
 .syn-function { color: var(--syntax-function); }
 .syn-string { color: var(--syntax-string); }
@@ -296,10 +288,7 @@
 .syn-escape       { color: var(--syntax-escape); font-weight: 600; }
 .syn-label        { color: var(--syntax-label); }
 
-/* ============================================
-   RESIZER (Between Panels)
-   Width: 8px, 2px bar, cursor: col-resize
-   ============================================ */
+
 .resizer {
     width: 8px;
     height: 100%;
@@ -324,10 +313,7 @@
     background-color: var(--accent-blue);
 }
 
-/* ============================================
-   VISUALIZER PANEL (Right)
-   Dot-grid background, floating header
-   ============================================ */
+
 .visualizer-panel {
     flex: 1;
     height: 100%;
@@ -342,7 +328,7 @@
     user-select: none;
 }
 
-/* Floating Header Bar */
+
 .visualizer-header {
     position: absolute;
     top: 16px;
@@ -360,7 +346,7 @@
     pointer-events: auto;
 }
 
-/* View Tabs */
+
 .vis-tabs {
     display: flex;
     align-items: center;
@@ -392,16 +378,13 @@
     border-color: rgba(14, 165, 233, 0.4);
 }
 
-/* ============================================
-   STEP INFO CAPSULE
-   Floating pill below tabs — shown when example loaded
-   ============================================ */
+
 .step-info-capsule {
     display: none;
     position: absolute;
     top: 72px;
     left: 50%;
-    transform: translateX(-50%); 
+    transform: translateX(-50%);
     align-items: center;
     gap: 14px;
     padding: 10px 20px;
@@ -423,7 +406,7 @@
     display: flex;
 }
 
-/* Step badge: pill inside the capsule */
+
 .step-info-badge {
     display: flex;
     align-items: center;
@@ -446,7 +429,7 @@
     color: var(--text-muted);
 }
 
-/* Thin vertical divider */
+
 .step-info-divider {
     width: 1px;
     height: 18px;
@@ -454,7 +437,7 @@
     flex-shrink: 0;
 }
 
-/* Description text */
+
 .step-info-desc {
     color: var(--text-secondary);
     font-size: 13px;
@@ -465,18 +448,14 @@
     min-width: 0;
 }
 
-/* Light theme adjustments */
+
 [data-theme="light"] .step-info-badge {
     background-color: rgba(244, 128, 43, 0.1);
     border-color: rgba(244, 128, 43, 0.3);
     color: #F4802B;
 }
 
-/* ============================================
-   VISUALIZATION AREA — DS + Stack containers
-   Flex row: Data Segment (25%) | Stack (75%)
-   By default stack takes 100%; DS shown on demand
-   ============================================ */
+
 .vis-area {
     display: none;
     flex-direction: row;
@@ -490,7 +469,7 @@
     display: flex;
 }
 
-/* Data Segment Column (hidden until data_segment_update appears) */
+
 .vis-ds-column {
     display: none;
     flex: 0 0 20%;
@@ -502,7 +481,7 @@
     display: flex;
 }
 
-/* Stack Memory Column — fills remaining space */
+
 .vis-stack-column {
     flex: 1;
     display: flex;
@@ -511,7 +490,7 @@
     overflow: hidden;
 }
 
-/* Shared memory container card */
+
 .vis-memory-container {
     flex: 1;
     display: flex;
@@ -526,7 +505,7 @@
     position: relative;
 }
 
-/* Loading badge — top-left label */
+
 .vis-mem-label {
     position: absolute;
     top: 12px;
@@ -574,7 +553,7 @@
     border-color: rgba(168, 85, 247, 0.25);
 }
 
-/* Report issue button in animation controller */
+
 .report-issue-btn {
     color: var(--text-muted) !important;
     transition: all 150ms ease;
@@ -585,7 +564,7 @@
     background-color: rgba(234, 179, 8, 0.12) !important;
 }
 
-/* Light theme */
+
 [data-theme="light"] .vis-memory-container {
     box-shadow: var(--shadow-sm);
 }
@@ -598,16 +577,11 @@
     background-color: rgba(168, 85, 247, 0.06);
 }
 
-/* ============================================
-   END VISUALIZATION AREA
-   ============================================ */
 
-/* ============================================
-   VISUALIZATION FRAMES & VARIABLES
-   Stack frames, variable boxes, arrays, DS frames
-   ============================================ */
 
-/* --- Frames body (base: vertical for DS; --stack variant: horizontal for stack) --- */
+
+
+
 .vis-frames-body {
     flex: 1;
     display: flex;
@@ -624,7 +598,7 @@
 .vis-frames-body::-webkit-scrollbar-track { background: transparent; }
 .vis-frames-body::-webkit-scrollbar-thumb { background: var(--glass-medium); border-radius: 2px; }
 
-/* Stack variant — horizontal scrollable row matching CodeLens */
+
 .vis-frames-body--stack {
     flex-direction: row;
     align-items: flex-start;
@@ -636,13 +610,13 @@
 
 .vis-frames-body--stack::-webkit-scrollbar { height: 4px; width: auto; }
 
-/* Empty placeholder — centered within the stack body */
+
 .vis-frames-body--stack .vis-empty-msg {
     margin: auto;
     align-self: center;
 }
 
-/* --- Empty messages --- */
+
 .vis-empty-msg {
     display: flex;
     flex-direction: column;
@@ -660,7 +634,7 @@
     opacity: 0.4;
 }
 
-/* ===== STACK FRAME CARD ===== */
+
 .vis-stack-frame {
     min-width: 170px;
     width: max-content;
@@ -693,7 +667,7 @@
     background-color: rgba(234, 179, 8, 0.03);
 }
 
-/* Frame header */
+
 .vis-frame-header {
     display: flex;
     align-items: center;
@@ -739,7 +713,7 @@
     color: var(--accent-yellow);
 }
 
-/* Frame body */
+
 .vis-frame-body {
     display: flex;
     flex-direction: column;
@@ -763,7 +737,7 @@
     font-style: italic;
 }
 
-/* ===== VARIABLE BOX ===== */
+
 .vis-var-box {
     display: flex;
     flex-direction: column;
@@ -815,7 +789,7 @@
     font-weight: 500;
 }
 
-/* Value container */
+
 .vis-var-value-container {
     display: flex;
     align-items: center;
@@ -837,7 +811,7 @@
     color: var(--accent-yellow);
 }
 
-/* Address row */
+
 .vis-var-addr-row {
     display: flex;
     justify-content: flex-end;
@@ -858,7 +832,7 @@
     font-size: 8px;
 }
 
-/* ===== 1D ARRAY ===== */
+
 .vis-array-1d {
     display: flex;
     flex-direction: column;
@@ -924,7 +898,7 @@
     font-family: 'JetBrains Mono', monospace;
 }
 
-/* ===== 2D ARRAY ===== */
+
 .vis-array-2d {
     display: flex;
     flex-direction: column;
@@ -944,13 +918,13 @@
     align-items: center;
 }
 
-/* Corner spacer aligns with row labels */
+
 .vis-array-2d-corner {
     width: 28px;
     flex-shrink: 0;
 }
 
-/* Column index header labels */
+
 .vis-array-2d-col-label {
     width: 44px;
     min-width: 44px;
@@ -963,7 +937,7 @@
     flex-shrink: 0;
 }
 
-/* Row index labels on left */
+
 .vis-array-2d-row-label {
     width: 28px;
     text-align: right;
@@ -975,7 +949,7 @@
     flex-shrink: 0;
 }
 
-/* 2D cells — fixed width to align with column headers */
+
 .vis-array-2d-row .vis-array-cell {
     width: 44px;
     min-width: 44px;
@@ -983,12 +957,12 @@
     flex-shrink: 0;
 }
 
-/* Hide [r][c] index label inside 2D cells — headers already show position */
+
 .vis-array-2d-row .vis-array-cell .vis-array-idx {
     display: none;
 }
 
-/* ===== DATA SEGMENT FRAMES ===== */
+
 .vis-ds-frame {
     border-radius: 10px;
     border: 1px solid var(--border-subtle);
@@ -1044,7 +1018,7 @@
     padding: 8px;
 }
 
-/* ===== macOS FLOATING TERMINAL WINDOW ===== */
+
 .vis-terminal-window {
     display: none;
     position: absolute;
@@ -1067,7 +1041,7 @@
     display: flex;
 }
 
-/* macOS title-bar */
+
 .vis-term-header {
     display: flex;
     align-items: center;
@@ -1113,7 +1087,7 @@
     color: var(--accent-green);
 }
 
-/* Terminal body */
+
 .vis-term-body {
     flex: 1;
     padding: 14px 16px;
@@ -1165,7 +1139,7 @@
     51%, 100% { opacity: 0; }
 }
 
-/* ===== LIGHT THEME OVERRIDES ===== */
+
 [data-theme="light"] .vis-stack-frame {
     background-color: rgba(0, 0, 0, 0.01);
 }
@@ -1204,14 +1178,9 @@
     color: #1e293b;
 }
 
-/* ============================================
-   END VISUALIZATION FRAMES & VARIABLES
-   ============================================ */
 
-/* ============================================
-   END STEP OVERLAY
-   Shown when animation completes (final step)
-   ============================================ */
+
+
 .vis-end-overlay {
     display: none;
     position: absolute;
@@ -1306,7 +1275,7 @@
     height: 15px;
 }
 
-/* Next Example — blue accent */
+
 .vis-end-btn--next {
     background: rgba(14, 165, 233, 0.12);
     border-color: rgba(14, 165, 233, 0.4);
@@ -1320,7 +1289,7 @@
     box-shadow: 0 0 16px rgba(14, 165, 233, 0.2);
 }
 
-/* Browse Examples — ghost */
+
 .vis-end-btn--browse {
     background: var(--glass-medium);
     border-color: var(--border-subtle);
@@ -1333,7 +1302,7 @@
     border-color: var(--border-default);
 }
 
-/* Light theme */
+
 [data-theme="light"] .vis-end-overlay {
     background: rgba(245, 245, 245, 0.5);
 }
@@ -1365,10 +1334,7 @@
     display: block;
 }
 
-/* ============================================
-   VISUALIZER PLACEHOLDERS
-   Rich designed empty states for each tab
-   ============================================ */
+
 
 .vis-placeholder {
     display: flex;
@@ -1381,7 +1347,7 @@
     text-align: center;
 }
 
-/* ---- Icon box ---- */
+
 .vis-ph-icon {
     width: 72px;
     height: 72px;
@@ -1411,7 +1377,7 @@
     box-shadow: 0 0 32px rgba(168, 85, 247, 0.14);
 }
 
-/* ---- Text ---- */
+
 .vis-ph-title {
     font-size: 17px;
     font-weight: 700;
@@ -1427,7 +1393,7 @@
     margin: -4px 0 4px;
 }
 
-/* ---- Diagram container ---- */
+
 .vis-ph-diagram {
     border-radius: 14px;
     border: 1px solid var(--border-subtle);
@@ -1435,7 +1401,7 @@
     padding: 14px 18px;
 }
 
-/* ========= STACK DIAGRAM ========= */
+
 .vis-ph-diagram--stack {
     min-width: 280px;
     max-width: 320px;
@@ -1511,7 +1477,7 @@
     color: var(--text-disabled);
 }
 
-/* ========= DS DIAGRAM ========= */
+
 .vis-ph-diagram--ds {
     display: flex;
     flex-direction: column;
@@ -1583,7 +1549,7 @@
     font-family: 'JetBrains Mono', monospace;
 }
 
-/* ---- Feature tags ---- */
+
 .vis-ph-tags {
     display: flex;
     flex-wrap: wrap;
@@ -1604,19 +1570,19 @@
     border: 1px solid var(--border-subtle);
 }
 
-/* Stack tag colours */
+
 .vis-ph-tag--blue   { background: rgba(14,165,233,0.12);  border-color: rgba(14,165,233,0.3);  color: #38bdf8; }
 .vis-ph-tag--cyan   { background: rgba(34,211,238,0.12);  border-color: rgba(34,211,238,0.3);  color: #22d3ee; }
 .vis-ph-tag--teal   { background: rgba(45,212,191,0.12);  border-color: rgba(45,212,191,0.3);  color: #2dd4bf; }
 .vis-ph-tag--indigo { background: rgba(129,140,248,0.12); border-color: rgba(129,140,248,0.3); color: #818cf8; }
 
-/* DS tag colours */
+
 .vis-ph-tag--purple { background: rgba(168,85,247,0.12);  border-color: rgba(168,85,247,0.3);  color: #c084fc; }
 .vis-ph-tag--pink   { background: rgba(236,72,153,0.12);  border-color: rgba(236,72,153,0.3);  color: #f472b6; }
 .vis-ph-tag--orange { background: rgba(249,115,22,0.12);  border-color: rgba(249,115,22,0.3);  color: #fb923c; }
 .vis-ph-tag--yellow { background: rgba(234,179,8,0.12);   border-color: rgba(234,179,8,0.3);   color: #facc15; }
 
-/* ---- CTA button ---- */
+
 .vis-ph-btn {
     display: inline-flex;
     align-items: center;
@@ -1638,7 +1604,7 @@
     height: 14px;
 }
 
-/* Stack CTA — blue */
+
 .vis-ph-btn--stack {
     background: rgba(14, 165, 233, 0.1);
     border-color: rgba(14, 165, 233, 0.35);
@@ -1651,7 +1617,7 @@
     box-shadow: 0 0 18px rgba(14, 165, 233, 0.2);
 }
 
-/* DS CTA — purple */
+
 .vis-ph-btn--ds {
     background: rgba(168, 85, 247, 0.1);
     border-color: rgba(168, 85, 247, 0.35);
@@ -1664,7 +1630,7 @@
     box-shadow: 0 0 18px rgba(168, 85, 247, 0.2);
 }
 
-/* Light theme adjustments */
+
 [data-theme="light"] .vis-ph-icon--stack {
     background: rgba(14, 165, 233, 0.08);
     box-shadow: 0 0 20px rgba(14, 165, 233, 0.1);
@@ -1691,10 +1657,7 @@
     border-color: rgba(244, 128, 43, 0.4);
 }
 
-/* ============================================
-   ANIMATION CONTROLLER (Bottom Bar)
-   Floating glassmorphic pill — Theme-aware design
-   ============================================ */
+
 .animation-controller {
     display: none;
     position: fixed;
@@ -1724,7 +1687,7 @@
     display: flex;
 }
 
-/* ---- Play Button — theme-aware gradient ---- */
+
 .play-btn {
     width: 40px;
     height: 40px;
@@ -1765,7 +1728,7 @@
     stroke: none;
 }
 
-/* ---- Ghost control buttons ---- */
+
 .ctrl-btn {
     display: flex;
     align-items: center;
@@ -1808,7 +1771,7 @@
     pointer-events: none;
 }
 
-/* ---- Divider ---- */
+
 .ctrl-divider {
     width: 1px;
     height: 22px;
@@ -1818,7 +1781,7 @@
     opacity: 0.5;
 }
 
-/* ---- Progress slider ---- */
+
 .step-slider-wrapper {
     position: relative;
     display: flex;
@@ -1894,7 +1857,7 @@
     transform: translate(-50%, -50%) scale(1.25);
 }
 
-/* ---- Step Bar Markers ---- */
+
 .slider-marker {
     position: absolute;
     top: 50%;
@@ -1977,7 +1940,7 @@
     box-shadow: 0 0 8px rgba(51, 127, 244, 0.5);
 }
 
-/* ---- Speed Control ---- */
+
 .speed-wrapper {
     position: relative;
     flex-shrink: 0;
@@ -2019,7 +1982,7 @@
     height: 14px;
 }
 
-/* Speed dropdown — floats above */
+
 .speed-dropdown {
     display: none;
     position: absolute;
@@ -2085,7 +2048,7 @@
     color: #fff;
 }
 
-/* ---- Step Counter ---- */
+
 .step-counter {
     display: flex;
     align-items: center;
@@ -2131,7 +2094,7 @@
     color: rgba(26, 26, 26, 0.25);
 }
 
-/* Play/Pause Button */
+
 .play-btn {
     width: 40px;
     height: 40px;
@@ -2158,7 +2121,7 @@
     height: 20px;
 }
 
-/* Controller Divider */
+
 .ctrl-divider {
     width: 1px;
     height: 28px;
@@ -2167,7 +2130,7 @@
     flex-shrink: 0;
 }
 
-/* Control Buttons (Prev, Next, Reset) */
+
 .ctrl-btn {
     display: flex;
     align-items: center;
@@ -2192,7 +2155,7 @@
     height: 16px;
 }
 
-/* Speed Control */
+
 .speed-control {
     display: flex;
     align-items: center;
@@ -2219,7 +2182,7 @@
     height: 14px;
 }
 
-/* ---- Responsive ---- */
+
 @media (max-width: 768px) {
     .editor-main {
         padding: 8px;
@@ -2267,7 +2230,7 @@
         height: 18px;
     }
 
-    /* Code viewer header - compact on mobile */
+
     .code-viewer-header {
         padding: 0 8px;
         height: 36px;
@@ -2294,7 +2257,7 @@
         font-size: 10px;
     }
 
-    /* Visualizer header - smaller tabs */
+
     .vis-tabs {
         padding: 3px;
     }
@@ -2378,7 +2341,7 @@
     }
 }
 
-/* ---- Guest run counter badge ---- */
+
 .guest-run-badge {
     position: absolute;
     top: 16px;

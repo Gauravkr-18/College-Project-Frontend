@@ -1,8 +1,3 @@
-/* ============================================
-   Category Colors — Single source of truth
-   Maps category names to background/text colors
-   Used by SyntaxHighlighter.catColor() and popups
-   ============================================ */
 var CategoryColors = (function () {
     'use strict';
 

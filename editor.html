@@ -23,9 +23,9 @@
         }
       }
     </style>
-    <!-- Lucide Icons CDN -->
+
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    <!-- Vercel Web Analytics -->
+
     <script>
       window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
@@ -33,11 +33,11 @@
   </head>
   <body>
     <div class="editor-page">
-      <!-- ============ HEADER ============ -->
+
       <header class="header">
         <div class="header-container">
           <div class="header-content">
-            <!-- Logo (Left) -->
+
             <a href="index.html" class="logo">
               <div class="logo-icon-wrapper">
                 <img
@@ -130,7 +130,7 @@
               </div>
             </a>
 
-            <!-- Mobile Menu Button (visible on mobile only) -->
+
             <button
               class="mobile-menu-btn"
               onclick="toggleMobileMenu()"
@@ -139,9 +139,9 @@
               <svg data-lucide="menu"></svg>
             </button>
 
-            <!-- Navigation Bar (Center) -->
+
             <nav class="nav-bar">
-              <!-- Editor -->
+
               <a href="editor.html" class="nav-button active">
                 <svg class="nav-icon" data-lucide="code"></svg>
                 Editor
@@ -149,7 +149,7 @@
 
               <div class="nav-divider"></div>
 
-              <!-- Examples (with Dropdown) -->
+
               <div class="nav-dropdown-wrapper" data-dropdown="examples">
                 <button class="nav-button" aria-expanded="false">
                   <svg class="nav-icon" data-lucide="book-open"></svg>
@@ -204,9 +204,9 @@
               </div>
             </nav>
 
-            <!-- Header Actions (Right) -->
+
             <div class="header-actions">
-              <!-- Search -->
+
               <div
                 class="search-input-wrapper"
                 id="globalSearchWrapper"
@@ -238,7 +238,7 @@
                   <svg data-lucide="x" style="width: 14px; height: 14px"></svg>
                 </button>
 
-                <!-- Search Dropdown -->
+
                 <div class="search-dropdown" id="searchDropdown">
                   <div class="search-results-list" id="searchResultsList"></div>
                   <div class="search-dropdown-footer">
@@ -255,19 +255,19 @@
 
               <div class="header-divider"></div>
 
-              <!-- History -->
+
               <button class="icon-btn" id="historyBtn" title="History">
                 <svg data-lucide="history"></svg>
               </button>
 
-              <!-- Fullscreen -->
+
               <button class="icon-btn" title="Fullscreen">
                 <svg data-lucide="maximize"></svg>
               </button>
 
               <div class="header-divider"></div>
 
-              <!-- Theme Toggle -->
+
               <button
                 class="theme-toggle"
                 id="themeToggle"
@@ -276,13 +276,13 @@
                 <svg data-lucide="moon"></svg>
               </button>
 
-              <!-- Login / Signup (shown when logged out) -->
+
               <button class="login-btn">
                 <svg data-lucide="user"></svg>
                 Login / Signup
               </button>
 
-              <!-- User Profile (shown when logged in) -->
+
               <div class="profile-dropdown-wrapper">
                 <button class="profile-btn">
                   <div class="profile-avatar">?</div>
@@ -326,13 +326,13 @@
         </div>
       </header>
 
-      <!-- ============ EDITOR MAIN AREA ============ -->
+
       <main class="editor-main">
         <div class="editor-container">
-          <!-- ====== CODE VIEWER PANEL (Left - 25%) ====== -->
+
           <section class="code-panel">
             <div class="code-viewer">
-              <!-- Header: Traffic Lights + File Badge + Actions -->
+
               <div class="code-viewer-header">
                 <div class="code-viewer-header-left">
                   <div class="traffic-lights">
@@ -360,14 +360,14 @@
                 </div>
               </div>
 
-              <!-- Inner Code Container -->
+
               <div class="code-container">
                 <div class="code-container-header">
                   <span class="label">Source Code</span>
                   <span class="info">C · 7 lines</span>
                 </div>
                 <div class="code-content">
-                  <!-- Welcome Code -->
+
                   <div class="code-line"><span class="line-number">1</span><span class="code-text"><span class="syn-keyword">#include</span> <span class="syn-string">&lt;stdio.h&gt;</span></span></div>
                   <div class="code-line"><span class="line-number">2</span><span class="code-text"></span></div>
                   <div class="code-line"><span class="line-number">3</span><span class="code-text"><span class="syn-type">int</span> <span class="syn-function">main</span>() {</span></div>
@@ -380,16 +380,16 @@
             </div>
           </section>
 
-          <!-- ====== RESIZER ====== -->
+
           <div class="resizer">
             <div class="resizer-bar"></div>
           </div>
 
-          <!-- ====== VISUALIZER PANEL (Right - flex 1) ====== -->
+
           <section class="visualizer-panel">
-            <!-- Floating Header -->
+
             <div class="visualizer-header">
-              <!-- Center: Tabs -->
+
               <div class="vis-tabs">
                 <button class="vis-tab active" data-vis-type="stack">
                   Stack
@@ -400,13 +400,13 @@
               </div>
             </div>
 
-            <!-- Guest free-run counter (top-right, hidden for logged-in users) -->
+
             <div class="guest-run-badge" id="guestRunBadge" style="display:none;">
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
               <span id="guestRunText">5 free runs left</span>
             </div>
 
-            <!-- Step Description Capsule (shown when example loaded) -->
+
             <div class="step-info-capsule" id="stepInfoCapsule">
               <div class="step-info-badge">
                 <span class="step-info-word">Step</span>
@@ -420,7 +420,7 @@
               >
             </div>
 
-            <!-- End Step Overlay (shown when final step reached) -->
+
             <div class="vis-end-overlay" id="visEndOverlay">
               <div class="vis-end-card">
                 <div class="vis-end-checkmark">
@@ -450,13 +450,13 @@
               </div>
             </div>
 
-            <!-- Visualization Content Area -->
+
             <div class="vis-content">
-              <!-- ===== STACK PANE ===== -->
+
               <div class="vis-pane active" data-vis-pane="stack">
-                <!-- ===== VISUALIZATION AREA (shown when example loaded) ===== -->
+
                 <div class="vis-area" id="visArea">
-                  <!-- Data Segment Container (left, 25%) — hidden by default -->
+
                   <div class="vis-ds-column" id="visDataSegment">
                     <div class="vis-memory-container vis-memory-container--ds">
                       <div class="vis-mem-label">
@@ -466,7 +466,7 @@
                     </div>
                   </div>
 
-                  <!-- Stack Memory Container (right, takes remaining space) -->
+
                   <div class="vis-stack-column" id="visStackColumn">
                     <div
                       class="vis-memory-container vis-memory-container--stack"
@@ -478,7 +478,7 @@
                     </div>
                   </div>
 
-                  <!-- macOS-style floating terminal output window -->
+
                   <div class="vis-terminal-window" id="visTerminalWindow">
                     <div class="vis-term-header" id="visTermHeader">
                       <div class="vis-term-controls">
@@ -516,19 +516,19 @@
                 </div>
 
                 <div class="vis-placeholder vis-placeholder--stack">
-                  <!-- Icon -->
+
                   <div class="vis-ph-icon vis-ph-icon--stack">
                     <svg data-lucide="layers"></svg>
                   </div>
 
-                  <!-- Heading -->
+
                   <h3 class="vis-ph-title">Stack Visualization</h3>
                   <p class="vis-ph-desc">
                     Step through function calls and watch the call stack grow
                     and shrink in real time.
                   </p>
 
-                  <!-- Mini call-stack diagram -->
+
                   <div class="vis-ph-diagram vis-ph-diagram--stack">
                     <div class="vis-ph-stack-hdr">
                       <span>CALL STACK</span>
@@ -549,7 +549,7 @@
                     </div>
                   </div>
 
-                  <!-- Feature tags -->
+
                   <div class="vis-ph-tags">
                     <span class="vis-ph-tag vis-ph-tag--blue">Push</span>
                     <span class="vis-ph-tag vis-ph-tag--cyan">Pop</span>
@@ -559,7 +559,7 @@
                     >
                   </div>
 
-                  <!-- CTA -->
+
                   <button
                     class="vis-ph-btn vis-ph-btn--stack vis-open-examples-btn"
                     data-open-type="stack"
@@ -570,14 +570,14 @@
                 </div>
               </div>
 
-              <!-- ===== DATA STRUCTURE PANE ===== -->
+
               <div class="vis-pane" data-vis-pane="ds">
-                <!-- DS Visualization Area (shown when DS example loaded) -->
+
                 <div class="ds-vis-area" id="dsVisArea">
-                  <!-- Rendered by DSRenderer -->
+
                 </div>
 
-                <!-- DS Terminal Window -->
+
                 <div class="ds-terminal-window" id="dsTerminalWindow">
                   <div class="ds-term-header">
                     <div class="ds-term-controls">
@@ -611,19 +611,19 @@
                 </div>
 
                 <div class="vis-placeholder vis-placeholder--ds">
-                  <!-- Icon -->
+
                   <div class="vis-ph-icon vis-ph-icon--ds">
                     <svg data-lucide="network"></svg>
                   </div>
 
-                  <!-- Heading -->
+
                   <h3 class="vis-ph-title">Data Structure Visualization</h3>
                   <p class="vis-ph-desc">
                     Visualize arrays, linked lists, trees, and graphs — node by
                     node, step by step.
                   </p>
 
-                  <!-- Mini linked-list diagram -->
+
                   <div class="vis-ph-diagram vis-ph-diagram--ds">
                     <div class="vis-ph-node-row">
                       <div class="vis-ph-ll-node">
@@ -643,7 +643,7 @@
                     <span class="vis-ph-ds-label">Singly Linked List</span>
                   </div>
 
-                  <!-- Feature tags -->
+
                   <div class="vis-ph-tags">
                     <span class="vis-ph-tag vis-ph-tag--purple">Arrays</span>
                     <span class="vis-ph-tag vis-ph-tag--pink"
@@ -653,7 +653,7 @@
                     <span class="vis-ph-tag vis-ph-tag--yellow">Graphs</span>
                   </div>
 
-                  <!-- CTA -->
+
                   <button
                     class="vis-ph-btn vis-ph-btn--ds vis-open-examples-btn"
                     data-open-type="ds"
@@ -668,33 +668,33 @@
         </div>
       </main>
 
-      <!-- ============ ANIMATION CONTROLLER (Bottom Bar) ============ -->
+
       <div class="animation-controller" id="animationController">
-        <!-- Reset -->
+
         <button class="ctrl-btn" id="ctrlAnimReset" title="Reset animation">
           <svg data-lucide="rotate-ccw"></svg>
         </button>
 
         <div class="ctrl-divider"></div>
 
-        <!-- Step Back -->
+
         <button class="ctrl-btn" id="ctrlPrev" title="Previous step">
           <svg data-lucide="skip-back"></svg>
         </button>
 
-        <!-- Play/Pause -->
+
         <button class="play-btn" id="ctrlPlay" title="Play">
           <svg data-lucide="play"></svg>
         </button>
 
-        <!-- Step Forward -->
+
         <button class="ctrl-btn" id="ctrlNext" title="Next step">
           <svg data-lucide="skip-forward"></svg>
         </button>
 
         <div class="ctrl-divider"></div>
 
-        <!-- Progress Slider -->
+
         <div class="step-slider-wrapper">
           <div class="step-slider-track">
             <div class="step-slider-fill" id="sliderFill"></div>
@@ -713,7 +713,7 @@
 
         <div class="ctrl-divider"></div>
 
-        <!-- Speed Control -->
+
         <div class="speed-wrapper" id="speedWrapper">
           <button class="speed-control" id="ctrlSpeed" title="Playback Speed">
             <svg data-lucide="gauge"></svg>
@@ -729,7 +729,7 @@
 
         <div class="ctrl-divider"></div>
 
-        <!-- Step Counter -->
+
         <div class="step-counter">
           <span class="step-label">STEP</span>
           <span id="stepCurrent">1</span>
@@ -739,19 +739,19 @@
 
         <div class="ctrl-divider"></div>
 
-        <!-- Report Issue Button -->
+
         <button class="ctrl-btn report-issue-btn" id="ctrlReport" title="Report an issue">
           <svg data-lucide="flag"></svg>
         </button>
       </div>
     </div>
 
-    <!-- ============ FULL-SCREEN EDITOR POPUP ============ -->
+
     <div class="fse-overlay" id="fseOverlay">
       <div class="fse-container">
-        <!-- Header -->
+
         <div class="fse-header">
-          <!-- Left: Traffic Lights + Branding -->
+
           <div class="fse-header-left">
             <div class="fse-traffic-lights">
               <button
@@ -766,7 +766,7 @@
             <div class="fse-branding">Code<span>Lens</span></div>
           </div>
 
-          <!-- Center: File Badge -->
+
           <div class="fse-header-center">
             <div class="fse-file-badge">
               <svg data-lucide="file-code-2"></svg>
@@ -776,9 +776,9 @@
             </div>
           </div>
 
-          <!-- Right: Tools + Execution + Close -->
+
           <div class="fse-header-right">
-            <!-- Tool Buttons -->
+
             <div class="fse-tool-group">
               <button
                 class="fse-tool-btn fse-tool-btn--examples"
@@ -806,7 +806,7 @@
 
             <div class="fse-divider"></div>
 
-            <!-- Execution Controls -->
+
             <div class="fse-exec-group">
               <button
                 class="fse-btn-visualize"
@@ -824,21 +824,21 @@
 
             <div class="fse-divider"></div>
 
-            <!-- Close -->
+
             <button class="fse-close-btn" id="fseCloseBtn" title="Close">
               <svg data-lucide="x"></svg>
             </button>
           </div>
         </div>
 
-        <!-- Content: Code Area -->
+
         <div class="fse-content">
           <div class="fse-code-area" id="fseCodeArea">
-            <!-- Code lines cloned from main editor -->
+
           </div>
         </div>
 
-        <!-- Terminal -->
+
         <div class="fse-terminal" id="fseTerminal">
           <div class="fse-terminal-header" id="fseTerminalHeader">
             <div class="fse-terminal-header-left">
@@ -878,7 +878,7 @@
           </div>
         </div>
 
-        <!-- Status Bar -->
+
         <div class="fse-status-bar">
           <div class="fse-status-left">
             <div class="fse-status-ready">
@@ -896,7 +896,7 @@
       </div>
     </div>
 
-    <!-- ============ PROFILE MODAL ============ -->
+
     <div class="profile-overlay" id="profileOverlay">
       <div class="profile-modal">
         <button class="profile-modal-close">
@@ -922,7 +922,7 @@
             </span>
           </div>
 
-          <!-- Avatar Picker -->
+
           <div class="avatar-picker" id="avatarPicker">
             <label class="avatar-picker-label">Choose Your Avatar</label>
             <div class="avatar-picker-grid">
@@ -1010,7 +1010,7 @@
       </div>
     </div>
 
-    <!-- ============ AVATAR VIEWER MODAL ============ -->
+
     <div class="avatar-viewer-overlay" id="avatarViewerOverlay">
       <div class="avatar-viewer-content">
         <img
@@ -1025,7 +1025,7 @@
       </div>
     </div>
 
-    <!-- ============ AVATAR CROP MODAL ============ -->
+
     <div class="crop-overlay" id="cropOverlay">
       <div class="crop-modal">
         <div class="crop-header">
@@ -1093,15 +1093,15 @@
       </div>
     </div>
 
-    <!-- ============ AUTH MODAL ============ -->
+
     <div class="auth-overlay" id="authOverlay">
       <div class="auth-modal">
-        <!-- Close Button -->
+
         <button class="auth-close">
           <svg data-lucide="x"></svg>
         </button>
 
-        <!-- Header -->
+
         <div class="auth-header">
           <div class="auth-logo">
             <div class="auth-logo-icon">
@@ -1127,13 +1127,13 @@
           </p>
         </div>
 
-        <!-- Tabs -->
+
         <div class="auth-tabs">
           <button class="auth-tab active">Login</button>
           <button class="auth-tab">Sign Up</button>
         </div>
 
-        <!-- Error / Success Messages -->
+
         <div class="auth-error" id="authError">
           <svg data-lucide="alert-circle"></svg>
           <span class="auth-error-text">Error message</span>
@@ -1143,9 +1143,9 @@
           <span class="auth-success-text">Success message</span>
         </div>
 
-        <!-- Form -->
+
         <form class="auth-form" id="authForm">
-          <!-- Name (only for signup) -->
+
           <div class="auth-form-group" id="authNameGroup" style="display: none">
             <label class="auth-label">Full Name</label>
             <div class="auth-input-wrapper">
@@ -1160,7 +1160,7 @@
             </div>
           </div>
 
-          <!-- Email -->
+
           <div class="auth-form-group">
             <label class="auth-label">Email</label>
             <div class="auth-input-wrapper">
@@ -1175,7 +1175,7 @@
             </div>
           </div>
 
-          <!-- Password -->
+
           <div class="auth-form-group">
             <label class="auth-label">Password</label>
             <div class="auth-input-wrapper">
@@ -1197,13 +1197,13 @@
             </div>
           </div>
 
-          <!-- Submit -->
+
           <button type="submit" class="auth-submit" id="authSubmitBtn">
             Login
           </button>
         </form>
 
-        <!-- Footer -->
+
         <p class="auth-footer" id="authFooter">
           Don't have an account?
           <a onclick="switchAuthTab('signup')">Sign up</a>
@@ -1211,10 +1211,10 @@
       </div>
     </div>
 
-    <!-- ============ BROWSE EXAMPLES POPUP ============ -->
+
     <div class="popup-overlay" id="browseExamplesPopup">
       <div class="popup-container">
-        <!-- Header -->
+
         <div class="popup-header">
           <div class="popup-header-left">
             <svg
@@ -1263,7 +1263,7 @@
           </div>
         </div>
 
-        <!-- Toolbar -->
+
         <div class="examples-toolbar">
           <div class="lang-tabs" id="exampleLangTabs">
             <button class="lang-tab active" data-lang="c">
@@ -1397,9 +1397,9 @@
           </div>
         </div>
 
-        <!-- Split View -->
+
         <div class="examples-split-view">
-          <!-- Left Sidebar -->
+
           <div class="examples-sidebar">
             <div class="examples-sidebar-header">
               <div class="sidebar-label">
@@ -1411,11 +1411,11 @@
               >
             </div>
             <div class="examples-list" id="examplesList">
-              <!-- Populated by JS -->
+
             </div>
           </div>
 
-          <!-- Right Preview -->
+
           <div class="example-preview" id="examplePreview">
             <div class="preview-empty" id="previewEmpty">
               <div class="preview-empty-icon">
@@ -1512,7 +1512,7 @@
       </div>
     </div>
 
-    <!-- ============ HISTORY POPUP ============ -->
+
     <div class="popup-overlay" id="historyPopup">
       <div class="popup-container">
         <div class="popup-header">
@@ -1592,15 +1592,12 @@
       </div>
     </div>
 
-    <!-- Scripts -->
-    <script>
-      // Initialize Lucide icons immediately when library loads
+
+    <script>
       document.addEventListener("DOMContentLoaded", function () {
         if (window.lucide) {
           lucide.createIcons();
-        }
-
-        // Terminal window close / minimize buttons
+        }
         var termWin = document.getElementById("visTerminalWindow");
         var termClose = document.getElementById("visTermClose");
         var termMin = document.getElementById("visTermMin");
@@ -1622,7 +1619,7 @@
         }
       });
     </script>
-    <!-- ============ REPORT ISSUE POPUP ============ -->
+
     <div class="report-overlay" id="reportOverlay">
       <div class="report-modal">
         <div class="report-header">
@@ -1641,7 +1638,7 @@
         </div>
 
         <div class="report-body">
-          <!-- Auto-detected fields -->
+
           <div class="report-fields-grid">
             <div class="report-field">
               <label class="report-field-label">
@@ -1687,7 +1684,7 @@
             </div>
           </div>
 
-          <!-- Report Category -->
+
           <div class="report-input-group">
             <label class="report-input-label">
               <svg data-lucide="tag"></svg>
@@ -1703,7 +1700,7 @@
             </select>
           </div>
 
-          <!-- Description -->
+
           <div class="report-input-group">
             <label class="report-input-label">
               <svg data-lucide="message-square"></svg>
@@ -1745,7 +1742,7 @@
     <script src="js/report.js"></script>
     <script src="js/fullscreen-editor.js"></script>
     <script src="js/editor.js"></script>
-    <!-- Vercel Speed Insights -->
+
     <script>
       window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
     </script>

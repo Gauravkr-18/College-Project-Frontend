@@ -1,20 +1,15 @@
-/* ============================================
-   Dashboard Styles
-   Profile Modal + Admin Full Page
-   ============================================ */
 
-/* ============================================
-   PROFILE MODAL (Popup overlay) - ENHANCED DESIGN
-   ============================================ */
 
-/* ---- Overlay ---- */
+
+
+
 .profile-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.65); /* Darker backdrop */
+    background-color: rgba(0, 0, 0, 0.65);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     z-index: 500;
@@ -31,7 +26,7 @@
     visibility: visible;
 }
 
-/* ---- Modal Container ---- */
+
 .profile-modal {
     width: 440px;
     max-width: 90vw;
@@ -41,17 +36,17 @@
     background-color: var(--surface-overlay);
     border: 1px solid var(--border-subtle);
     border-radius: 24px;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); /* Deep shadow */
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
     position: relative;
     transform: scale(0.95) translateY(10px);
-    transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1); /* Bounce effect */
+    transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 .profile-overlay.open .profile-modal {
     transform: scale(1) translateY(0);
 }
 
-/* ---- Close Button ---- */
+
 .profile-modal-close {
     position: absolute;
     top: 16px;
@@ -82,16 +77,16 @@
     height: 16px;
 }
 
-/* ---- Banner (Modern Gradient) ---- */
+
 .profile-modal-banner {
-    height: 120px; /* Taller banner */
+    height: 120px;
     background: linear-gradient(135deg, #4f46e5 0%, #0ea5e9 50%, #10b981 100%);
     border-radius: 24px 24px 0 0;
     position: relative;
     overflow: hidden;
 }
 
-/* Shine effect on banner */
+
 .profile-modal-banner::after {
     content: '';
     position: absolute;
@@ -103,15 +98,15 @@
     pointer-events: none;
 }
 
-/* ---- Modal Body ---- */
+
 .profile-modal-body {
     padding: 0 32px 32px;
     position: relative;
-    margin-top: -60px; /* Pull content up over banner */
+    margin-top: -60px;
     z-index: 2;
 }
 
-/* ---- Avatar + Role Group (Centered) ---- */
+
 .profile-modal-top {
     display: flex;
     flex-direction: column;
@@ -152,8 +147,8 @@
     object-fit: contain;
     border-radius: 50%;
     display: none;
-    padding: 0; 
-    background: var(--surface-active); /* Adapts to theme */
+    padding: 0;
+    background: var(--surface-active);
 }
 
 .profile-modal-avatar #profileAvatarImg.show {
@@ -178,7 +173,7 @@
     display: none;
 }
 
-/* Camera edit button on avatar */
+
 .avatar-edit-btn {
     position: absolute;
     bottom: 0;
@@ -209,7 +204,7 @@
     color: #ffffff;
 }
 
-/* ---- Role Badge (Below Avatar) ---- */
+
 .profile-modal-role {
     display: inline-flex;
     align-items: center;
@@ -221,8 +216,8 @@
     text-transform: uppercase;
     letter-spacing: 0.08em;
     margin-top: 12px;
-    margin-left: 0; /* Reset margin */
-    top: auto; /* Reset top */
+    margin-left: 0;
+    top: auto;
     background-color: var(--surface-raised);
     border: 1px solid var(--border-subtle);
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
@@ -245,7 +240,7 @@
     height: 12px;
 }
 
-/* ---- Avatar Picker (Enhanced) ---- */
+
 .avatar-picker {
     display: none;
     padding: 20px;
@@ -318,7 +313,7 @@
     padding: 2px;
 }
 
-/* Upload option styling */
+
 .avatar-upload-option {
     flex-direction: column;
     gap: 2px;
@@ -347,9 +342,7 @@
 }
 
 
-/* ============================================
-   AVATAR CROP MODAL
-   ============================================ */
+
 
 .crop-overlay {
     position: fixed;
@@ -390,7 +383,7 @@
     transform: scale(1);
 }
 
-/* Crop Header */
+
 .crop-header {
     display: flex;
     align-items: center;
@@ -438,7 +431,7 @@
     height: 16px;
 }
 
-/* Crop Area */
+
 .crop-body {
     padding: 20px;
     display: flex;
@@ -474,7 +467,7 @@
     max-width: none;
 }
 
-/* Circle overlay mask */
+
 .crop-circle-mask {
     position: absolute;
     top: 0;
@@ -485,7 +478,7 @@
     z-index: 5;
 }
 
-/* Zoom Slider */
+
 .crop-zoom-row {
     display: flex;
     align-items: center;
@@ -539,7 +532,7 @@
     box-shadow: 0 2px 6px rgba(14, 165, 233, 0.3);
 }
 
-/* Crop Footer Buttons */
+
 .crop-footer {
     display: flex;
     align-items: center;
@@ -606,7 +599,7 @@
 }
 
 
-/* ---- Fields (Card Style) ---- */
+
 .profile-fields {
     display: flex;
     flex-direction: column;
@@ -656,7 +649,7 @@
     opacity: 0.8;
 }
 
-/* Editable field */
+
 .profile-field-value.editable {
     cursor: text;
     background-color: var(--surface-overlay);
@@ -705,7 +698,7 @@
     opacity: 1;
 }
 
-/* Save / Cancel Buttons */
+
 .profile-edit-actions {
     display: none;
     align-items: center;
@@ -765,7 +758,7 @@
     color: var(--text-primary);
 }
 
-/* Profile Message */
+
 .profile-message {
     display: none;
     align-items: center;
@@ -803,7 +796,7 @@
     flex-shrink: 0;
 }
 
-/* ---- Responsive (Profile Modal) ---- */
+
 @media (max-width: 500px) {
     .profile-modal-body {
         padding: 0 20px 28px;
@@ -848,7 +841,7 @@
     }
 }
 
-/* ---- Responsive (Crop Modal) ---- */
+
 @media (max-width: 400px) {
     .crop-modal {
         max-width: 95vw;
@@ -875,9 +868,7 @@
 }
 
 
-/* ============================================
-   AVATAR VIEWER MODAL (Click to enlarge)
-   ============================================ */
+
 
 .avatar-viewer-overlay {
     position: fixed;
@@ -955,11 +946,9 @@
 }
 
 
-/* ============================================
-   ADMIN PAGE (Full dashboard page)
-   ============================================ */
 
-/* ---- Admin Page Layout ---- */
+
+
 .admin-page {
     display: flex;
     flex-direction: column;
@@ -967,7 +956,7 @@
     background: var(--surface-base);
 }
 
-/* ---- Breadcrumb Nav ---- */
+
 .admin-breadcrumb {
     display: flex;
     align-items: center;
@@ -1014,7 +1003,7 @@
     height: 14px;
 }
 
-/* ---- Admin Content Area ---- */
+
 .admin-content {
     flex: 1;
     padding: 32px 40px 48px;
@@ -1023,7 +1012,7 @@
     margin: 0 auto;
 }
 
-/* ---- Page Title Banner ---- */
+
 .admin-title-bar {
     display: flex;
     align-items: center;
@@ -1088,7 +1077,7 @@
     height: 14px;
 }
 
-/* ---- Stats Grid ---- */
+
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
@@ -1201,7 +1190,7 @@
     font-weight: 500;
 }
 
-/* ---- Section Title (above table) ---- */
+
 .admin-section-title {
     display: flex;
     align-items: center;
@@ -1228,7 +1217,7 @@
     margin-left: auto;
 }
 
-/* ---- Users Table Section ---- */
+
 .table-section {
     background-color: var(--surface-overlay);
     border: 1px solid var(--border-subtle);
@@ -1260,7 +1249,7 @@
     border: 1px solid var(--border-subtle);
 }
 
-/* Table */
+
 .users-table {
     width: 100%;
     border-collapse: collapse;
@@ -1297,7 +1286,7 @@
     border-bottom: none;
 }
 
-/* User row avatar + name */
+
 .user-row-info {
     display: flex;
     align-items: center;
@@ -1330,7 +1319,7 @@
     margin-top: 1px;
 }
 
-/* Role pill */
+
 .role-pill {
     display: inline-flex;
     align-items: center;
@@ -1366,7 +1355,7 @@
     height: 12px;
 }
 
-/* Role dropdown wrapper */
+
 .role-dropdown-wrapper {
     position: relative;
     display: inline-block;
@@ -1418,7 +1407,7 @@
     border-color: rgba(245, 158, 11, 0.25);
 }
 
-/* Role dropdown menu */
+
 .role-dropdown {
     position: absolute;
     top: 100%;
@@ -1479,7 +1468,7 @@
     font-weight: 600;
 }
 
-/* Role change select (old style - deprecated) */
+
 .role-select {
     margin-left: 8px;
     padding: 3px 6px;
@@ -1500,14 +1489,14 @@
     cursor: not-allowed;
 }
 
-/* Date cell */
+
 .date-cell {
     font-size: 12px;
     font-family: 'JetBrains Mono', monospace;
     color: var(--text-muted);
 }
 
-/* Views badge */
+
 .views-badge {
     display: inline-flex;
     align-items: center;
@@ -1523,7 +1512,7 @@
     border: 1px solid rgba(14, 165, 233, 0.2);
 }
 
-/* Action cell */
+
 .action-cell {
     width: 48px;
     text-align: center;
@@ -1555,7 +1544,7 @@
     pointer-events: none;
 }
 
-/* ---- Delete Confirm Modal ---- */
+
 .delete-confirm-overlay {
     position: fixed;
     inset: 0;
@@ -1689,7 +1678,7 @@
     height: 14px;
 }
 
-/* ---- Empty / Loading State ---- */
+
 .table-empty,
 .loading-text {
     text-align: center;
@@ -1698,7 +1687,7 @@
     font-size: 14px;
 }
 
-/* ---- Not Authorized State ---- */
+
 .not-authorized {
     display: flex;
     flex-direction: column;
@@ -1740,7 +1729,7 @@
     line-height: 1.6;
 }
 
-/* ---- Responsive (Admin Page) ---- */
+
 @media (max-width: 900px) {
     .admin-content {
         padding: 24px 20px 40px;
@@ -1765,7 +1754,7 @@
         gap: 12px;
     }
 
-    /* Table horizontal scroll on smaller screens */
+
     .table-section {
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
@@ -1784,7 +1773,7 @@
         display: none;
     }
 
-    /* Admin breadcrumb */
+
     .admin-breadcrumb {
         gap: 6px;
     }
@@ -1873,7 +1862,7 @@
         padding: 3px 8px;
     }
 
-    /* Not authorized state */
+
     .not-authorized {
         padding: 32px 16px;
         min-height: 50vh;
@@ -1903,7 +1892,7 @@
 }
 
 
-/* ---- Pane toolbar (refresh button row) ---- */
+
 .admin-pane-toolbar {
     display: flex;
     justify-content: flex-end;
@@ -1946,9 +1935,7 @@
     to   { transform: rotate(360deg); }
 }
 
-/* ============================================
-   ADMIN TABS
-   ============================================ */
+
 .admin-tabs {
     display: flex;
     align-items: center;
@@ -2000,7 +1987,7 @@
     text-align: center;
 }
 
-/* Tab Panes */
+
 .admin-tab-pane {
     display: none;
 }
@@ -2010,11 +1997,9 @@
 }
 
 
-/* ============================================
-   ADMIN REPORTS TAB
-   ============================================ */
 
-/* Report Stats Cards */
+
+
 .report-stats-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -2089,7 +2074,7 @@
     margin-top: 2px;
 }
 
-/* Filters Bar */
+
 .reports-filters {
     display: flex;
     align-items: center;
@@ -2163,7 +2148,7 @@
     color: var(--text-primary);
 }
 
-/* ---- Custom Filter Dropdowns (Reports Tab) ---- */
+
 .rf-select-wrap {
     position: relative;
     flex-shrink: 0;
@@ -2298,7 +2283,7 @@
     flex-shrink: 0;
 }
 
-/* Status dots */
+
 .rf-dot {
     width: 8px;
     height: 8px;
@@ -2312,7 +2297,7 @@
 .rf-dot--resolved   { background: #10b981; box-shadow: 0 0 0 2px rgba(16,185,129,0.2); }
 .rf-dot--dismissed  { background: var(--text-disabled); }
 
-/* Category icon pill */
+
 .rf-cat-icon {
     display: inline-flex;
     align-items: center;
@@ -2324,7 +2309,7 @@
 }
 .rf-cat-icon svg { width: 12px; height: 12px; }
 
-/* Language badge */
+
 .rf-lang-badge {
     display: inline-flex;
     align-items: center;
@@ -2339,7 +2324,7 @@
     flex-shrink: 0;
 }
 
-/* Sort icon in dropdown items */
+
 .rf-sort-icon {
     width: 13px;
     height: 13px;
@@ -2347,7 +2332,7 @@
     color: var(--text-muted);
 }
 
-/* Summary Row */
+
 .reports-summary-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -2411,7 +2396,7 @@
     margin-left: 8px;
 }
 
-/* Reports List */
+
 .reports-list {
     display: flex;
     flex-direction: column;
@@ -2455,7 +2440,7 @@
     margin: 0;
 }
 
-/* Single Report Card */
+
 .report-card {
     background-color: var(--surface-overlay);
     border: 1px solid var(--border-subtle);
@@ -2648,7 +2633,7 @@
     height: 12px;
 }
 
-/* Pagination */
+
 .reports-pagination {
     display: flex;
     align-items: center;

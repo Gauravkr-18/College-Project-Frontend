@@ -1,12 +1,9 @@
-/* ============================================
-   Common Styles - Reset, Typography, Header
-   Shared across all pages
-   ============================================ */
 
-/* ---- Google Fonts Import ---- */
+
+
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap");
 
-/* ---- CSS Reset ---- */
+
 *,
 *::before,
 *::after {
@@ -64,7 +61,7 @@ textarea {
   background: transparent;
 }
 
-/* ---- Scrollbar ---- */
+
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
@@ -83,7 +80,7 @@ textarea {
   background: var(--scrollbar-thumb-hover);
 }
 
-/* ---- Typography Scale ---- */
+
 .font-mono {
   font-family: "JetBrains Mono", monospace;
 }
@@ -113,10 +110,7 @@ textarea {
   font-size: 24px;
 }
 
-/* ============================================
-   HEADER
-   Sticky, blur backdrop, glass nav bar
-   ============================================ */
+
 .header {
   position: sticky;
   top: 0;
@@ -146,9 +140,7 @@ textarea {
   position: relative;
 }
 
-/* ============================================
-   LOGO
-   ============================================ */
+
 .logo {
   display: flex;
   align-items: center;
@@ -208,7 +200,7 @@ textarea {
   color: var(--accent-blue);
 }
 
-/* ---- Animated Eye (replaces "o" in Code) ---- */
+
 .logo-eye {
   display: inline-flex;
   align-items: center;
@@ -221,31 +213,31 @@ textarea {
 .eye-svg {
   display: block;
   overflow: visible;
-  color: var(--text-primary); /* currentColor for lashes */
+  color: var(--text-primary);
 }
 
-/* Gradient stops — theme aware */
+
 .iris-stop1 { stop-color: var(--accent-purple); stop-opacity: 1; }
 .iris-stop2 { stop-color: var(--accent-blue); stop-opacity: 0.85; }
 
-/* Sclera */
+
 .eye-white { fill: var(--surface-raised); }
 
-/* Pupil */
+
 .eye-pupil { fill: #0b0b12; }
 [data-theme="light"] .eye-pupil { fill: #18100a; }
 
-/* Main glint */
+
 .eye-glint { fill: #ffffff; fill-opacity: 0.85; }
 
-/* Eyelashes */
+
 .eye-lashes {
   stroke: var(--text-primary);
   stroke-width: 1.5;
   stroke-linecap: round;
 }
 
-/* Eyelid strokes */
+
 .eye-lid-top {
   stroke: var(--text-primary);
   stroke-width: 2;
@@ -258,7 +250,7 @@ textarea {
   opacity: 0.5;
 }
 
-/* Iris group — smooth eye-gaze animation */
+
 .eye-iris-group {
   animation: eyeLook 7s ease-in-out infinite;
 }
@@ -272,7 +264,7 @@ textarea {
   75%            { transform: translate(-1.3px, 0); }
 }
 
-/* Blink is driven by JS (header.js) via setAttribute('d') on .eye-lid-top */
+
 
 .logo-beta {
   font-size: 8px;
@@ -304,9 +296,7 @@ textarea {
   color: var(--accent-orange);
 }
 
-/* ============================================
-   NAVIGATION BAR (Glass pill)
-   ============================================ */
+
 .nav-bar {
   display: flex;
   align-items: center;
@@ -368,7 +358,7 @@ textarea {
   transition: transform 200ms ease;
 }
 
-/* ---- Dropdown Wrapper (position anchor) ---- */
+
 .nav-dropdown-wrapper {
   position: relative;
   display: flex;
@@ -384,9 +374,7 @@ textarea {
   transform: rotate(180deg);
 }
 
-/* ============================================
-   HEADER ACTIONS (Right side)
-   ============================================ */
+
 .header-actions {
   display: flex;
   align-items: center;
@@ -402,7 +390,7 @@ textarea {
   flex-shrink: 0;
 }
 
-/* ---- Search Input ---- */
+
 .search-input-wrapper {
   display: flex;
   align-items: center;
@@ -464,7 +452,7 @@ textarea {
   color: var(--text-disabled);
 }
 
-/* ---- Icon Buttons ---- */
+
 .icon-btn {
   display: flex;
   align-items: center;
@@ -490,7 +478,7 @@ textarea {
   height: 16px;
 }
 
-/* ---- Theme Toggle ---- */
+
 .theme-toggle {
   display: flex;
   align-items: center;
@@ -522,7 +510,7 @@ textarea {
   color: var(--accent-blue);
 }
 
-/* ---- Login / Signup Button ---- */
+
 .login-btn {
   display: flex;
   align-items: center;
@@ -551,10 +539,7 @@ textarea {
   height: 15px;
 }
 
-/* ============================================
-   DROPDOWN MENU
-   Positioned from .nav-dropdown-wrapper
-   ============================================ */
+
 .dropdown {
   position: absolute;
   top: calc(100% + 10px);
@@ -583,7 +568,7 @@ textarea {
   pointer-events: auto;
 }
 
-/* Enhanced Dropdown */
+
 .dropdown-enhanced {
   min-width: 190px;
 }
@@ -635,7 +620,7 @@ textarea {
   flex-shrink: 0;
 }
 
-/* Enhanced dropdown item for language selection */
+
 .dropdown-item.lang-item {
   justify-content: space-between;
 }
@@ -697,7 +682,7 @@ textarea {
   font-weight: 600;
 }
 
-/* ---- Examples Dropdown Enhancements ---- */
+
 .dropdown-section-title {
   font-size: 10px;
   font-weight: 700;
@@ -769,7 +754,7 @@ textarea {
   border: 1px solid rgba(0, 212, 170, 0.2);
 }
 
-/* Language Specific Colors (Icon + Extension) */
+
 .lang-item.c .lang-icon svg,
 .lang-item.c .item-ext {
   color: var(--lang-c);
@@ -816,16 +801,14 @@ textarea {
 }
 
 .dropdown-item.lang-item:hover {
-  background-color: transparent; /* Remove default hover bg */
+  background-color: transparent;
 }
 
 .dropdown-item.lang-item:hover .item-label {
   color: var(--text-primary);
 }
 
-/* ============================================
-   MOBILE MENU BUTTON (Hamburger)
-   ============================================ */
+
 .mobile-menu-btn {
   display: none;
   align-items: center;
@@ -851,9 +834,7 @@ textarea {
   height: 18px;
 }
 
-/* ============================================
-   RESPONSIVE
-   ============================================ */
+
 @media (max-width: 1100px) {
   .search-input-wrapper {
     min-width: 120px;
@@ -919,12 +900,12 @@ textarea {
     padding: 8px 12px;
   }
 
-  /* Show hamburger menu button */
+
   .mobile-menu-btn {
     display: flex;
   }
 
-  /* Nav bar: hidden by default, shown as dropdown when toggled */
+
   .nav-bar {
     display: none;
     position: absolute;
@@ -957,7 +938,7 @@ textarea {
     padding: 10px 14px;
   }
 
-  /* Dropdown inside mobile nav */
+
   .nav-bar .dropdown {
     position: static;
     opacity: 1;
@@ -1001,7 +982,7 @@ textarea {
     display: none;
   }
 
-  /* Icon buttons - make slightly smaller */
+
   .icon-btn {
     width: 32px;
     height: 32px;
@@ -1012,7 +993,7 @@ textarea {
     height: 14px;
   }
 
-  /* Login button - compact */
+
   .login-btn {
     padding: 6px 12px;
     font-size: 11px;
@@ -1051,13 +1032,13 @@ textarea {
     display: none;
   }
 
-  /* Hide text on login btn, only show icon */
+
   .login-btn span {
     display: none;
   }
 }
 
-/* ---- Utility Classes ---- */
+
 .flex {
   display: flex;
 }

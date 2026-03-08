@@ -1,19 +1,3 @@
-/* ============================================
-   Config & Shared Utilities
-   Loaded BEFORE all other scripts on every page.
-   Single source of truth for:
-     - API URLs
-     - HTML escaping (XSS prevention)
-     - Avatar URL building
-     - Date formatting
-     - Profile dropdown & logout
-     - Mobile menu
-
-   Every other JS file can rely on these globals.
-   ============================================ */
-
-// ---- API Configuration ----
-// Auto-detect environment: localhost for dev, Render URL for production
 var BACKEND_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
     ? 'http://localhost:5000'
     : 'https://codelens-backend-b3fg.onrender.com';
@@ -21,11 +5,6 @@ var BACKEND_URL = window.location.hostname === 'localhost' || window.location.ho
 var API_URL = BACKEND_URL + '/api';
 var AVATAR_BASE_URL = BACKEND_URL + '/avatars/';
 
-// ============================================
-// SHARED HELPER FUNCTIONS
-// ============================================
-
-// Get user initials (e.g., "John Doe" → "JD")
 function getInitials(name) {
     if (!name) return '?';
     var parts = name.trim().split(/\s+/);
@@ -35,9 +14,6 @@ function getInitials(name) {
     return parts[0][0].toUpperCase();
 }
 
-// Build full avatar URL from stored avatar value
-// Presets: "1"-"5" → /avatars/1.png
-// Uploads: "uploads/filename.ext" → /avatars/uploads/filename.ext
 function getAvatarUrl(avatar) {
     if (!avatar) return '';
     if (/^[1-5]$/.test(avatar)) {
@@ -46,7 +22,6 @@ function getAvatarUrl(avatar) {
     return AVATAR_BASE_URL + avatar;
 }
 
-// Format date string to readable format (e.g., "Jan 15, 2025")
 function formatDate(dateString) {
     if (!dateString) return '—';
     var date = new Date(dateString);
@@ -54,28 +29,19 @@ function formatDate(dateString) {
     return date.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
-// Reusable element for HTML escaping (created once, reused across all calls)
-// This is the SINGLE canonical escapeHtml used project-wide.
-// Other modules (visualization-renderer, ds-renderer, etc.) reference this global
-// instead of maintaining their own copies.
 var _escapeEl = document.createElement('div');
 
-// Escape HTML to prevent XSS in user content
 function escapeHtml(text) {
     _escapeEl.textContent = text;
     return _escapeEl.innerHTML;
 }
 
-// Truncate a file base-name for display in the file badge.
-// ≤6 chars → show as-is.  >6 chars → first 4 + "..."
 function truncateFileName(base) {
     if (!base) return base;
     return base.length <= 6 ? base : base.slice(0, 4) + '...';
 }
 
-// ============================================
 // PROFILE DROPDOWN (shared across all pages)
-// ============================================
 
 function toggleProfileDropdown() {
     var dropdown = document.querySelector('.profile-dropdown');
@@ -91,9 +57,7 @@ function closeProfileDropdown() {
     }
 }
 
-// ============================================
 // LOGOUT (works on all pages)
-// ============================================
 
 function handleLogout() {
     localStorage.removeItem('codelens-token');
@@ -112,9 +76,7 @@ function handleLogout() {
     closeProfileDropdown();
 }
 
-// ============================================
 // SHARED: Update header avatars (used by auth, admin, profile)
-// ============================================
 
 function updateHeaderAvatars(user) {
     var avatars = document.querySelectorAll('.profile-avatar');
@@ -157,9 +119,7 @@ function updateHeaderProfileInfo(user) {
     infoEmail.forEach(function(el) { el.textContent = user.email; });
 }
 
-// ============================================
 // MOBILE MENU TOGGLE (Editor page)
-// ============================================
 
 function toggleMobileMenu() {
     var navBar = document.querySelector('.nav-bar');

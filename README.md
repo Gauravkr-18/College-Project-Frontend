@@ -35,33 +35,6 @@ Open in browser:
 - **Editor:** `http://localhost:5500/editor.html`
 - **Admin:** `http://localhost:5500/admin.html` (admin users only)
 
-> The backend must also be running locally (`http://localhost:5000`) for auth, examples, and analytics to work. See the backend repo for setup.
-
----
-
-## API URL Configuration
-
-The frontend has **no environment variables**. The backend URL is set directly in `js/config.js`:
-
-```js
-var BACKEND_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-    ? 'http://localhost:5000'
-    : 'https://YOUR_RENDER_APP.onrender.com';  // ← update before deploying
-```
-
-Replace `YOUR_RENDER_APP` with your actual Render service name before pushing to production.
-
----
-
-## Production Deployment (Vercel)
-
-1. Push this repo to GitHub
-2. Go to [vercel.com](https://vercel.com) → **Add New Project** → import this repo
-3. Framework: **Other**, Build Command: *(empty)*, Output Directory: `./`
-4. Click **Deploy** — no build step needed
-
-Vercel auto-deploys on every push to `main`.
-
 ---
 
 ## Project Structure
@@ -276,5 +249,3 @@ CSS class applied: `.ds-array-cell--<state>`
 |---|---|
 | **Guest execution limit** | 5 free visualizations per browser session (stored in `sessionStorage`). On the 6th attempt, the auth modal opens. Counter badge visible in editor header. |
 | **No bundler** | All JS files load as separate `<script>` tags. Fine for this scale; not optimised for production network performance. |
-
-

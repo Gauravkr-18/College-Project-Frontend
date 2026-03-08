@@ -1,16 +1,3 @@
-/* ============================================
-   Full-Screen Editor — Controller
-   Opens as a modal popup with code viewer,
-   terminal, and execution controls.
-
-   Features:
-     - Sync code from main editor on open
-     - Simulated compile + run terminal output
-     - Copy code to clipboard
-     - Browse examples integration
-
-   Dependencies: config.js (escapeHtml)
-   ============================================ */
 window.FullScreenEditor = (function () {
     'use strict';
 
@@ -28,9 +15,6 @@ window.FullScreenEditor = (function () {
     var isOpen        = false;
     var terminalState = 'minimized'; // minimized | open | expanded
 
-    // Uses global escapeHtml() from config.js
-
-    /* ---- open / close ---- */
     function open() {
         if (isOpen) return;
         overlay = document.getElementById('fseOverlay');
@@ -64,25 +48,21 @@ window.FullScreenEditor = (function () {
         statusLines   = $('#fseStatusLines');
     }
 
-    /* ---- Sync code from main editor into FSE ---- */
     function syncFromEditor() {
         var mainCode = document.querySelector('.code-content');
         codeArea = document.getElementById('fseCodeArea');
         if (!codeArea || !mainCode) return;
         codeArea.innerHTML = mainCode.innerHTML;
-        // Strip animation-controller active-line highlights — FSE shows static code only
         codeArea.querySelectorAll('.code-line.active').forEach(function (l) {
             l.classList.remove('active');
         });
 
-        // Sync file badge
         var mainBadge = document.querySelector('.file-badge span');
         var fseBadge  = document.getElementById('fseFileBadgeText');
         if (mainBadge && fseBadge) {
             fseBadge.innerHTML = mainBadge.innerHTML;
         }
 
-        // Sync status bar
         var mainInfo = document.querySelector('.code-container-header .info');
         var lang = 'C';
         var lines = '0';
@@ -99,7 +79,6 @@ window.FullScreenEditor = (function () {
         if (sli) sli.textContent = lines;
     }
 
-    /* ---- Copy code ---- */
     function handleCopy() {
         var spans = codeArea ? codeArea.querySelectorAll('.code-text') : [];
         var text = Array.prototype.map.call(spans, function (s) { return s.textContent; }).join('\n');
@@ -131,7 +110,6 @@ window.FullScreenEditor = (function () {
         }, 1500);
     }
 
-    /* ---- Terminal ---- */
     function resetTerminal() {
         terminalState = 'minimized';
         if (terminalEl) {
@@ -174,7 +152,6 @@ window.FullScreenEditor = (function () {
 
     function appendTerminalLine(type, text) {
         if (!terminalBody) return;
-        // Clear empty message if present
         var empty = terminalBody.querySelector('.fse-terminal-empty');
         if (empty) empty.remove();
 
@@ -185,7 +162,6 @@ window.FullScreenEditor = (function () {
         terminalBody.scrollTop = terminalBody.scrollHeight;
     }
 
-    /* ---- Run ---- */
     function handleRun() {
         if (isRunning) return;
         isRunning = true;
@@ -194,13 +170,11 @@ window.FullScreenEditor = (function () {
         var indicator = document.getElementById('fseTerminalRunning');
         if (indicator) indicator.classList.add('active');
 
-        // Auto-open terminal
         if (terminalState === 'minimized' && terminalEl) {
             terminalState = 'open';
             terminalEl.classList.add('open');
         }
 
-        // Clear previous output
         if (terminalBody) terminalBody.innerHTML = '';
 
         var fileName = 'main.c';
@@ -209,30 +183,25 @@ window.FullScreenEditor = (function () {
 
         var ts = new Date().toLocaleTimeString();
 
-        // Phase 1: Compiling
         setTimeout(function () {
             appendTerminalLine('compile', '[' + ts + '] Compiling ' + fileName + '...');
         }, 300);
 
-        // Phase 2: Build success
         setTimeout(function () {
             var t = new Date().toLocaleTimeString();
             appendTerminalLine('compile', '[' + t + '] Build successful!');
             appendTerminalLine('info', '');
         }, 700);
 
-        // Phase 3: Running
         setTimeout(function () {
             appendTerminalLine('run', '> Running program...');
             appendTerminalLine('info', '');
         }, 1000);
 
-        // Phase 4: Output
         setTimeout(function () {
             var t = new Date().toLocaleTimeString();
             var output = 'Hello, Welcome to Code Lens!';
 
-            // Get actual output from loaded example
             var ex = window.__currentExample;
             if (ex) {
                 if (ex.meta && ex.meta.final_output) {
@@ -252,14 +221,11 @@ window.FullScreenEditor = (function () {
         }, 1500);
     }
 
-    /* ---- Visualize (close FSE, let main editor take over) ---- */
     function handleVisualize() {
         close();
     }
 
-    /* ---- Examples ---- */
     function handleExamples() {
-        // Open browse examples popup; FSE stays open behind it
         if (window._P && typeof window._P.openBrowseExamples === 'function') {
             window._P.openBrowseExamples();
         } else {
@@ -268,7 +234,6 @@ window.FullScreenEditor = (function () {
         }
     }
 
-    /* ---- Re-sync when example loaded while FSE is open ---- */
     function refresh() {
         if (!isOpen) return;
         syncFromEditor();
@@ -276,28 +241,23 @@ window.FullScreenEditor = (function () {
         if (window.lucide) lucide.createIcons({ rootElement: overlay });
     }
 
-    /* ---- Init: bind events ---- */
     function init() {
         overlay = document.getElementById('fseOverlay');
         if (!overlay) return;
 
         cacheEls();
 
-        // Close button & red dot
         var closeBtn = document.getElementById('fseCloseBtn');
         var redDot   = document.getElementById('fseDotRed');
         if (closeBtn) closeBtn.addEventListener('click', close);
         if (redDot)   redDot.addEventListener('click', close);
 
-        // Overlay click to close
         overlay.addEventListener('click', function (e) {
             if (e.target === overlay) close();
         });
 
-        // Escape key
         document.addEventListener('keydown', function (e) {
             if (e.key === 'Escape' && isOpen) {
-                // Don't close if browse examples is open
                 var browsePopup = document.getElementById('browseExamplesPopup');
                 if (browsePopup && browsePopup.classList.contains('active')) return;
                 close();
@@ -344,7 +304,6 @@ window.FullScreenEditor = (function () {
         }
     }
 
-    /* ---- Boot ---- */
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', init);
     } else {

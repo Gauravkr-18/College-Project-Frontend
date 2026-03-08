@@ -1,17 +1,10 @@
-/* ============================================
-   Admin Reports Tab — Load, filter, manage reports
-   Dependencies: config.js, admin.js (loaded first)
-   ============================================ */
-
 (function () {
     'use strict';
 
-    // ---- State ----
     var currentPage = 1;
     var totalPages = 1;
     var debounceTimer = null;
 
-    // ---- Category labels ----
     var CATEGORY_LABELS = {
         'incorrect_visualization': 'Incorrect Visualization',
         'wrong_variable_value': 'Wrong Variable Value',
@@ -20,10 +13,6 @@
         'ui_glitch': 'UI Glitch',
         'other': 'Other'
     };
-
-    // ============================================
-    // TAB SWITCHING
-    // ============================================
 
     function initTabs() {
         var tabs = document.querySelectorAll('.admin-tab');
@@ -37,7 +26,7 @@
                     pane.classList.remove('active');
                 });
 
-                var targetPane = document.querySelector('.admin-tab-pane[data-pane="' + target + '"]');
+                var targetPane = document.querySelector('.admin-tab-pane[data-pane="' + CSS.escape(target) + '"]');
                 if (targetPane) targetPane.classList.add('active');
 
                 if (target === 'reports') {
@@ -47,10 +36,6 @@
             });
         });
     }
-
-    // ============================================
-    // CUSTOM DROPDOWNS
-    // ============================================
 
     function closeAllDropdowns() {
         document.querySelectorAll('.rf-dropdown.open').forEach(function (d) { d.classList.remove('open'); });
@@ -75,25 +60,20 @@
                 }
             });
 
-            // Stop propagation so document handler doesn't immediately close
             dropdown.addEventListener('click', function (e) {
                 e.stopPropagation();
                 var item = e.target.closest('.rf-dropdown-item');
                 if (!item) return;
 
                 var value = item.getAttribute('data-value');
-                // Prefer data-label (set on items with count badges) over raw textContent
                 var label = item.getAttribute('data-label') || item.textContent.trim();
 
-                // Mark active
                 dropdown.querySelectorAll('.rf-dropdown-item').forEach(function (i) { i.classList.remove('active'); });
                 item.classList.add('active');
 
-                // Update button label (keep any inline svg children like rf-dot / rf-sort-icon)
                 var labelSpan = btn.querySelector('.rf-select-label');
                 if (labelSpan) labelSpan.textContent = label;
 
-                // Write value + fire change so existing filter wiring triggers reload
                 if (hiddenInput) {
                     hiddenInput.value = value;
                     hiddenInput.dispatchEvent(new Event('change'));
@@ -103,16 +83,10 @@
             });
         });
 
-        // Close all when clicking anywhere outside a dropdown
         document.addEventListener('click', function () { closeAllDropdowns(); });
 
-        // Refresh lucide icons for the static dropdown SVGs
         refreshIcons();
     }
-
-    // ============================================
-    // LOAD REPORT STATS
-    // ============================================
 
     async function loadReportStats() {
         var token = localStorage.getItem('codelens-token');
@@ -131,7 +105,6 @@
             setText('rStatResolved', stats.resolved);
             setText('rStatTotal', stats.total);
 
-            // Badge on tab
             var badge = document.getElementById('reportsTabBadge');
             if (badge) {
                 if (stats.open > 0) {
@@ -142,7 +115,6 @@
                 }
             }
 
-            // Populate example dropdown with most-reported examples
             var exampleDropdown = document.getElementById('reportExampleDropdown');
             var exampleInput = document.getElementById('reportExampleFilter');
             if (exampleDropdown) {
@@ -161,7 +133,6 @@
                 }
                 exampleDropdown.innerHTML = html;
 
-                // Sync button label if a specific example is selected
                 if (currentVal !== 'all') {
                     var exWrap = exampleDropdown.closest('.rf-select-wrap');
                     if (exWrap) {
@@ -173,13 +144,8 @@
             }
 
         } catch (err) {
-            console.error('Report stats error:', err);
         }
     }
-
-    // ============================================
-    // LOAD REPORTS
-    // ============================================
 
     async function loadReports(page) {
         var token = localStorage.getItem('codelens-token');
@@ -226,15 +192,10 @@
             renderReports(data.reports);
             renderPagination();
         } catch (err) {
-            console.error('Load reports error:', err);
             if (listEl) listEl.innerHTML = '<div class="reports-empty"><svg data-lucide="wifi-off"></svg><h3>Network error</h3><p>Check server connection</p></div>';
             refreshIcons();
         }
     }
-
-    // ============================================
-    // RENDER REPORTS
-    // ============================================
 
     function renderReports(reports) {
         var listEl = document.getElementById('reportsList');
@@ -252,8 +213,8 @@
 
         var html = '';
         reports.forEach(function (r) {
-            var statusCls = 'report-status-badge--' + r.status;
-            var statusLabel = r.status.replace(/_/g, ' ').replace(/\b\w/g, function (c) { return c.toUpperCase(); });
+            var statusCls = 'report-status-badge--' + escapeHtml(r.status);
+            var statusLabel = escapeHtml(r.status.replace(/_/g, ' ').replace(/\b\w/g, function (c) { return c.toUpperCase(); }));
             var catLabel = CATEGORY_LABELS[r.category] || r.category;
             var dateStr = formatDate(r.createdAt);
             var userName = r.user ? r.user.name : 'Guest';
@@ -303,10 +264,6 @@
         refreshIcons();
     }
 
-    // ============================================
-    // PAGINATION
-    // ============================================
-
     function renderPagination() {
         var container = document.getElementById('reportsPagination');
         if (!container || totalPages <= 1) {
@@ -319,7 +276,6 @@
 
         for (var i = 1; i <= totalPages; i++) {
             if (totalPages > 7) {
-                // Show first, last, and surrounding pages
                 if (i === 1 || i === totalPages || (i >= currentPage - 1 && i <= currentPage + 1)) {
                     html += '<button class="reports-page-btn' + (i === currentPage ? ' active' : '') + '" data-page="' + i + '">' + i + '</button>';
                 } else if (i === currentPage - 2 || i === currentPage + 2) {
@@ -343,10 +299,6 @@
         });
     }
 
-    // ============================================
-    // UPDATE STATUS
-    // ============================================
-
     async function updateReportStatus(id, status) {
         var token = localStorage.getItem('codelens-token');
         if (!token) return;
@@ -366,13 +318,8 @@
                 loadReports(currentPage);
             }
         } catch (err) {
-            console.error('Update report error:', err);
         }
     }
-
-    // ============================================
-    // DELETE REPORT
-    // ============================================
 
     async function deleteReport(id) {
         if (!confirm('Delete this report permanently?')) return;
@@ -391,13 +338,8 @@
                 loadReports(currentPage);
             }
         } catch (err) {
-            console.error('Delete report error:', err);
         }
     }
-
-    // ============================================
-    // HELPERS
-    // ============================================
 
     function setText(id, value) {
         var el = document.getElementById(id);
@@ -407,10 +349,6 @@
     function refreshIcons() {
         if (window.lucide) lucide.createIcons();
     }
-
-    // ============================================
-    // INIT
-    // ============================================
 
     function init() {
         initTabs();
@@ -432,7 +370,6 @@
             });
         }
 
-        // Refresh button — reports
         var reportsRefreshBtn = document.getElementById('reportsRefreshBtn');
         if (reportsRefreshBtn) {
             reportsRefreshBtn.addEventListener('click', function () {
@@ -443,9 +380,6 @@
             });
         }
 
-        // Delegated click handler for report action buttons.
-        // Using delegation + closest() so clicks on SVG children inside buttons
-        // are correctly routed regardless of how Lucide replaces icon elements.
         var listEl = document.getElementById('reportsList');
         if (listEl) {
             listEl.addEventListener('click', function (e) {
@@ -461,7 +395,6 @@
             });
         }
 
-        // Load open report count badge on init (even before tab switch)
         loadReportStats();
     }
 
@@ -471,7 +404,6 @@
         init();
     }
 
-    // Expose functions globally for test user auto-load
     window.loadReportStats = loadReportStats;
     window.loadReports = loadReports;
 })();

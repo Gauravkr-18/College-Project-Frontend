@@ -1,36 +1,22 @@
-/* ============================================
-   Admin Panel Logic
-   Loads stats + users list for admin users
-   ============================================ */
 
-// API_URL is defined in config.js (loaded first)
-
-// ---- State ----
 var currentUser = null;
 var pendingDeleteId = null;
 var pendingDeleteName = null;
 
-// ============================================
-// AUTH CHECK + LOAD DATA
-// ============================================
-
 async function initAdmin() {
     var token = localStorage.getItem('codelens-token');
 
-    // If no token, redirect to home immediately
     if (!token) {
         window.location.href = 'index.html';
         return;
     }
 
-    // Always verify role server-side — never trust localStorage for access control
     try {
         var meResponse = await fetch(API_URL + '/auth/me', {
             headers: { 'Authorization': 'Bearer ' + token }
         });
 
         if (!meResponse.ok) {
-            // Token invalid or expired — clear stale data and redirect
             localStorage.removeItem('codelens-token');
             localStorage.removeItem('codelens-user');
             window.location.href = 'index.html';
@@ -43,39 +29,30 @@ async function initAdmin() {
             return;
         }
 
-        // Use server-verified user data — not localStorage
         currentUser = meData.user;
 
-        // Sync localStorage with fresh server data
         localStorage.setItem('codelens-user', JSON.stringify(currentUser));
 
     } catch (e) {
-        // Network error — cannot verify role, block access
         window.location.href = 'index.html';
         return;
     }
 
-    // Update header profile
     updateHeaderAvatars(currentUser);
     updateHeaderProfileInfo(currentUser);
 
-    // Role check uses server-verified role
     if (currentUser.role !== 'admin' && currentUser.role !== 'tester') {
-        // Show not authorized screen
         document.getElementById('notAuthorized').style.display = '';
         return;
     }
 
-    // Show admin content
     document.getElementById('adminContent').style.display = '';
 
-    // Show admin link in dropdown (for admin) or reports link (for tester)
     var adminLink = document.querySelector('.admin-only-link');
     if (adminLink) adminLink.style.display = currentUser.role === 'admin' ? '' : 'none';
     var testerLink = document.querySelector('.tester-only-link');
     if (testerLink) testerLink.style.display = currentUser.role === 'tester' ? '' : 'none';
 
-    // If tester, hide dashboard tab and show only reports
     if (currentUser.role === 'tester') {
         var dashboardTab = document.querySelector('.admin-tab[data-admin-tab="dashboard"]');
         if (dashboardTab) dashboardTab.style.display = 'none';
@@ -88,19 +65,16 @@ async function initAdmin() {
         var reportsPane = document.querySelector('.admin-tab-pane[data-pane="reports"]');
         if (reportsPane) reportsPane.classList.add('active');
 
-        // Load reports - admin-reports.js exposes these functions globally
         var tryLoadReports = function() {
             if (window.loadReportStats && typeof window.loadReportStats === 'function') {
                 window.loadReportStats();
                 window.loadReports(1);
             } else {
-                // Retry if functions aren't ready yet
                 setTimeout(tryLoadReports, 50);
             }
         };
         tryLoadReports();
 
-        // Change nav bar text from "Admin Panel" to "Reports"
         var navBtns = document.querySelectorAll('.nav-button.active');
         navBtns.forEach(function(btn) {
             if (btn.textContent.trim().indexOf('Admin Panel') !== -1) {
@@ -114,26 +88,18 @@ async function initAdmin() {
             }
         });
 
-        // Update page title
         document.title = 'Reports - CodeLens';
 
-        // Update title bar
         var titleText = document.querySelector('.admin-title-text');
         if (titleText) titleText.textContent = 'Reports Dashboard';
         var titleSub = document.querySelector('.admin-title-sub');
         if (titleSub) titleSub.textContent = 'View and manage reports';
 
-        // Refresh icons for the changed nav button
         if (window.lucide) lucide.createIcons();
     }
 
-    // Load admin data
     await loadAdminData(token);
 }
-
-// ============================================
-// LOAD ADMIN DATA
-// ============================================
 
 async function loadAdminData(token) {
     try {
@@ -152,26 +118,19 @@ async function loadAdminData(token) {
         var statsData = await statsResponse.json();
         var usersData = await usersResponse.json();
 
-        // Fill stats
         if (statsData.success) {
             fillStats(statsData.stats);
         }
 
-        // Fill users table
         if (usersData.success) {
             fillUsersTable(usersData.users);
         }
 
     } catch (err) {
-        console.error('Failed to load admin data:', err);
-        document.getElementById('usersTableBody').innerHTML = 
+        document.getElementById('usersTableBody').innerHTML =
             '<tr><td colspan="5" class="table-empty">Failed to load data. Make sure the server is running.</td></tr>';
     }
 }
-
-// ============================================
-// FILL STATS
-// ============================================
 
 function fillStats(stats) {
     var totalUsers = document.getElementById('statTotalUsers');
@@ -191,17 +150,12 @@ function fillStats(stats) {
     if (execMonth) execMonth.textContent = stats.executionsThisMonth;
 }
 
-// ============================================
-// FILL USERS TABLE
-// ============================================
-
 function fillUsersTable(users) {
     var tbody = document.getElementById('usersTableBody');
     var countEl = document.getElementById('tableCount');
 
     if (!tbody) return;
 
-    // Update count
     if (countEl) {
         countEl.textContent = users.length + ' user' + (users.length !== 1 ? 's' : '');
     }
@@ -212,7 +166,6 @@ function fillUsersTable(users) {
         return;
     }
 
-    // Build rows
     var html = '';
 
     users.forEach(function(user) {
@@ -223,13 +176,12 @@ function fillUsersTable(users) {
         var roleText = isAdmin ? 'Admin' : (isTester ? 'Tester' : 'User');
         var dateText = formatDate(user.createdAt);
 
-        // Build avatar content - image or initials
         var avatarContent = '';
         if (user.avatar) {
             var avatarUrl = getAvatarUrl(user.avatar);
-            avatarContent = '<img src="' + avatarUrl + '" alt="' + escapeHtml(user.name) + '" style="width:100%;height:100%;object-fit:contain;border-radius:inherit;padding:3px;">';
+            avatarContent = '<img src="' + escapeHtml(avatarUrl) + '" alt="' + escapeHtml(user.name) + '" style="width:100%;height:100%;object-fit:contain;border-radius:inherit;padding:3px;">';
         } else {
-            avatarContent = initials;
+            avatarContent = escapeHtml(initials);
         }
 
         var isSelf = currentUser && (user.id === currentUser._id || user.id === currentUser.id);
@@ -275,17 +227,14 @@ function fillUsersTable(users) {
 
     tbody.innerHTML = html;
 
-    // Re-create lucide icons for the new rows
     if (window.lucide) lucide.createIcons({ rootElement: tbody });
 
-    // Wire delete buttons
     tbody.querySelectorAll('.user-delete-btn').forEach(function(btn) {
         btn.addEventListener('click', function() {
             openDeleteConfirm(btn.getAttribute('data-id'), btn.getAttribute('data-name'));
         });
     });
 
-    // Wire role change dropdown buttons
     tbody.querySelectorAll('.role-dropdown-wrapper').forEach(function(wrapper) {
         var btn = wrapper.querySelector('.role-pill-btn');
         var dropdown = wrapper.querySelector('.role-dropdown');
@@ -295,12 +244,11 @@ function fillUsersTable(users) {
         btn.addEventListener('click', function(e) {
             e.stopPropagation();
             var isOpen = dropdown.classList.contains('open');
-            
-            // Close all other dropdowns
+
             tbody.querySelectorAll('.role-dropdown.open').forEach(function(d) {
                 d.classList.remove('open');
             });
-            
+
             // Toggle this dropdown
             if (!isOpen) {
                 dropdown.classList.add('open');
@@ -318,17 +266,12 @@ function fillUsersTable(users) {
         });
     });
 
-    // Close dropdowns when clicking outside
     document.addEventListener('click', function() {
         tbody.querySelectorAll('.role-dropdown.open').forEach(function(d) {
             d.classList.remove('open');
         });
     });
 }
-
-// ============================================
-// CHANGE USER ROLE
-// ============================================
 
 async function changeUserRole(userId, newRole, wrapperEl) {
     var token = localStorage.getItem('codelens-token');
@@ -352,18 +295,12 @@ async function changeUserRole(userId, newRole, wrapperEl) {
             // Refresh the table to show updated role
             await loadAdminData(token);
         } else {
-            alert(data.message || 'Failed to change role');
         }
     } catch (err) {
-        alert('Network error — please try again');
     } finally {
         btn.disabled = false;
     }
 }
-
-// ============================================
-// DELETE USER
-// ============================================
 
 function openDeleteConfirm(userId, userName) {
     pendingDeleteId = userId;
@@ -400,28 +337,15 @@ async function confirmDeleteUser() {
             closeDeleteConfirm();
             await loadAdminData(token);
         } else {
-            alert(data.message || 'Failed to delete user');
         }
     } catch (err) {
-        alert('Network error — please try again');
     } finally {
         if (btn) { btn.disabled = false; btn.innerHTML = '<svg data-lucide="trash-2"></svg> Delete'; if (window.lucide) lucide.createIcons({ rootElement: btn }); }
     }
 }
 
-// ============================================
-// HELPERS (getInitials, formatDate, escapeHtml,
-// toggleProfileDropdown, closeProfileDropdown,
-// handleLogout are defined in config.js)
-// ============================================
-
-// ============================================
-// INITIALIZATION
-// ============================================
-
 document.addEventListener('DOMContentLoaded', function() {
 
-    // ---- Profile dropdown ----
     var profileBtns = document.querySelectorAll('.profile-btn');
     profileBtns.forEach(function(btn) {
         btn.addEventListener('click', function(e) {
@@ -442,13 +366,11 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // ---- Logout ----
     var logoutBtns = document.querySelectorAll('.logout-btn');
     logoutBtns.forEach(function(btn) {
         btn.addEventListener('click', handleLogout);
     });
 
-    // ---- Delete confirm modal ----
     var deleteCancel = document.getElementById('deleteConfirmCancel');
     var deleteOk = document.getElementById('deleteConfirmOk');
     var deleteOverlay = document.getElementById('deleteConfirmOverlay');
@@ -460,7 +382,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ---- Dashboard refresh button ----
     var dashboardRefreshBtn = document.getElementById('dashboardRefreshBtn');
     if (dashboardRefreshBtn) {
         dashboardRefreshBtn.addEventListener('click', function () {
@@ -473,6 +394,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ---- Init admin page ----
     initAdmin();
 });

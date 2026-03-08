@@ -1,21 +1,10 @@
-/* ============================================
-   DS Visualization Renderer
-   Renders data structure state into DOM.
-   Arrays (1D), 2D Arrays (matrix), pointers, variables.
-   Exposed globally as window.DSRenderer
-
-   Dependencies: config.js (escapeHtml, loaded first)
-   ============================================ */
 window.DSRenderer = (function () {
     'use strict';
 
     var container = null;
     var terminalEl = null;
 
-    /* ------- State color map -------
-       Maps DS cell states to CSS classes.
-       Each state represents a visual highlight during
-       algorithm execution (e.g., comparing, swapping, sorted). */
+
     var STATE_COLORS = {
         'default':    { cls: 'ds-cell--default' },
         'active':     { cls: 'ds-cell--active' },
@@ -37,16 +26,13 @@ window.DSRenderer = (function () {
         return (STATE_COLORS[st] || STATE_COLORS['default']).cls;
     }
 
-    // Uses global escapeHtml() from config.js — single shared implementation
-    // (Removed local copy that inefficiently created a new DOM element per call)
 
-    /* ------- Init: find containers ------- */
     function init() {
         container = document.getElementById('dsVisArea');
         terminalEl = document.getElementById('dsTerminalContent');
     }
 
-    /* ------- Clear ------- */
+
     function clear() {
         if (container) container.innerHTML = '';
         if (terminalEl) {
@@ -54,7 +40,7 @@ window.DSRenderer = (function () {
         }
     }
 
-    /* ------- Main render ------- */
+
     function render(dsState) {
         if (!container) init();
         if (!container) return;
@@ -84,7 +70,7 @@ window.DSRenderer = (function () {
         }
     }
 
-    /* ------- Single 1D Array ------- */
+
     function renderSingleArray(array, dsState) {
         if (!array || !array.length) return '';
         var html = '<div class="ds-array-wrapper">';
@@ -104,7 +90,7 @@ window.DSRenderer = (function () {
         return html;
     }
 
-    /* ------- Multiple Arrays ------- */
+
     function renderMultipleArrays(dsState) {
         var html = '<div class="ds-multi-arrays">';
         dsState.arrays.forEach(function (arrConfig) {
@@ -136,7 +122,7 @@ window.DSRenderer = (function () {
         return html;
     }
 
-    /* ------- 2D Array (Matrix) ------- */
+
     function renderMatrix(array, dsState) {
         if (!array || !array.length) return '';
         var html = '<div class="ds-matrix-wrapper">';
@@ -244,7 +230,7 @@ window.DSRenderer = (function () {
         return html;
     }
 
-    /* ------- Array Cell (1D) ------- */
+
     function renderArrayCell(item, idx, pointers) {
         var stateCls = getStateCls(item.state);
         var ptrs = getPointersAtIndex(pointers, item.index !== undefined ? item.index : idx);
@@ -283,7 +269,7 @@ window.DSRenderer = (function () {
         return html;
     }
 
-    /* ------- Info Sidebar ------- */
+
     function renderInfoSidebar(data, is2D) {
         var html = '<div class="ds-info-sidebar">';
 
@@ -328,7 +314,7 @@ window.DSRenderer = (function () {
         return html;
     }
 
-    /* ------- Terminal ------- */
+
     function renderTerminal(output) {
         if (!terminalEl) return;
         var termWindow = document.getElementById('dsTerminalWindow');
@@ -342,7 +328,7 @@ window.DSRenderer = (function () {
         terminalEl.innerHTML = html;
     }
 
-    /* ------- Pointer Utilities ------- */
+
     function getPointersAtIndex(pointers, index) {
         if (!pointers) return [];
         var result = [];
@@ -404,7 +390,7 @@ window.DSRenderer = (function () {
         return result;
     }
 
-    /* ------- Public API ------- */
+
     return {
         init: init,
         clear: clear,

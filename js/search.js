@@ -1,27 +1,10 @@
-/* ============================================
-   Global Search Dropdown
-   Debounced search across all languages.
-   Depends on: popup-core.js (_P namespace)
-
-   Features:
-     - 200ms debounced search across all 5 languages
-     - Keyboard navigation (↑/↓/Enter)
-     - Ctrl+K shortcut to focus
-     - Max 8 results with language badges
-   ============================================ */
-
 (function (P) {
     'use strict';
 
     var $ = P.$, $$ = P.$$;
 
-    // ---- State ----
     var searchHighlightIdx = -1;
     var searchDebounce = null;
-
-    // ============================================
-    // GLOBAL SEARCH DROPDOWN
-    // ============================================
 
     function initGlobalSearch() {
         var input = $('#globalSearchInput');
@@ -62,7 +45,6 @@
             }
         });
 
-        // Close when clicking outside
         document.addEventListener('click', function (e) {
             if (!e.target.closest('#globalSearchWrapper')) {
                 closeSearchDropdown();
@@ -138,8 +120,8 @@
             var langInfo = P.LANG_MAP[r.lang];
             var levelClass = (m.level || 'easy').toLowerCase();
             var catColor = P.getCategoryColor(m.category);
-            html += '<div class="search-result-item" data-search-idx="' + i + '" data-lang="' + r.lang + '">' +
-                '<div class="search-result-lang-badge" data-lang="' + r.lang + '">' + langInfo.label.substring(0, 2).toUpperCase() + '</div>' +
+            html += '<div class="search-result-item" data-search-idx="' + i + '" data-lang="' + escapeHtml(r.lang) + '">' +
+                '<div class="search-result-lang-badge" data-lang="' + escapeHtml(r.lang) + '">' + escapeHtml(langInfo.label.substring(0, 2).toUpperCase()) + '</div>' +
                 '<div class="search-result-info">' +
                 '<div class="search-result-title-row">' +
                 '<span class="search-result-title">' + escapeHtml(m.title) + '</span>' +
@@ -200,10 +182,6 @@
             items[searchHighlightIdx].scrollIntoView({ block: 'nearest' });
         }
     }
-
-    // ============================================
-    // INIT
-    // ============================================
 
     document.addEventListener('DOMContentLoaded', function () {
         initGlobalSearch();

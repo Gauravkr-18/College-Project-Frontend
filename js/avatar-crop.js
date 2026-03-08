@@ -1,11 +1,3 @@
-/* ============================================
-   Avatar Crop Modal
-   Canvas-based circular crop with zoom & drag
-   Depends on: config.js (API_URL, getAvatarUrl)
-               profile.js (showProfileMsg, updateProfileAvatarDisplay, highlightSelectedAvatar)
-   ============================================ */
-
-// ---- Crop State ----
 var cropState = {
     file: null,
     imageUrl: '',
@@ -24,7 +16,6 @@ var cropState = {
     CIRCLE_RADIUS: 140
 };
 
-// Open the crop modal with the selected file
 function openCropModal(file) {
     cropState.file = file;
 
@@ -63,7 +54,6 @@ function openCropModal(file) {
     if (window.lucide) lucide.createIcons();
 }
 
-// Close the crop modal
 function closeCropModal() {
     var overlay = document.getElementById('cropOverlay');
     if (!overlay) return;
@@ -79,7 +69,6 @@ function closeCropModal() {
     cropState.dragging = false;
 }
 
-// Update the crop image transform
 function updateCropPreview() {
     var cropImg = document.getElementById('cropImage');
     if (!cropImg) return;
@@ -206,7 +195,6 @@ async function uploadCroppedAvatar() {
             showProfileMsg('Avatar uploaded!', 'success');
 
         } catch (err) {
-            console.error('Upload failed:', err);
             showProfileMsg('Upload failed. Try again.', 'error');
             closeCropModal();
         }
@@ -230,10 +218,6 @@ async function handleAvatarUpload(file) {
 
     openCropModal(file);
 }
-
-// ============================================
-// CROP MODAL EVENT LISTENERS
-// ============================================
 
 document.addEventListener('DOMContentLoaded', function() {
 

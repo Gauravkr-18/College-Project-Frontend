@@ -1,22 +1,6 @@
-/* ============================================
-   Popup Core — Shared constants, utilities,
-   data loading, and editor integration.
-   Used by browse-examples.js, search.js, history.js
-
-   Exposes: window._P namespace with:
-     - Example data fetching + caching
-     - History storage (localStorage)
-     - Popup open/close lifecycle
-     - Inline SVGs (performance: avoids Lucide DOM scans)
-     - Shared helpers ($, $$, refreshIcons, formatRelativeTime)
-
-   Dependencies: config.js, syntax.js, category-colors.js
-   ============================================ */
-
 (function () {
     'use strict';
 
-    // ---- Constants ----
     var EXAMPLES_BASE = (typeof API_URL !== 'undefined' ? API_URL.replace('/api', '') : 'http://localhost:5000');
     var LANG_MAP = {
         c: { file: 'C.json', label: 'C', ext: '.c' },
@@ -28,11 +12,8 @@
     var HISTORY_KEY = 'codelens-history';
     var MAX_HISTORY = 50;
 
-    // ---- Caches ----
     var examplesCache = {};
     var itemCache = {};
-
-    // Inline SVGs for high-frequency icons (avoid lucide DOM scan per item)
     var SVG_FOOTPRINTS = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16v-2.38C4 11.5 2.97 10.12 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.5-2 8.5v2"/><path d="M20 20v-2.38c0-2.12 1.03-3.5 1-5.62-.03-2.72-1.49-6-4.5-6-1.87 0-2.5 1.8-2.5 3.5 0 3.11 2 5.5 2 8.5v2"/><path d="M2 21h6"/><path d="M16 21h6"/></svg>';
     var SVG_CHEVRON_RIGHT = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>';
     var SVG_PLAY_SM = '<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
@@ -46,10 +27,6 @@
     var SVG_LINK = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07L12 5"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07L12 19"/></svg>';
     var SVG_EYE = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>';
     var SVG_EYE_OFF = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/></svg>';
-
-    // ============================================
-    // UTILITY
-    // ============================================
 
     function $(sel, ctx) { return (ctx || document).querySelector(sel); }
     function $$(sel, ctx) { return Array.from((ctx || document).querySelectorAll(sel)); }
@@ -91,10 +68,6 @@
         return SVG_TAG;
     }
 
-    // ============================================
-    // ADMIN HELPERS
-    // ============================================
-
     function isCurrentUserAdmin() {
         try {
             var user = JSON.parse(localStorage.getItem('codelens-user'));
@@ -113,10 +86,6 @@
         return localStorage.getItem('codelens-token') || null;
     }
 
-    // ============================================
-    // POPUP OPEN / CLOSE
-    // ============================================
-
     function openPopup(id) {
         var el = document.getElementById(id);
         if (!el) return;
@@ -131,7 +100,6 @@
         document.body.style.overflow = '';
     }
 
-    // Close on overlay click
     document.addEventListener('click', function (e) {
         if (e.target.classList.contains('popup-overlay')) {
             closePopup(e.target.id);
@@ -142,17 +110,12 @@
         }
     });
 
-    // Close on ESC
     document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape') {
             $$('.popup-overlay.open').forEach(function (p) { closePopup(p.id); });
             if (P.closeSearchDropdown) P.closeSearchDropdown();
         }
     });
-
-    // ============================================
-    // DATA LOADING
-    // ============================================
 
     function loadExamples(type, langKey, cb) {
         var admin    = isCurrentUserAdmin();
@@ -193,8 +156,22 @@
     function fetchExampleItem(type, langKey, rawIdx, cb) {
         var cacheKey = type + '_' + langKey + '_' + rawIdx;
         if (itemCache[cacheKey]) { cb(itemCache[cacheKey]); return; }
-        fetch(EXAMPLES_BASE + '/api/examples/item/' + type + '/' + langKey + '/' + rawIdx)
-            .then(function (r) { return r.ok ? r.json() : null; })
+        var opts = {};
+        var token = getAuthToken();
+        if (token) opts.headers = { 'Authorization': 'Bearer ' + token };
+        fetch(EXAMPLES_BASE + '/api/examples/item/' + type + '/' + langKey + '/' + rawIdx, opts)
+            .then(function (r) {
+                if (r.status === 429) {
+                    var titleEl = document.getElementById('authTitle');
+                    var subtitleEl = document.getElementById('authSubtitle');
+                    if (titleEl) titleEl.textContent = 'Unlock Unlimited Access';
+                    if (subtitleEl) subtitleEl.textContent =
+                        'You\'ve used your free visualizations. Login or sign up to continue.';
+                    if (typeof openAuthModal === 'function') openAuthModal();
+                    return null;
+                }
+                return r.ok ? r.json() : null;
+            })
             .then(function (res) {
                 if (res && res.success && res.data) {
                     itemCache[cacheKey] = res.data;
@@ -205,10 +182,6 @@
             })
             .catch(function () { cb(null); });
     }
-
-    // ============================================
-    // HISTORY STORAGE
-    // ============================================
 
     function getHistory() {
         try {
@@ -238,17 +211,13 @@
         saveHistory(list);
     }
 
-    // ============================================
-    // TRACK EXAMPLE VIEW (Analytics)
-    // ============================================
-
     function trackExampleView(title, lang, type) {
         try {
             var token = localStorage.getItem('codelens-token');
-            var endpoint = token 
+            var endpoint = token
                 ? EXAMPLES_BASE + '/api/examples/track-view'
                 : EXAMPLES_BASE + '/api/examples/track-view-guest';
-            
+
             var headers = {
                 'Content-Type': 'application/json'
             };
@@ -264,11 +233,6 @@
         } catch (e) {}
     }
 
-    // ============================================
-    // LOAD EXAMPLE INTO EDITOR
-    // ============================================
-
-    // ---- Guest execution limit ----
     var GUEST_RUN_LIMIT = 5;
     var GUEST_RUN_KEY   = 'codelens-guest-runs';
 
@@ -302,7 +266,6 @@
     function loadExampleIntoEditor(example, lang, type) {
         var exampleType = type || (example && example.meta && example.meta.type) || 'stack';
 
-        // Block guest users after GUEST_RUN_LIMIT visualizations
         if (!isLoggedIn()) {
             if (getGuestRuns() >= GUEST_RUN_LIMIT) {
                 // Customise modal message before opening
@@ -326,7 +289,7 @@
         if (fileBadge) {
             var nameSlug  = m.title.toLowerCase().replace(/[^a-z0-9]+/g, '_').substring(0, 20);
             var truncated = (typeof truncateFileName === 'function') ? truncateFileName(nameSlug) : nameSlug;
-            fileBadge.innerHTML = truncated + '<span class="ext">' + langInfo.ext + '</span>';
+            fileBadge.innerHTML = escapeHtml(truncated) + '<span class="ext">' + escapeHtml(langInfo.ext) + '</span>';
         }
 
         var codeContent = $('.code-content');
@@ -370,10 +333,6 @@
         };
         loadExampleIntoEditor(example, historyItem.lang, historyItem.type || 'stack');
     }
-
-    // ============================================
-    // EXPOSE SHARED NAMESPACE
-    // ============================================
 
     var P = window._P = {
         EXAMPLES_BASE: EXAMPLES_BASE,

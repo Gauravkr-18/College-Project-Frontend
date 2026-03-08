@@ -1,28 +1,11 @@
-/* ============================================
-   History Popup
-   localStorage-backed example history.
-   Depends on: popup-core.js (_P namespace)
-
-   Features:
-     - Stores last 50 viewed examples in localStorage
-     - Time-based filtering (hour/today/week/month/all)
-     - Text search within history
-     - Open or remove individual items
-   ============================================ */
-
 (function (P) {
     'use strict';
 
     var $ = P.$, $$ = P.$$;
 
-    // ---- State ----
     var historyFilter = 'all';
     var historyClickAttached = false;
     var currentHistoryList = [];
-
-    // ============================================
-    // HISTORY POPUP
-    // ============================================
 
     function initHistoryPopup() {
         // Filter button
@@ -107,13 +90,13 @@
                 '<div class="history-row-info">' +
                 '<div class="history-row-top">' +
                 '<span class="history-row-name">' + escapeHtml(h.title) + '</span>' +
-                '<span class="history-row-time">' + P.formatRelativeTime(h.timestamp) + '</span>' +
+                '<span class="history-row-time">' + escapeHtml(P.formatRelativeTime(h.timestamp)) + '</span>' +
                 '</div>' +
                 '<div class="history-row-meta">' +
-                '<span class="history-lang-badge">' + langInfo.label.substring(0, 2).toUpperCase() + '</span>' +
+                '<span class="history-lang-badge">' + escapeHtml(langInfo.label.substring(0, 2).toUpperCase()) + '</span>' +
                 '<span>' + escapeHtml(h.category || '') + '</span>' +
                 '<span>&middot;</span>' +
-                '<span>' + (h.steps || 0) + ' steps</span>' +
+                '<span>' + escapeHtml(String(h.steps || 0)) + ' steps</span>' +
                 '</div>' +
                 '</div>' +
                 '<div class="history-row-actions">' +
@@ -150,10 +133,6 @@
             });
         }
     }
-
-    // ============================================
-    // INIT
-    // ============================================
 
     document.addEventListener('DOMContentLoaded', function () {
         initHistoryPopup();

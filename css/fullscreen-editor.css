@@ -1,9 +1,6 @@
-/* ============================================
-   Full-Screen Editor — Modal Popup
-   Matches CodeLens React version design
-   ============================================ */
 
-/* ---- Overlay ---- */
+
+
 .fse-overlay {
     position: fixed;
     inset: 0;
@@ -19,7 +16,7 @@
     transition: opacity 0.2s ease, visibility 0.2s ease;
 }
 
-/* Elevate browse/history popups above FSE overlay when FSE is open */
+
 body.fse-open .popup-overlay {
     z-index: 10100;
 }
@@ -29,7 +26,7 @@ body.fse-open .popup-overlay {
     visibility: visible;
 }
 
-/* ---- Container ---- */
+
 .fse-container {
     position: relative;
     width: 95vw;
@@ -52,7 +49,7 @@ body.fse-open .popup-overlay {
     opacity: 1;
 }
 
-/* ---- Header ---- */
+
 .fse-header {
     display: flex;
     align-items: center;
@@ -91,7 +88,7 @@ body.fse-open .popup-overlay {
     flex-shrink: 0;
 }
 
-/* ---- Traffic Lights ---- */
+
 .fse-traffic-lights {
     display: flex;
     align-items: center;
@@ -126,7 +123,7 @@ body.fse-open .popup-overlay {
     cursor: default;
 }
 
-/* ---- Branding ---- */
+
 .fse-branding {
     font-size: 14px;
     font-weight: 600;
@@ -139,7 +136,7 @@ body.fse-open .popup-overlay {
     color: var(--accent-blue);
 }
 
-/* ---- File Badge (center) ---- */
+
 .fse-file-badge {
     display: flex;
     align-items: center;
@@ -167,7 +164,7 @@ body.fse-open .popup-overlay {
     color: var(--accent-blue);
 }
 
-/* ---- Tool Buttons ---- */
+
 .fse-tool-group {
     display: flex;
     align-items: center;
@@ -231,7 +228,7 @@ body.fse-open .popup-overlay {
     border-color: var(--accent-green);
 }
 
-/* ---- Execution Controls ---- */
+
 .fse-exec-group {
     display: flex;
     align-items: center;
@@ -296,7 +293,7 @@ body.fse-open .popup-overlay {
     cursor: wait;
 }
 
-/* ---- Close Button ---- */
+
 .fse-close-btn {
     display: flex;
     align-items: center;
@@ -320,7 +317,7 @@ body.fse-open .popup-overlay {
     background-color: rgba(239, 68, 68, 0.1);
 }
 
-/* ---- Content Area (code) ---- */
+
 .fse-content {
     flex: 1;
     display: flex;
@@ -339,7 +336,7 @@ body.fse-open .popup-overlay {
     background-color: var(--code-viewer-bg, #08080c);
 }
 
-/* Code lines inside FSE */
+
 .fse-code-area .code-line {
     display: flex;
     align-items: stretch;
@@ -371,7 +368,7 @@ body.fse-open .popup-overlay {
     padding: 0 8px;
 }
 
-/* ---- Terminal ---- */
+
 .fse-terminal {
     border-top: 1px solid var(--border-default);
     overflow: hidden;
@@ -511,7 +508,7 @@ body.fse-open .popup-overlay {
     margin-bottom: 4px;
 }
 
-/* ---- Status Bar ---- */
+
 .fse-status-bar {
     display: flex;
     align-items: center;
@@ -560,7 +557,7 @@ body.fse-open .popup-overlay {
     color: var(--text-secondary);
 }
 
-/* ---- Responsive ---- */
+
 @media (max-width: 768px) {
     .fse-container {
         width: 100vw;

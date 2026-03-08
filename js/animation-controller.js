@@ -1,15 +1,3 @@
-/* ============================================
-   Animation Controller — Step-through player
-   Exposed globally as window.AnimationController
-   Called by popup-core.js after any example loads.
-
-   Responsibilities:
-     - Play / pause / step-forward / step-backward
-     - Speed control (0.5× – 2.0×)
-     - Progress slider with step-bar markers
-     - Code line highlighting synced to current step
-     - Delegates rendering to VisualizationEngine/DSEngine
-   ============================================ */
 window.AnimationController = (function () {
     'use strict';
 
@@ -21,12 +9,12 @@ window.AnimationController = (function () {
     var SPEEDS      = [0.5, 1.0, 1.5, 2.0];
     var speedIdx    = 1;
     var markers     = [];
-    var hasDataSegment = false;  // tracks if any step has data_segment_update
-    var isDSExample    = false;  // tracks if loaded example is DS type
+    var hasDataSegment = false;  
+    var isDSExample    = false;  
 
     function $id(id) { return document.getElementById(id); }
 
-    /* Show / hide the controller bar */
+
     function show() {
         var el = document.querySelector('.animation-controller');
         if (el) {
@@ -35,8 +23,7 @@ window.AnimationController = (function () {
         }
         var capsule = $id('stepInfoCapsule');
         if (capsule) capsule.classList.add('active');
-        /* visArea visibility is controlled by renderStep, not show() */
-        // Hide placeholder when visualizing
+
         if (isDSExample) {
             var phDS = document.querySelector('.vis-placeholder--ds');
             if (phDS) phDS.style.display = 'none';
@@ -74,7 +61,7 @@ window.AnimationController = (function () {
         if (phStack) phStack.style.display = '';
         var phDS = document.querySelector('.vis-placeholder--ds');
         if (phDS) phDS.style.display = '';
-        /* Clear visualization */
+
         if (isDSExample) {
             if (window.DSEngine) window.DSEngine.reset();
             if (window.DSRenderer) window.DSRenderer.clear();
@@ -85,7 +72,7 @@ window.AnimationController = (function () {
         isDSExample = false;
     }
 
-    /* Synthetic steps when execution_steps absent */
+
     function makeSyntheticSteps(code, total) {
         var lines  = (code || '').split('\n');
         var lc     = lines.length;
@@ -101,7 +88,7 @@ window.AnimationController = (function () {
         return result;
     }
 
-    /* Load an example object */
+
     function load(example) {
         var m        = example.meta || {};
         var rawSteps = example.execution_steps;
@@ -129,7 +116,7 @@ window.AnimationController = (function () {
         markers.sort(function (a, b) { return a.stepIdx - b.stepIdx; });
         updatePlayIcon(false);
         updateSpeedLabel();
-        /* Initialize visualization engine */
+
         if (isDSExample) {
             if (window.DSEngine) window.DSEngine.reset();
             if (window.DSRenderer) window.DSRenderer.init();
@@ -142,7 +129,7 @@ window.AnimationController = (function () {
         renderMarkers();
     }
 
-    /* Slider position helpers */
+
     function sliderPercent(idx) {
         if (totalSteps <= 0) return 0;
         return (idx / totalSteps) * 100;
@@ -161,7 +148,7 @@ window.AnimationController = (function () {
         }
     }
 
-    /* Update the description capsule */
+
     function updateCapsule(step, total, desc) {
         var stepEl = $id('capsuleStep');
         var totEl  = $id('capsuleTotal');
@@ -171,7 +158,7 @@ window.AnimationController = (function () {
         if (descEl) descEl.textContent = desc || 'Ready to start';
     }
 
-    /* Render step idx (0 = ready-to-start, 1..N = actual steps) */
+
     function renderStep(idx) {
         if (idx < 0)            idx = 0;
         if (idx > totalSteps)   idx = totalSteps;
@@ -187,7 +174,7 @@ window.AnimationController = (function () {
         var dsVisEl  = $id('dsVisArea');
         var dsTermEl = $id('dsTerminalWindow');
 
-        /* Toggle visualization area: show from step 1 onwards (including last step) */
+
         if (isDSExample) {
             if (dsVisEl) {
                 if (idx >= 1) { dsVisEl.classList.add('active'); }
@@ -200,7 +187,7 @@ window.AnimationController = (function () {
             }
         }
 
-        /* Toggle data segment column visibility */
+
         if (dsCol) {
             if (hasDataSegment) {
                 dsCol.classList.add('active');
@@ -209,7 +196,7 @@ window.AnimationController = (function () {
             }
         }
 
-        /* End overlay: show only when all steps complete */
+
         var endOverlay = $id('visEndOverlay');
         if (endOverlay) {
             if (idx === totalSteps && totalSteps > 0) {
@@ -223,7 +210,7 @@ window.AnimationController = (function () {
         }
 
         if (idx === 0) {
-            /* Step 0: clear all highlights, show ready state */
+
             lines.forEach(function (l) { l.classList.remove('active'); });
             if (cur) cur.textContent = 0;
             if (tot) tot.textContent = totalSteps;
@@ -232,7 +219,7 @@ window.AnimationController = (function () {
             updateMarkers(0);
             if (prevBtn) prevBtn.disabled = true;
             if (nextBtn) nextBtn.disabled = (totalSteps === 0);
-            /* Clear visualization */
+
             if (isDSExample) {
                 if (window.DSRenderer) window.DSRenderer.clear();
             } else {
@@ -241,11 +228,11 @@ window.AnimationController = (function () {
             return;
         }
 
-        /* Step 1..N: render steps[idx - 1] */
+
         var s       = steps[idx - 1] || {};
         var lineNum = s.line || 1;
 
-        /* Highlight target line */
+
         lines.forEach(function (l) { l.classList.remove('active'); });
         var target = lines[lineNum - 1];
         if (target) {
@@ -253,29 +240,28 @@ window.AnimationController = (function () {
             target.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
         }
 
-        /* Update counter */
+
         if (cur) cur.textContent = idx;
         if (tot) tot.textContent = totalSteps;
 
-        /* Update capsule */
+
         updateCapsule(idx, totalSteps, s.description || '');
 
-        /* Update slider */
+
         updateSlider(idx);
 
-        /* Update markers */
+
         updateMarkers(idx);
 
-        /* Button disabled states */
+
         if (prevBtn) prevBtn.disabled = false;
         if (nextBtn) nextBtn.disabled = (idx >= totalSteps);
 
-        /* ---- Run Visualization Engine & Render ---- */
         if (isDSExample) {
             if (window.DSEngine && window.DSRenderer) {
                 var dsState = window.DSEngine.executeUpTo(steps, idx);
                 window.DSRenderer.render(dsState);
-                /* Show/hide DS terminal window */
+
                 if (dsTermEl) {
                     if (dsState.terminalOutput && dsState.terminalOutput.length) {
                         dsTermEl.classList.add('active');
@@ -290,7 +276,7 @@ window.AnimationController = (function () {
         }
     }
 
-    /* Timer helpers */
+
     function intervalMs() { return Math.round(1000 / SPEEDS[speedIdx]); }
 
     function clearTimer() {
@@ -328,13 +314,13 @@ window.AnimationController = (function () {
         renderStep(0);
     }
 
-    /* Step bar markers */
+
     function renderMarkers() {
         var wrapper = document.querySelector('.step-slider-wrapper');
         if (!wrapper) return;
         wrapper.querySelectorAll('.slider-marker').forEach(function (el) { el.remove(); });
         markers.forEach(function (m) {
-            /* stepIdx is 0-based in steps[]; maps to currentStep = stepIdx + 1 */
+
             var leftPct = totalSteps > 0 ? ((m.stepIdx + 1) / totalSteps) * 100 : 0;
             var btn = document.createElement('button');
             btn.type = 'button';
@@ -360,7 +346,7 @@ window.AnimationController = (function () {
         });
     }
 
-    /* Speed dropdown */
+
     function toggleSpeedDropdown() {
         var dd = $id('speedDropdown');
         if (!dd) return;
@@ -388,7 +374,7 @@ window.AnimationController = (function () {
         }
     }
 
-    /* Icon + label helpers */
+
     function updatePlayIcon(playing) {
         var btn = $id('ctrlPlay');
         if (!btn) return;
@@ -406,7 +392,7 @@ window.AnimationController = (function () {
         });
     }
 
-    /* Bind controller buttons */
+
     function init() {
         var prevBtn  = $id('ctrlPrev');
         var nextBtn  = $id('ctrlNext');
@@ -450,7 +436,7 @@ window.AnimationController = (function () {
             closeSpeedDropdown();
         });
 
-        /* Wire end overlay buttons */
+
         var nextExBtn = $id('visNextExampleBtn');
         var browseBtn = $id('visBrowseBtn');
         if (nextExBtn) {

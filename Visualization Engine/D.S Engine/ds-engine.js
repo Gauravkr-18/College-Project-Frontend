@@ -1,26 +1,7 @@
-/* ============================================
-   DS Visualization Engine
-   Processes ds_update actions from execution steps
-   and maintains data structure state.
-   Exposed globally as window.DSEngine
-
-   Supported DS types: array, 2d_array
-   Supports: single array, multiple arrays, pointers,
-   variables, cell state highlighting (active, comparing,
-   sorted, swapping, etc.)
-
-   Action types handled:
-     ds_init | ds_update | ds_init_multiple |
-     ds_update_multiple | ds_update_message |
-     variable_declare | multiple_variable_declare |
-     array_compare | array_highlight |
-     array_set_pointer | set_node_state |
-     function_return | program_end
-   ============================================ */
 window.DSEngine = (function () {
     'use strict';
 
-    /* ------- State ------- */
+
     var state = createInitialState();
 
     function createInitialState() {
@@ -54,7 +35,7 @@ window.DSEngine = (function () {
         state = createInitialState();
     }
 
-    /* ------- Utility: normalize array items ------- */
+
     function normalizeArrayItem(item, prevItem) {
         // Ensure state field exists
         var result = {
@@ -95,7 +76,7 @@ window.DSEngine = (function () {
         });
     }
 
-    /* Reset all cell states to default */
+
     function resetArrayStates(arr) {
         if (!arr || !arr.length) return arr;
         return arr.map(function (item) {
@@ -114,7 +95,7 @@ window.DSEngine = (function () {
         });
     }
 
-    /* Clear variable highlights except specified keys */
+
     function clearVariableHighlightsExcept(variables, keepKeys) {
         var result = {};
         var keep = {};
@@ -127,11 +108,7 @@ window.DSEngine = (function () {
         return result;
     }
 
-    /* ===================================================
-       ACTION HANDLERS
-    =================================================== */
 
-    /* DS INIT — first-time initialization */
     function handleDSInit(dsUpdate) {
         var type = dsUpdate.type || state.type;
         var data = dsUpdate.data || {};
@@ -157,7 +134,7 @@ window.DSEngine = (function () {
         });
     }
 
-    /* DS UPDATE — update single array preserving others */
+
     function handleDSUpdate(dsUpdate) {
         var data = dsUpdate.data || {};
         var prevDS = state;
@@ -212,7 +189,7 @@ window.DSEngine = (function () {
         }
     }
 
-    /* DS INIT MULTIPLE — init multiple arrays */
+
     function handleDSInitMultiple(dsUpdate) {
         var type = dsUpdate.type || state.type;
         var arraysConfig = dsUpdate.arrays || [];
@@ -253,7 +230,6 @@ window.DSEngine = (function () {
                 })
             });
         });
-        // Add new arrays not in previous
         processedArrays.forEach(function (arr) {
             var exists = prevArrays.some(function (p) { return p.variable_name === arr.variable_name; });
             if (!exists) merged.push(arr);
@@ -272,12 +248,12 @@ window.DSEngine = (function () {
         });
     }
 
-    /* DS UPDATE MULTIPLE */
+
     function handleDSUpdateMultiple(dsUpdate) {
         handleDSInitMultiple(dsUpdate);
     }
 
-    /* DS UPDATE MESSAGE — update description only */
+
     function handleDSUpdateMessage(dsUpdate) {
         state = Object.assign({}, state, {
             description: dsUpdate.description || '',
@@ -287,7 +263,7 @@ window.DSEngine = (function () {
         });
     }
 
-    /* VARIABLE DECLARE */
+
     function handleVariableDeclare(dsUpdate) {
         var name = dsUpdate.variable_name;
         if (!name) return;
@@ -307,7 +283,7 @@ window.DSEngine = (function () {
         });
     }
 
-    /* MULTIPLE VARIABLE DECLARE */
+
     function handleMultipleVariableDeclare(dsUpdate) {
         var decl = dsUpdate.declare || [];
         if (!decl.length) return;
@@ -329,7 +305,7 @@ window.DSEngine = (function () {
         });
     }
 
-    /* ARRAY COMPARE / ARRAY HIGHLIGHT — highlight specific indices */
+
     function handleArrayCompare(dsUpdate) {
         var indices = dsUpdate.indices || [];
         var highlightState = dsUpdate.state || 'active';
@@ -368,7 +344,7 @@ window.DSEngine = (function () {
         state.description = dsUpdate.description || '';
     }
 
-    /* ARRAY SET POINTER */
+
     function handleArraySetPointer(dsUpdate) {
         var newPointers = dsUpdate.pointers || {};
 
@@ -411,7 +387,7 @@ window.DSEngine = (function () {
         state.description = dsUpdate.description || '';
     }
 
-    /* SET NODE STATE — set specific cell states */
+
     function handleSetNodeState(dsUpdate) {
         var updates = dsUpdate.updates || [];
         if (!updates.length) return;
@@ -450,17 +426,13 @@ window.DSEngine = (function () {
         state.description = dsUpdate.description || '';
     }
 
-    /* FUNCTION RETURN / PROGRAM END — final state */
+
     function handleFunctionReturn(dsUpdate) {
         state.array = resetArrayStates(state.array);
         state.arrays = resetMultipleArraysStates(state.arrays);
         state.description = dsUpdate.description || 'Function returned';
     }
 
-    /* ===================================================
-       STEP EXECUTOR
-       Process a single step's ds_update
-    =================================================== */
     function executeStep(stepData) {
         if (!stepData) return;
 
@@ -520,7 +492,7 @@ window.DSEngine = (function () {
         }
     }
 
-    /* Execute all steps up to targetStep (1-based) */
+
     function executeUpTo(steps, targetStep) {
         state = createInitialState();
         for (var i = 0; i < targetStep && i < steps.length; i++) {
@@ -529,7 +501,7 @@ window.DSEngine = (function () {
         return state;
     }
 
-    /* ------- Public API ------- */
+
     return {
         reset: reset,
         executeStep: executeStep,

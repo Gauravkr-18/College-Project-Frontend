@@ -1,9 +1,6 @@
-/* ============================================
-   DS Visualizer — Data Structure Visualization
-   Styles for arrays, 2D arrays, pointers, variables
-   ============================================ */
 
-/* ---- DS Visualization Area ---- */
+
+
 .ds-vis-area {
     display: none;
     width: 100%;
@@ -20,7 +17,7 @@
     display: flex;
 }
 
-/* ===== ARRAY WRAPPER (single array with sidebar) ===== */
+
 .ds-array-wrapper,
 .ds-matrix-wrapper {
     display: flex;
@@ -30,7 +27,7 @@
     justify-content: center;
 }
 
-/* ===== MULTIPLE ARRAYS ===== */
+
 .ds-multi-arrays {
     display: flex;
     flex-direction: column;
@@ -46,7 +43,7 @@
     justify-content: center;
 }
 
-/* ===== INFO SIDEBAR ===== */
+
 .ds-info-sidebar {
     display: flex;
     flex-direction: column;
@@ -93,7 +90,7 @@
 .ds-info-value--size { color: var(--accent-green); }
 .ds-info-value--dim  { color: var(--accent-cyan); }
 
-/* ===== ARRAY CONTAINER (horizontal row of cells) ===== */
+
 .ds-array-container {
     display: flex;
     align-items: flex-end;
@@ -104,7 +101,7 @@
     background: rgba(255, 255, 255, 0.015);
 }
 
-/* ===== CELL WRAPPER (pointer + cell + index + address) ===== */
+
 .ds-cell-wrapper {
     display: flex;
     flex-direction: column;
@@ -112,7 +109,7 @@
     gap: 0;
 }
 
-/* ===== POINTER INDICATORS ===== */
+
 .ds-pointer-indicators {
     display: flex;
     flex-direction: column;
@@ -175,7 +172,7 @@
     50% { transform: translateY(3px); }
 }
 
-/* ===== CELL (array/matrix element) ===== */
+
 .ds-cell {
     position: relative;
     width: 52px;
@@ -227,7 +224,7 @@
     margin-top: 1px;
 }
 
-/* ===== CELL STATES ===== */
+
 .ds-cell--default {
     border-color: var(--border-default);
     background: var(--glass-light);
@@ -352,7 +349,7 @@
     transform: scale(1.12);
 }
 
-/* ===== MATRIX GRID ===== */
+
 .ds-matrix-grid {
     display: flex;
     flex-direction: column;
@@ -403,7 +400,7 @@
     color: var(--text-disabled);
 }
 
-/* ===== DS TERMINAL WINDOW ===== */
+
 .ds-terminal-window {
     display: none;
     position: absolute;
@@ -473,7 +470,7 @@
     line-height: 1.6;
 }
 
-/* ===== DESCRIPTION BAR ===== */
+
 .ds-description-bar {
     width: 100%;
     text-align: center;
@@ -486,7 +483,7 @@
     border: 1px solid var(--border-subtle);
 }
 
-/* ===== LIGHT THEME OVERRIDES ===== */
+
 [data-theme="light"] .ds-cell--default {
     background: rgba(0, 0, 0, 0.02);
 }
@@ -504,7 +501,7 @@
     background: rgba(30, 30, 30, 0.95);
 }
 
-/* ===== RESPONSIVE ===== */
+
 @media (max-width: 768px) {
     .ds-cell {
         width: 42px;

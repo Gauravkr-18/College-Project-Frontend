@@ -1,9 +1,3 @@
-/* ============================================
-   Theme Toggle - Dark/Light Switch
-   Simple toggle with localStorage persistence
-   ============================================ */
-
-// Get saved theme or default to dark
 function getTheme() {
     return localStorage.getItem('codelens-theme') || 'dark';
 }
@@ -11,8 +5,7 @@ function getTheme() {
 // Apply theme to document
 function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
-    
-    // Update toggle button icon
+
     var toggleBtn = document.getElementById('themeToggle');
     if (toggleBtn) {
         var svg = toggleBtn.querySelector('svg');
@@ -23,7 +16,6 @@ function applyTheme(theme) {
             } else {
                 svg.setAttribute('data-lucide', 'sun');
             }
-            // Re-render lucide icons
             if (window.lucide) {
                 lucide.createIcons();
             }
@@ -48,8 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (toggleBtn) {
         toggleBtn.addEventListener('click', toggleTheme);
     }
-    
-    // Re-initialize Lucide icons after theme is applied
+
     setTimeout(function() {
         if (window.lucide) {
             lucide.createIcons();

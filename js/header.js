@@ -1,12 +1,5 @@
-/* ============================================
-   Header Interactions - Dropdown Toggle
-   Uses .nav-dropdown-wrapper as position anchor
-   Dropdown is sibling of button, not nested inside
-   ============================================ */
-
 document.addEventListener('DOMContentLoaded', function() {
 
-    // Get all dropdown wrappers
     var dropdownWrappers = document.querySelectorAll('.nav-dropdown-wrapper');
 
     dropdownWrappers.forEach(function(wrapper) {
@@ -22,7 +15,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             var isOpen = wrapper.classList.contains('open');
 
-            // Close all dropdowns first
             closeAllDropdowns();
 
             // If it was closed, open it
@@ -34,21 +26,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Close dropdowns when clicking outside
     document.addEventListener('click', function(e) {
         if (!e.target.closest('.nav-dropdown-wrapper')) {
             closeAllDropdowns();
         }
     });
 
-    // Close dropdowns on Escape key
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             closeAllDropdowns();
         }
     });
 
-    // Helper: close all dropdowns
     function closeAllDropdowns() {
         var allWrappers = document.querySelectorAll('.nav-dropdown-wrapper');
         allWrappers.forEach(function(wrapper) {
@@ -61,12 +50,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// ---- Logo Eye Blink Animation ----
 (function () {
     var OPEN_PATH   = 'M3 11C3 11 6 4 12 4C18 4 21 11 21 11';
     var CLOSED_PATH = 'M3 11C3 11 6 11 12 11C18 11 21 11 21 11';
-
-    // Interpolate the control point y value (4 = open, 11 = closed)
     function lidPath(t) {
         var y = (4 + (11 - 4) * t).toFixed(2);
         return 'M3 11C3 11 6 ' + y + ' 12 ' + y + 'C18 ' + y + ' 21 11 21 11';

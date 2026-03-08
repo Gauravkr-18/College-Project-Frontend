@@ -8,9 +8,9 @@
     <link rel="stylesheet" href="css/common.css" />
     <link rel="stylesheet" href="css/auth.css" />
     <link rel="stylesheet" href="css/dashboard.css" />
-    <!-- Lucide Icons CDN -->
+
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-    <!-- Vercel Web Analytics -->
+
     <script>
       window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
     </script>
@@ -18,11 +18,11 @@
   </head>
   <body>
     <div class="admin-page">
-      <!-- ============ HEADER ============ -->
+
       <header class="header">
         <div class="header-container">
           <div class="header-content">
-            <!-- Logo -->
+
             <a href="index.html" class="logo">
               <div class="logo-icon-wrapper">
                 <img
@@ -115,7 +115,7 @@
               </div>
             </a>
 
-            <!-- Navigation Bar (Center) -->
+
             <nav class="nav-bar">
               <a href="editor.html" class="nav-button">
                 <svg class="nav-icon" data-lucide="code"></svg>
@@ -128,9 +128,9 @@
               </a>
             </nav>
 
-            <!-- Actions -->
+
             <div class="header-actions">
-              <!-- Theme Toggle -->
+
               <button
                 class="theme-toggle"
                 id="themeToggle"
@@ -139,7 +139,7 @@
                 <svg data-lucide="moon"></svg>
               </button>
 
-              <!-- Profile Dropdown -->
+
               <div class="profile-dropdown-wrapper">
                 <button class="profile-btn show">
                   <div class="profile-avatar">?</div>
@@ -182,9 +182,9 @@
         </div>
       </header>
 
-      <!-- ============ ADMIN CONTENT ============ -->
+
       <main class="admin-content" id="adminContent" style="display: none">
-        <!-- Admin Title Bar -->
+
         <div class="admin-title-bar">
           <div class="admin-title-left">
             <div class="admin-title-icon">
@@ -203,7 +203,7 @@
           </span>
         </div>
 
-        <!-- Admin Tabs -->
+
         <div class="admin-tabs">
           <button class="admin-tab active" data-admin-tab="dashboard">
             <svg data-lucide="layout-dashboard"></svg>
@@ -216,10 +216,10 @@
           </button>
         </div>
 
-        <!-- ===== DASHBOARD TAB ===== -->
+
         <div class="admin-tab-pane active" id="adminDashboardPane" data-pane="dashboard">
 
-        <!-- Dashboard Toolbar -->
+
         <div class="admin-pane-toolbar">
           <button class="admin-refresh-btn" id="dashboardRefreshBtn" title="Refresh data">
             <svg data-lucide="refresh-cw"></svg>
@@ -227,7 +227,7 @@
           </button>
         </div>
 
-        <!-- Stats Grid -->
+
         <div class="stats-grid">
           <div class="stat-card">
             <div class="stat-card-header">
@@ -300,14 +300,14 @@
           </div>
         </div>
 
-        <!-- Section Title -->
+
         <div class="admin-section-title">
           <svg data-lucide="list"></svg>
           <span>All Registered Users</span>
           <span class="table-count" id="tableCount">0 users</span>
         </div>
 
-        <!-- Users Table -->
+
         <div class="table-section">
           <table class="users-table">
             <thead>
@@ -327,11 +327,11 @@
             </tbody>
           </table>
         </div>
-        </div><!-- end dashboard pane -->
+        </div>
 
-        <!-- ===== REPORTS TAB ===== -->
+
         <div class="admin-tab-pane" id="adminReportsPane" data-pane="reports">
-          <!-- Report Stats Cards -->
+
           <div class="report-stats-grid">
             <div class="report-stat-card report-stat-card--open">
               <div class="report-stat-icon">
@@ -363,14 +363,14 @@
             </div>
           </div>
 
-          <!-- Filters Bar -->
+
           <div class="reports-filters">
             <div class="reports-search-box">
               <svg data-lucide="search"></svg>
               <input type="text" id="reportSearchInput" placeholder="Search reports..." />
             </div>
 
-            <!-- Status -->
+
             <div class="rf-select-wrap">
               <input type="hidden" id="reportStatusFilter" value="open">
               <button class="rf-select-btn" type="button">
@@ -388,7 +388,7 @@
               </div>
             </div>
 
-            <!-- Category -->
+
             <div class="rf-select-wrap">
               <input type="hidden" id="reportCategoryFilter" value="all">
               <button class="rf-select-btn" type="button">
@@ -420,7 +420,7 @@
               </div>
             </div>
 
-            <!-- Language -->
+
             <div class="rf-select-wrap">
               <input type="hidden" id="reportLanguageFilter" value="all">
               <button class="rf-select-btn" type="button">
@@ -439,7 +439,7 @@
               </div>
             </div>
 
-            <!-- Example (populated dynamically from stats) -->
+
             <div class="rf-select-wrap">
               <input type="hidden" id="reportExampleFilter" value="all">
               <button class="rf-select-btn" type="button">
@@ -452,7 +452,7 @@
               </div>
             </div>
 
-            <!-- Sort -->
+
             <div class="rf-select-wrap">
               <input type="hidden" id="reportSortFilter" value="newest">
               <button class="rf-select-btn" type="button">
@@ -472,7 +472,7 @@
             </button>
           </div>
 
-          <!-- Reports List -->
+
           <div class="admin-section-title">
             <svg data-lucide="flag"></svg>
             <span>Reports</span>
@@ -482,12 +482,12 @@
             <div class="reports-loading">Loading reports...</div>
           </div>
 
-          <!-- Pagination -->
+
           <div class="reports-pagination" id="reportsPagination"></div>
-        </div><!-- end reports pane -->
+        </div>
       </main>
 
-      <!-- ============ NOT AUTHORIZED ============ -->
+
       <div class="not-authorized" id="notAuthorized" style="display: none">
         <div class="not-authorized-icon">
           <svg data-lucide="shield-x"></svg>
@@ -504,7 +504,7 @@
       </div>
     </div>
 
-    <!-- ============ PROFILE MODAL ============ -->
+
     <div class="profile-overlay" id="profileOverlay">
       <div class="profile-modal">
         <button class="profile-modal-close">
@@ -530,7 +530,7 @@
             </span>
           </div>
 
-          <!-- Avatar Picker -->
+
           <div class="avatar-picker" id="avatarPicker">
             <label class="avatar-picker-label">Choose Your Avatar</label>
             <div class="avatar-picker-grid">
@@ -618,7 +618,7 @@
       </div>
     </div>
 
-    <!-- ============ AVATAR VIEWER MODAL ============ -->
+
     <div class="avatar-viewer-overlay" id="avatarViewerOverlay">
       <div class="avatar-viewer-content">
         <img
@@ -633,7 +633,7 @@
       </div>
     </div>
 
-    <!-- ============ AVATAR CROP MODAL ============ -->
+
     <div class="crop-overlay" id="cropOverlay">
       <div class="crop-modal">
         <div class="crop-header">
@@ -701,7 +701,7 @@
       </div>
     </div>
 
-    <!-- ============ DELETE CONFIRM MODAL ============ -->
+
     <div class="delete-confirm-overlay" id="deleteConfirmOverlay">
       <div class="delete-confirm-modal">
         <div class="delete-confirm-icon">
@@ -725,7 +725,7 @@
       </div>
     </div>
 
-    <!-- Scripts -->
+
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         if (window.lucide) {
@@ -740,7 +740,7 @@
     <script src="js/profile.js"></script>
     <script src="js/profile-avatar-ui.js"></script>
     <script src="js/avatar-crop.js"></script>
-    <!-- Vercel Speed Insights -->
+
     <script>
       window.si = window.si || function () { (window.siq = window.siq || []).push(arguments); };
     </script>

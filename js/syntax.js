@@ -1,29 +1,11 @@
-/* =====================================================
-   syntax.js — Multi-language Syntax Highlighter
-   Languages: C, C++, Java, Python, JavaScript
-   Token CSS classes:
-     syn-keyword   syn-function  syn-string
-     syn-comment   syn-type      syn-number
-     syn-constant  syn-builtin   syn-class
-     syn-operator  syn-preprocessor syn-decorator
-     syn-regex     syn-escape    syn-label
-   ===================================================== */
 var SyntaxHighlighter = (function () {
     'use strict';
 
-    /* ---- HTML escaping (syntax-specific) ----
-       Only escapes &, <, > — intentionally omits quotes
-       because highlighted output is placed inside pre-built
-       <span class="..."> tags where quotes don't appear.
-       This is NOT the same as the global escapeHtml() in config.js. */
+
     function esc(s) {
         return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
     }
 
-    /* ==================================================
-       TOKEN DEFINITIONS PER LANGUAGE
-       Each list entry becomes part of a \b(?:...)\b regex
-       ================================================== */
     var DEFS = {
         c: {
             keywords: 'if|else|while|for|do|switch|case|default|break|continue|return|goto|void|struct|union|enum|typedef|sizeof|static|extern|register|auto|volatile|const|inline|restrict|_Noreturn',
@@ -62,12 +44,6 @@ var SyntaxHighlighter = (function () {
         }
     };
 
-    /* ==================================================
-       BUILD RULE SET FOR A LANGUAGE
-       Rules are checked in ORDER — first match wins.
-       Critical: strings & comments must come BEFORE
-       keywords to prevent matching inside them.
-       ================================================== */
     var _cache = {};
 
     // Per-language print functions for accurate highlighting
@@ -133,11 +109,6 @@ var SyntaxHighlighter = (function () {
         return _cache[lang];
     }
 
-    /* ==================================================
-       LINE TOKENIZER
-       Handles block comments (/* ... *\/) with `state`
-       object passed through all lines for tracking.
-       ================================================== */
     function tokenizeLine(line, rules, state) {
         var result = '';
         var i = 0;
@@ -152,7 +123,7 @@ var SyntaxHighlighter = (function () {
                 esc(includeMatch[4]);
         }
 
-        /* --- Continue from a block comment started earlier --- */
+
         if (state.inBlock) {
             var blockEnd = line.indexOf('*/');
             if (blockEnd === -1) {
@@ -164,7 +135,7 @@ var SyntaxHighlighter = (function () {
             i = blockEnd + 2;
         }
 
-        /* --- Main single-pass tokenizer --- */
+
         while (i < n) {
 
             // Block comment open
@@ -204,14 +175,7 @@ var SyntaxHighlighter = (function () {
         return result;
     }
 
-    /* ==================================================
-       PUBLIC API
-       ================================================== */
 
-    /**
-     * highlight(code, lang) → string[]
-     * Returns an array of highlighted HTML strings, one per line.
-     */
     function highlight(code, lang) {
         lang = (lang || 'c').toLowerCase();
         if (lang === 'c++') lang = 'cpp';
@@ -225,10 +189,7 @@ var SyntaxHighlighter = (function () {
         });
     }
 
-    /**
-     * applyToPreview(code, lang, lineNumsEl, codeEl)
-     * Renders highlighted code into the example popup preview panel.
-     */
+
     function applyToPreview(code, lang, lineNumsEl, codeEl) {
         var hlLines = highlight(code, lang);
         var nums = [];
@@ -241,10 +202,7 @@ var SyntaxHighlighter = (function () {
         codeEl.innerHTML = lines.join('');
     }
 
-    /**
-     * applyToViewer(code, lang, containerEl)
-     * Renders highlighted code into the main left-panel code viewer.
-     */
+
     function applyToViewer(code, lang, containerEl) {
         var hlLines = highlight(code, lang);
         var parts = [];
@@ -258,10 +216,6 @@ var SyntaxHighlighter = (function () {
         }
         containerEl.innerHTML = parts.join('');
     }
-
-    /* ==================================================
-       CATEGORY COLORS — references category-colors.js
-       ================================================== */
 
     return {
         highlight:      highlight,

@@ -1,10 +1,6 @@
-/* ============================================
-   Home Page Styles — CodeLens
-   Hero, Features, Viz Types, DS Roadmap,
-   Languages, Future, Pricing, CTA, Footer
-   ============================================ */
 
-/* ---- Page Layout ---- */
+
+
 .home-page {
     display: flex;
     flex-direction: column;
@@ -17,7 +13,7 @@
     overflow-x: hidden;
 }
 
-/* ---- Header Navigation ---- */
+
 .header-nav {
     display: flex;
     align-items: center;
@@ -55,7 +51,7 @@
     width: 100%;
 }
 
-/* ---- Hero Section ---- */
+
 .hero {
     position: relative;
     padding: 100px 24px 80px;
@@ -82,7 +78,7 @@
     z-index: 1;
 }
 
-/* ---- Hero Brand (big CodeLens name at top of hero) ---- */
+
 .hero-brand {
     display: flex;
     align-items: center;
@@ -200,7 +196,7 @@
     flex-wrap: wrap;
 }
 
-/* ---- Buttons ---- */
+
 .btn {
     display: inline-flex;
     align-items: center;
@@ -256,7 +252,7 @@
     color: var(--text-primary);
 }
 
-/* ---- Stats Row ---- */
+
 .hero-stats {
     display: flex;
     align-items: center;
@@ -291,7 +287,7 @@
     letter-spacing: 0.05em;
 }
 
-/* ---- Hero Enhancements ---- */
+
 .hero-bg-glow {
     position: absolute;
     top: -100px;
@@ -330,7 +326,7 @@
     color: var(--text-secondary);
 }
 
-/* ---- Section Shared ---- */
+
 .features,
 .viz-types,
 .ds-roadmap,
@@ -424,7 +420,7 @@
     line-height: 1.6;
 }
 
-/* ---- Feature Cards Grid ---- */
+
 .features-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -518,9 +514,7 @@
     border: 1px solid rgba(0, 212, 170, 0.25);
 }
 
-/* ========================================
-   VISUALIZATION TYPES SECTION
-   ======================================== */
+
 .viz-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -601,7 +595,7 @@
     margin-bottom: 16px;
 }
 
-/* mini stack preview */
+
 .viz-card-preview {
     margin-top: 8px;
 }
@@ -637,7 +631,7 @@
     font-size: 10px;
 }
 
-/* mini array preview */
+
 .viz-mini-array {
     display: flex;
     justify-content: center;
@@ -686,9 +680,7 @@
 .viz-card-link svg { width: 14px; height: 14px; }
 .viz-card-link:hover { gap: 10px; }
 
-/* ========================================
-   DATA STRUCTURES ROADMAP
-   ======================================== */
+
 .ds-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -779,9 +771,7 @@
     color: var(--text-muted);
 }
 
-/* ========================================
-   LANGUAGES SECTION (updated)
-   ======================================== */
+
 .languages-grid {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -882,9 +872,7 @@
     border: 1px solid rgba(234, 179, 8, 0.2);
 }
 
-/* ========================================
-   FUTURE FEATURES SECTION
-   ======================================== */
+
 .future-grid {
     display: flex;
     flex-direction: column;
@@ -967,9 +955,7 @@
     color: var(--text-muted);
 }
 
-/* ========================================
-   PRICING SECTION
-   ======================================== */
+
 .pricing-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -1130,9 +1116,7 @@
     cursor: not-allowed;
 }
 
-/* ========================================
-   CTA SECTION
-   ======================================== */
+
 .cta-container {
     max-width: 620px;
     margin: 0 auto;
@@ -1194,9 +1178,7 @@
     flex-wrap: wrap;
 }
 
-/* ========================================
-   UPGRADED FOOTER
-   ======================================== */
+
 .footer-main {
     border-top: 1px solid var(--border-subtle);
     padding: 0;
@@ -1340,9 +1322,7 @@
     gap: 4px;
 }
 
-/* ========================================
-   RESPONSIVE
-   ======================================== */
+
 @media (max-width: 1024px) {
     .features-grid { grid-template-columns: repeat(2, 1fr); }
     .viz-grid { grid-template-columns: repeat(2, 1fr); }

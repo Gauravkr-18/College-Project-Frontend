@@ -1,9 +1,3 @@
-/* ============================================
-   Report Issue — Auto-detect visualization state
-   and submit report to backend.
-   Dependencies: config.js, popup-core.js, animation-controller.js
-   ============================================ */
-
 (function () {
     'use strict';
 
@@ -16,7 +10,6 @@
     var charCount    = null;
     var categorySel  = null;
 
-    // Auto-detect field elements
     var fieldLang    = null;
     var fieldExample = null;
     var fieldStep    = null;
@@ -43,13 +36,11 @@
         if (!overlay) return;
         modal = overlay.querySelector('.report-modal');
 
-        // Open button
         var openBtn = document.getElementById('ctrlReport');
         if (openBtn) {
             openBtn.addEventListener('click', openReport);
         }
 
-        // Close handlers
         if (closeBtn) closeBtn.addEventListener('click', closeReport);
         if (cancelBtn) cancelBtn.addEventListener('click', closeReport);
         overlay.addEventListener('click', function (e) {
@@ -72,7 +63,6 @@
         }
     }
 
-    /* ---- Auto-detect current state ---- */
     function detectState() {
         var lang = window.__currentLang || '';
         var langLabel = '';
@@ -95,7 +85,6 @@
         if (stepEl) currentStep = stepEl.textContent || '0';
         if (totalEl) totalSteps = totalEl.textContent || '0';
 
-        // Get highlighted line number
         var activeLine = document.querySelector('.code-content .code-line.active');
         if (activeLine) {
             var allLines = document.querySelectorAll('.code-content .code-line');
@@ -125,7 +114,6 @@
         if (fieldVisType) fieldVisType.textContent = visLabel;
     }
 
-    /* ---- Open / Close ---- */
     function openReport() {
         if (!overlay) return;
         resetForm();
@@ -140,7 +128,6 @@
     }
 
     function resetForm() {
-        // Restore form body if it was replaced by success message
         var body = overlay.querySelector('.report-body');
         var footer = overlay.querySelector('.report-footer');
         if (body) body.style.display = '';
@@ -155,7 +142,6 @@
         if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = '<svg data-lucide="send"></svg> Submit Report'; }
     }
 
-    /* ---- Submit ---- */
     async function submitReport() {
         if (!submitBtn || submitBtn.disabled) return;
 

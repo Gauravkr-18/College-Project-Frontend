@@ -1,23 +1,8 @@
-/* ============================================
-   Browse Examples Popup
-   Type/lang tabs, category filter, list + preview.
-   Depends on: popup-core.js (_P namespace)
-
-   Features:
-     - Type toggle (Stack / Data Structures)
-     - Language tabs (C, C++, Java, Python, JS)
-     - Category filter dropdown with color badges
-     - Split view: scrollable list + code preview
-     - Session persistence (restores scroll + selection)
-     - Admin: toggle example visibility
-   ============================================ */
-
 (function (P) {
     'use strict';
 
     var $ = P.$, $$ = P.$$;
 
-    // ---- State ----
     var currentCategory = 'all';
     var currentExampleIndex = -1;
     var filteredExamples = [];
@@ -26,7 +11,6 @@
     var isAdmin = false; // set during init
     var isTester = false; // set during init
 
-    // ---- Session Storage ----
     var STORAGE_KEY = 'browseExamples_state';
     var pendingRestore = null;
 
@@ -54,16 +38,11 @@
         } catch (e) { return null; }
     }
 
-    // ============================================
-    // BROWSE EXAMPLES POPUP
-    // ============================================
-
     function initBrowseExamples() {
         // Detect if current user is admin or tester
         isAdmin = P.isCurrentUserAdmin();
         isTester = P.isCurrentUserTester();
 
-        // Show the admin visibility toggle button only for admins (not testers)
         var visBtn = $('#toggleVisibilityBtn');
         if (visBtn) visBtn.style.display = isAdmin ? 'flex' : 'none';
 
@@ -153,7 +132,6 @@
             });
         });
 
-        // Load example button
         $('#loadExampleBtn').addEventListener('click', function () {
             if (currentExampleIndex < 0 || !filteredExamples[currentExampleIndex]) return;
             var metaItem = filteredExamples[currentExampleIndex];
@@ -172,7 +150,6 @@
 
     function refreshExamplesList() {
         P.loadExamples(P.currentType, P.currentLang, function (data) {
-            // Update count badge for the active lang tab (visible examples only)
             var visibleCount = (isAdmin || isTester)
                 ? data.filter(function (ex) { return !ex.hidden; }).length
                 : data.length;
@@ -181,7 +158,6 @@
 
             var searchVal = ($('#examplePopupSearch').value || '').toLowerCase().trim();
 
-            // Get categories
             var categories = [];
             data.forEach(function (ex) {
                 var cat = ex.meta.category;
@@ -283,7 +259,7 @@
             var m = examples[i].meta;
             var isHidden = !!examples[i].hidden;
             var catColor = P.getCategoryColor(m.category);
-            var levelClass = (m.level || 'easy').toLowerCase();
+            var levelClass = escapeHtml((m.level || 'easy').toLowerCase());
             var isSelected = i === currentExampleIndex;
             parts.push(
                 '<button class="example-list-item' + (isSelected ? ' selected' : '') + (isHidden ? ' hidden-example' : '') + '" data-idx="' + i + '">' +
@@ -296,7 +272,7 @@
                 '<div class="example-item-meta">' +
                 '<span class="level-dot ' + levelClass + '"></span>' +
                 '<span class="example-category-badge" style="background:' + catColor.bg + ';color:' + catColor.color + ';">' + escapeHtml(m.category || '') + '</span>' +
-                '<span class="example-steps-count">' + P.SVG_FOOTPRINTS + (m.total_steps || 0) + '</span>' +
+                '<span class="example-steps-count">' + P.SVG_FOOTPRINTS + escapeHtml(String(m.total_steps || 0)) + '</span>' +
                 '</div>' +
                 '</div>' +
                 (isSelected ? P.SVG_CHEVRON_RIGHT : '<span style="width:16px;"></span>') +
@@ -369,7 +345,7 @@
         $('#previewTitle').textContent = m.title;
 
         var levelBadge = $('#previewLevel');
-        var levelClass = (m.level || 'easy').toLowerCase();
+        var levelClass = (m.level || 'easy').toLowerCase().replace(/[^a-z]/g, '');
         levelBadge.textContent = m.level || 'Easy';
         levelBadge.className = 'preview-level-badge ' + levelClass;
 
@@ -394,7 +370,6 @@
             $('#previewOutputBlock').style.display = 'none';
         }
 
-        // Update admin eye toggle button
         if (isAdmin) {
             var visBtn = $('#toggleVisibilityBtn');
             if (visBtn) {
@@ -416,9 +391,7 @@
         }
     }
 
-    // ============================================
     // ADMIN: TOGGLE EXAMPLE VISIBILITY (optimistic)
-    // ============================================
 
     function toggleExampleVisibility(rawIdx) {
         var token = P.getAuthToken();
@@ -427,7 +400,6 @@
         var ex = filteredExamples[currentExampleIndex];
         if (!ex) return;
 
-        // --- 1. Flip state immediately in memory ---
         var wasHidden = !!ex.hidden;
         var nowHidden = !wasHidden;
         ex.hidden = nowHidden;
@@ -440,14 +412,11 @@
             if (cacheEntry) cacheEntry.hidden = nowHidden;
         }
 
-        // ⚠️ IMPORTANT: Also invalidate the regular (non-admin) cache so normal users
         // refetch the list and see the updated hidden state
         P.invalidateExamplesCache(P.currentType, P.currentLang);
 
-        // --- 2. Update UI instantly (no flicker, no full reload) ---
         applyVisibilityToUI(nowHidden);
 
-        // --- 3. Fire the backend request in background ---
         fetch(P.EXAMPLES_BASE + '/api/examples/toggle-visibility/' + P.currentType + '/' + P.currentLang + '/' + rawIdx, {
             method: 'POST',
             headers: { 'Authorization': 'Bearer ' + token }
@@ -477,7 +446,6 @@
 
     // Apply hidden/visible state to the eye button + the current list item row
     function applyVisibilityToUI(isHidden) {
-        // Update eye button
         var visBtn = $('#toggleVisibilityBtn');
         if (visBtn) {
             visBtn.innerHTML = isHidden ? P.SVG_EYE_OFF : P.SVG_EYE;
@@ -485,7 +453,6 @@
             visBtn.classList.toggle('is-hidden-example', isHidden);
         }
 
-        // Update the list item row
         var container = $('#examplesList');
         var items     = container ? container.querySelectorAll('.example-list-item') : [];
         if (items[currentExampleIndex]) {
@@ -505,16 +472,11 @@
             }
         }
 
-        // Update the visible-count badge on the lang tab
         var visibleCount = 0;
         filteredExamples.forEach(function (ex) { if (!ex.hidden) visibleCount++; });
         var _ce = document.getElementById('count' + P.currentLang.charAt(0).toUpperCase() + P.currentLang.slice(1));
         if (_ce) _ce.textContent = visibleCount;
     }
-
-    // ============================================
-    // LOAD NEXT EXAMPLE
-    // ============================================
 
     P.loadNextExample = function () {
         var list = P.currentExampleList;
@@ -534,10 +496,6 @@
             P.loadExampleIntoEditor(fullEx, P.currentLang, P.currentType);
         });
     };
-
-    // ============================================
-    // OPEN BROWSE EXAMPLES
-    // ============================================
 
     function openBrowseExamples(lang, type) {
         // Restore saved state only when no explicit lang/type override
@@ -584,10 +542,6 @@
     // Expose for search.js and triggers
     P.openBrowseExamples = openBrowseExamples;
 
-    // ============================================
-    // TRIGGERS
-    // ============================================
-
     function setupTriggers() {
         var browseAllBtn = $('.dropdown-item.browse-all');
         if (browseAllBtn) {
@@ -606,10 +560,6 @@
         });
 
     }
-
-    // ============================================
-    // INIT
-    // ============================================
 
     document.addEventListener('DOMContentLoaded', function () {
         initBrowseExamples();
