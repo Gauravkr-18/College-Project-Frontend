@@ -23,4 +23,3 @@ Backend/Data/Avatar/uploads/*
 push_commits.py
 __pycache__/
 *.pyc
-commit_and_push.py
