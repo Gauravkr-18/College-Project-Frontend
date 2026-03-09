@@ -5,7 +5,7 @@ var _presetAvatarCache = null;
 async function fetchPresetAvatars() {
     if (_presetAvatarCache) return _presetAvatarCache;
     try {
-        var res = await fetch(API_URL + '/auth/preset-avatars');
+        var res = await smartFetch(API_URL + '/auth/preset-avatars');
         var data = await res.json();
         if (data.success) {
             _presetAvatarCache = data;
@@ -112,7 +112,7 @@ async function saveAvatarSelection(avatarValue) {
     if (!token) return;
 
     try {
-        var response = await fetch(API_URL + '/auth/me', {
+        var response = await smartFetch(API_URL + '/auth/me', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

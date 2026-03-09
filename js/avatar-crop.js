@@ -168,7 +168,7 @@ async function uploadCroppedAvatar() {
         formData.append('avatar', croppedFile);
 
         try {
-            var response = await fetch(API_URL + '/auth/upload-avatar', {
+            var response = await smartFetch(API_URL + '/auth/upload-avatar', {
                 method: 'POST',
                 headers: {
                     'Authorization': 'Bearer ' + token

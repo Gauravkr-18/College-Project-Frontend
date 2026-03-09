@@ -93,7 +93,7 @@
         if (!token) return;
 
         try {
-            var res = await fetch(API_URL + '/reports/stats', {
+            var res = await smartFetch(API_URL + '/reports/stats', {
                 headers: { 'Authorization': 'Bearer ' + token }
             });
             var data = await res.json();
@@ -174,7 +174,7 @@
         if (listEl) listEl.innerHTML = '<div class="reports-loading">Loading reports...</div>';
 
         try {
-            var res = await fetch(API_URL + '/reports?' + params.toString(), {
+            var res = await smartFetch(API_URL + '/reports?' + params.toString(), {
                 headers: { 'Authorization': 'Bearer ' + token }
             });
             var data = await res.json();
@@ -304,7 +304,7 @@
         if (!token) return;
 
         try {
-            var res = await fetch(API_URL + '/reports/' + id, {
+            var res = await smartFetch(API_URL + '/reports/' + id, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json',
@@ -328,7 +328,7 @@
         if (!token) return;
 
         try {
-            var res = await fetch(API_URL + '/reports/' + id, {
+            var res = await smartFetch(API_URL + '/reports/' + id, {
                 method: 'DELETE',
                 headers: { 'Authorization': 'Bearer ' + token }
             });

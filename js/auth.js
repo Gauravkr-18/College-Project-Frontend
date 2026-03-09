@@ -202,7 +202,7 @@ async function handleLogin() {
         return;
     }
 
-    var response = await fetch(API_URL + '/auth/login', {
+    var response = await smartFetch(API_URL + '/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email, password: password })
@@ -250,7 +250,7 @@ async function handleRegister() {
         return;
     }
 
-    var response = await fetch(API_URL + '/auth/register', {
+    var response = await smartFetch(API_URL + '/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: name, email: email, password: password, gender: gender })
@@ -314,7 +314,7 @@ async function handleForgotPassword() {
         return;
     }
 
-    var response = await fetch(API_URL + '/auth/forgot-password', {
+    var response = await smartFetch(API_URL + '/auth/forgot-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email })
@@ -341,7 +341,7 @@ async function handleVerifyOtp() {
         return;
     }
 
-    var response = await fetch(API_URL + '/auth/verify-otp', {
+    var response = await smartFetch(API_URL + '/auth/verify-otp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: forgotEmail, otp: otp })
@@ -379,7 +379,7 @@ async function handleResetPassword() {
         return;
     }
 
-    var response = await fetch(API_URL + '/auth/reset-password', {
+    var response = await smartFetch(API_URL + '/auth/reset-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: forgotEmail, otp: forgotOtp, newPassword: newPassword })
@@ -409,7 +409,7 @@ async function handleResendOtp() {
     clearAuthSuccess();
 
     try {
-        var response = await fetch(API_URL + '/auth/forgot-password', {
+        var response = await smartFetch(API_URL + '/auth/forgot-password', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: forgotEmail })

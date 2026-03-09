@@ -7,15 +7,25 @@ var isAvatarPickerOpen = false;
 function updateProfileAvatarDisplay(avatar) {
     var img = document.getElementById('profileAvatarImg');
     var initials = document.getElementById('profileAvatarInitials');
+    var banner = document.querySelector('.profile-modal-banner');
     if (!img || !initials) return;
 
     if (avatar) {
-        img.src = getAvatarUrl(avatar);
+        var url = getAvatarUrl(avatar);
+        img.src = url;
         img.classList.add('show');
         initials.classList.add('hide');
+        
+        if (banner) {
+            banner.style.setProperty('--banner-avatar-bg', 'url("' + url + '")');
+        }
     } else {
         img.classList.remove('show');
         initials.classList.remove('hide');
+        
+        if (banner) {
+            banner.style.removeProperty('--banner-avatar-bg');
+        }
     }
 }
 
@@ -70,7 +80,7 @@ async function loadProfileData() {
     if (!token) return;
 
     try {
-        var response = await fetch(API_URL + '/auth/me', {
+        var response = await smartFetch(API_URL + '/auth/me', {
             method: 'GET',
             headers: { 'Authorization': 'Bearer ' + token }
         });
@@ -172,7 +182,7 @@ async function saveNameChange() {
     saveBtn.textContent = 'Saving...';
 
     try {
-        var response = await fetch(API_URL + '/auth/me', {
+        var response = await smartFetch(API_URL + '/auth/me', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

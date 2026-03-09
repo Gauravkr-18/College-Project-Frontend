@@ -12,7 +12,7 @@ async function initAdmin() {
     }
 
     try {
-        var meResponse = await fetch(API_URL + '/auth/me', {
+        var meResponse = await smartFetch(API_URL + '/auth/me', {
             headers: { 'Authorization': 'Bearer ' + token }
         });
 
@@ -104,11 +104,11 @@ async function initAdmin() {
 async function loadAdminData(token) {
     try {
         // Fetch stats and users in parallel
-        var statsPromise = fetch(API_URL + '/admin/stats', {
+        var statsPromise = smartFetch(API_URL + '/admin/stats', {
             headers: { 'Authorization': 'Bearer ' + token }
         });
 
-        var usersPromise = fetch(API_URL + '/admin/users', {
+        var usersPromise = smartFetch(API_URL + '/admin/users', {
             headers: { 'Authorization': 'Bearer ' + token }
         });
 
@@ -282,7 +282,7 @@ async function changeUserRole(userId, newRole, wrapperEl) {
     btn.disabled = true;
 
     try {
-        var res = await fetch(API_URL + '/admin/users/' + userId + '/role', {
+        var res = await smartFetch(API_URL + '/admin/users/' + userId + '/role', {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -328,7 +328,7 @@ async function confirmDeleteUser() {
     if (btn) { btn.disabled = true; btn.textContent = 'Deleting...'; }
 
     try {
-        var res = await fetch(API_URL + '/admin/users/' + pendingDeleteId, {
+        var res = await smartFetch(API_URL + '/admin/users/' + pendingDeleteId, {
             method: 'DELETE',
             headers: { 'Authorization': 'Bearer ' + token }
         });
