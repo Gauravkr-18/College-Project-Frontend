@@ -20,6 +20,32 @@
 <body>
     <div class="home-page">
 
+        <div class="mobile-notice" id="mobileNotice">
+            <div class="mobile-notice-inner">
+                <div class="mobile-notice-icon">
+                    <svg data-lucide="rotate-cw"></svg>
+                </div>
+                <div class="mobile-notice-text">
+                    <strong>Better on bigger screens</strong>
+                    <span>Rotate your device or use a tablet / laptop for the best experience.</span>
+                </div>
+            </div>
+            <button class="mobile-notice-close" id="mobileNoticeClose" title="Dismiss">
+                <svg data-lucide="x"></svg>
+            </button>
+        </div>
+        <script>
+            (function() {
+                if (localStorage.getItem('mobileNoticeDismissed') === '1') {
+                    document.getElementById('mobileNotice').style.display = 'none';
+                }
+                document.getElementById('mobileNoticeClose').addEventListener('click', function() {
+                    document.getElementById('mobileNotice').style.display = 'none';
+                    localStorage.setItem('mobileNoticeDismissed', '1');
+                });
+            })();
+        </script>
+
 
         <header class="header">
             <div class="header-container">
@@ -730,21 +756,6 @@
                 <div class="avatar-picker" id="avatarPicker">
                     <label class="avatar-picker-label">Choose Your Avatar</label>
                     <div class="avatar-picker-grid">
-                        <div class="avatar-option" data-avatar="1">
-                            <img src="" alt="Avatar 1">
-                        </div>
-                        <div class="avatar-option" data-avatar="2">
-                            <img src="" alt="Avatar 2">
-                        </div>
-                        <div class="avatar-option" data-avatar="3">
-                            <img src="" alt="Avatar 3">
-                        </div>
-                        <div class="avatar-option" data-avatar="4">
-                            <img src="" alt="Avatar 4">
-                        </div>
-                        <div class="avatar-option" data-avatar="5">
-                            <img src="" alt="Avatar 5">
-                        </div>
                         <div class="avatar-option avatar-upload-option" id="avatarUploadOption">
                             <svg data-lucide="upload"></svg>
                             <span>Upload</span>
@@ -900,6 +911,19 @@
                     </div>
                 </div>
 
+                <div class="auth-form-group" id="authGenderGroup" style="display: none;">
+                    <label class="auth-label">I am a</label>
+                    <div class="auth-gender-group">
+                        <label class="auth-gender-option">
+                            <input type="radio" name="authGender" value="male" checked>
+                            <span>♂ Male</span>
+                        </label>
+                        <label class="auth-gender-option">
+                            <input type="radio" name="authGender" value="female">
+                            <span>♀ Female</span>
+                        </label>
+                    </div>
+                </div>
 
                 <div class="auth-form-group" id="authEmailGroup">
                     <label class="auth-label">Email</label>
@@ -970,7 +994,8 @@
     </div>
 
 
-    <script>
+    <script>
+
         document.addEventListener('DOMContentLoaded', function() {
             if (window.lucide) {
                 lucide.createIcons();
