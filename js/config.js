@@ -16,9 +16,10 @@ function getInitials(name) {
 
 function getAvatarUrl(avatar) {
     if (!avatar) return '';
-    if (/^[1-5]$/.test(avatar)) {
-        return AVATAR_BASE_URL + avatar + '.png';
-    }
+    // Legacy: numeric IDs "1"-"3" were Male, "4"-"5" were Female
+    if (/^[1-3]$/.test(avatar)) return AVATAR_BASE_URL + 'Male/' + avatar + '.png';
+    if (/^[4-5]$/.test(avatar)) return AVATAR_BASE_URL + 'Female/' + avatar + '.png';
+    // New format: "Male/1.png", "Female/4.png", "uploads/xxx.png"
     return AVATAR_BASE_URL + avatar;
 }
 
