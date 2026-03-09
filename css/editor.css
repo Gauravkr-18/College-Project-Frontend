@@ -2183,6 +2183,48 @@
 }
 
 
+@media (max-width: 930px) {
+    .editor-main {
+        padding: 10px;
+    }
+
+    .editor-container {
+        flex-direction: column;
+    }
+
+    .code-panel {
+        width: 100%;
+        height: 40%;
+        min-width: unset;
+        max-width: unset;
+    }
+
+    .resizer {
+        width: 100%;
+        height: 8px;
+        cursor: row-resize;
+    }
+
+    .resizer-bar {
+        width: 100%;
+        height: 2px;
+    }
+
+    .visualizer-panel {
+        height: 60%;
+    }
+
+    .code-viewer-header-center {
+        left: 50%;
+    }
+
+    .animation-controller {
+        bottom: 14px;
+        padding: 10px 14px;
+        gap: 5px;
+    }
+}
+
 @media (max-width: 768px) {
     .editor-main {
         padding: 8px;
@@ -2215,9 +2257,17 @@
     }
 
     .animation-controller {
-        bottom: 16px;
-        padding: 10px 14px;
+        bottom: 14px;
+        padding: 8px 12px;
         gap: 4px;
+    }
+
+    .step-counter {
+        display: none;
+    }
+
+    .step-counter + .ctrl-divider {
+        display: none;
     }
 
     .play-btn {
@@ -2289,6 +2339,33 @@
 
     .vis-empty-desc {
         font-size: 12px;
+    }
+}
+
+@media (max-width: 600px) {
+    .animation-controller {
+        padding: 6px 10px;
+        gap: 3px;
+        bottom: 10px;
+        border-radius: 10px;
+    }
+
+    .speed-wrapper {
+        display: none;
+    }
+
+    .ctrl-btn {
+        width: 30px;
+        height: 30px;
+    }
+
+    .ctrl-btn svg {
+        width: 13px;
+        height: 13px;
+    }
+
+    .step-slider-wrapper {
+        min-width: 60px;
     }
 }
 
