@@ -7,19 +7,15 @@ var isAvatarPickerOpen = false;
 function updateProfileAvatarDisplay(avatar) {
     var img = document.getElementById('profileAvatarImg');
     var initials = document.getElementById('profileAvatarInitials');
-    var bannerImg = document.getElementById('bannerAvatarImg');
     if (!img || !initials) return;
 
     if (avatar) {
-        var url = getAvatarUrl(avatar);
-        img.src = url;
+        img.src = getAvatarUrl(avatar);
         img.classList.add('show');
         initials.classList.add('hide');
-        if (bannerImg) { bannerImg.src = url; bannerImg.classList.add('show'); }
     } else {
         img.classList.remove('show');
         initials.classList.remove('hide');
-        if (bannerImg) { bannerImg.src = ''; bannerImg.classList.remove('show'); }
     }
 }
 

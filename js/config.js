@@ -95,9 +95,8 @@ function updateHeaderAvatars(user) {
             }
             img.src = avatarUrl;
             img.alt = user.name;
-            img.style.objectFit = 'cover';
-            img.style.objectPosition = 'top center';
-            img.style.padding = '0';
+            img.style.objectFit = 'contain';
+            img.style.padding = '2px';
             avatarEl.textContent = '';
             avatarEl.appendChild(img);
             avatarEl.style.background = 'transparent';
