@@ -36,6 +36,7 @@ function switchAuthTab(tab) {
     var tabs          = document.querySelectorAll('.auth-tab');
     var tabsContainer = document.querySelector('.auth-tabs');
     var nameGroup     = document.getElementById('authNameGroup');
+    var genderGroup   = document.getElementById('authGenderGroup');
     var emailGroup    = document.getElementById('authEmailGroup');
     var passwordGroup = document.getElementById('authPasswordGroup');
     var forgotLink    = document.getElementById('authForgotLink');
@@ -51,7 +52,7 @@ function switchAuthTab(tab) {
     function hide(el) { if (el) el.style.display = 'none'; }
 
     // Reset all optional elements to hidden
-    hide(nameGroup); hide(otpGroup); hide(newPwGroup); hide(confirmPwGrp); hide(forgotLink);
+    hide(nameGroup); hide(genderGroup); hide(otpGroup); hide(newPwGroup); hide(confirmPwGrp); hide(forgotLink);
 
     if (tab === 'login') {
         show(tabsContainer);
@@ -70,7 +71,7 @@ function switchAuthTab(tab) {
         tabs[0] && tabs[0].classList.remove('active');
         tabs[1] && tabs[1].classList.add('active');
 
-        show(nameGroup); show(emailGroup); show(passwordGroup);
+        show(nameGroup); show(genderGroup); show(emailGroup); show(passwordGroup);
 
         if (submitBtn) submitBtn.textContent = 'Create Account';
         if (title)    title.textContent = 'Create Account';
@@ -225,6 +226,8 @@ async function handleRegister() {
     var name = document.getElementById('authName').value.trim();
     var email = document.getElementById('authEmail').value.trim();
     var password = document.getElementById('authPassword').value;
+    var genderEl = document.querySelector('input[name="authGender"]:checked');
+    var gender = genderEl ? genderEl.value : 'male';
 
     if (!name || !email || !password) {
         showAuthError('Please fill in all fields');
@@ -250,7 +253,7 @@ async function handleRegister() {
     var response = await fetch(API_URL + '/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name, email: email, password: password })
+        body: JSON.stringify({ name: name, email: email, password: password, gender: gender })
     });
 
     var data = await response.json();

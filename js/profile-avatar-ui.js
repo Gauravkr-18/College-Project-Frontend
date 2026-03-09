@@ -1,4 +1,67 @@
 
+// Cache for avatar list fetched from backend
+var _presetAvatarCache = null;
+
+async function fetchPresetAvatars() {
+    if (_presetAvatarCache) return _presetAvatarCache;
+    try {
+        var res = await fetch(API_URL + '/auth/preset-avatars');
+        var data = await res.json();
+        if (data.success) {
+            _presetAvatarCache = data;
+            return data;
+        }
+    } catch (e) {}
+    return { male: [], female: [] };
+}
+
+function buildAvatarPickerGrid(data) {
+    var grid = document.querySelector('.avatar-picker-grid');
+    if (!grid) return;
+
+    // Save the upload option before clearing
+    var uploadOption = document.getElementById('avatarUploadOption');
+    grid.innerHTML = '';
+
+    function addSection(label, list) {
+        if (!list || !list.length) return;
+
+        var sectionLabel = document.createElement('div');
+        sectionLabel.className = 'avatar-section-label';
+        sectionLabel.textContent = label;
+        grid.appendChild(sectionLabel);
+
+        list.forEach(function(avatarPath) {
+            var div = document.createElement('div');
+            div.className = 'avatar-option';
+            div.dataset.avatar = avatarPath;
+            var img = document.createElement('img');
+            img.src = AVATAR_BASE_URL + avatarPath;
+            img.alt = label + ' avatar';
+            div.appendChild(img);
+            div.addEventListener('click', function() {
+                saveAvatarSelection(avatarPath);
+            });
+            grid.appendChild(div);
+        });
+    }
+
+    addSection('Male', data.male);
+    addSection('Female', data.female);
+
+    // Re-add upload option at the end
+    if (uploadOption) grid.appendChild(uploadOption);
+
+    // Re-highlight selected avatar
+    var stored = localStorage.getItem('codelens-user');
+    if (stored) {
+        try {
+            var user = JSON.parse(stored);
+            highlightSelectedAvatar(user.avatar || '');
+        } catch (e) {}
+    }
+}
+
 function toggleAvatarPicker() {
     var picker = document.getElementById('avatarPicker');
     if (!picker) return;
@@ -7,12 +70,11 @@ function toggleAvatarPicker() {
 
     if (isAvatarPickerOpen) {
         picker.classList.add('open');
-        // Highlight current avatar
-        var stored = localStorage.getItem('codelens-user');
-        if (stored) {
-            var user = JSON.parse(stored);
-            highlightSelectedAvatar(user.avatar || '');
-        }
+
+        // Build grid dynamically on first open
+        fetchPresetAvatars().then(function(data) {
+            buildAvatarPickerGrid(data);
+        });
     } else {
         picker.classList.remove('open');
     }
@@ -82,14 +144,6 @@ async function saveAvatarSelection(avatarValue) {
 
 document.addEventListener('DOMContentLoaded', function() {
 
-    document.querySelectorAll('.avatar-option[data-avatar]').forEach(function(option) {
-        var val = option.getAttribute('data-avatar');
-        if (/^[1-5]$/.test(val)) {
-            var img = option.querySelector('img');
-            if (img) img.src = AVATAR_BASE_URL + val + '.png';
-        }
-    });
-
     var avatarEditBtn = document.getElementById('avatarEditBtn');
     if (avatarEditBtn) {
         avatarEditBtn.addEventListener('click', function(e) {
@@ -101,15 +155,14 @@ document.addEventListener('DOMContentLoaded', function() {
     var profileAvatar = document.getElementById('profileAvatar');
     if (profileAvatar) {
         profileAvatar.addEventListener('click', function(e) {
-            // Don't open viewer if clicking the edit button
             if (e.target.closest('.avatar-edit-btn')) return;
 
             var stored = localStorage.getItem('codelens-user');
             if (stored) {
-                var user = JSON.parse(stored);
-                if (user.avatar) {
-                    openAvatarViewer();
-                }
+                try {
+                    var user = JSON.parse(stored);
+                    if (user.avatar) openAvatarViewer();
+                } catch (e) {}
             }
         });
     }
@@ -125,19 +178,9 @@ document.addEventListener('DOMContentLoaded', function() {
     var avatarViewerOverlay = document.getElementById('avatarViewerOverlay');
     if (avatarViewerOverlay) {
         avatarViewerOverlay.addEventListener('click', function(e) {
-            if (e.target === avatarViewerOverlay) {
-                closeAvatarViewer();
-            }
+            if (e.target === avatarViewerOverlay) closeAvatarViewer();
         });
     }
-
-    var avatarOptions = document.querySelectorAll('.avatar-option[data-avatar]');
-    avatarOptions.forEach(function(opt) {
-        opt.addEventListener('click', function() {
-            var avatarValue = opt.dataset.avatar;
-            saveAvatarSelection(avatarValue);
-        });
-    });
 
     var uploadOption = document.getElementById('avatarUploadOption');
     var fileInput = document.getElementById('avatarFileInput');
@@ -149,8 +192,9 @@ document.addEventListener('DOMContentLoaded', function() {
         fileInput.addEventListener('change', function() {
             if (fileInput.files && fileInput.files[0]) {
                 handleAvatarUpload(fileInput.files[0]);
-                fileInput.value = ''; // Reset so same file can be selected again
+                fileInput.value = '';
             }
         });
     }
 });
+
