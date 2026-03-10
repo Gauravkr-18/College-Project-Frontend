@@ -110,6 +110,46 @@ function smartFetch(url, options) {
         });
 }());
 
+// ─── BACKGROUND SLEEP DETECTOR ───────────────────────────────────────────────
+// Every 10 minutes, while the tab is open, check if the active backend is still
+// alive. If Render has gone back to sleep mid-session, proactively switch to
+// Railway BEFORE a real user request hangs for 50-60 s waiting for Render to
+// cold-start. Without this, _initBackend() only runs once on page load so any
+// backend that sleeps after load is never detected until a request stalls.
+(function _startBackgroundHealthCheck() {
+    if (IS_LOCAL) return;
+
+    setInterval(function() {
+        var activeUrl = _backend.usingRailway ? RAILWAY_URL : RENDER_URL;
+        var controller = new AbortController();
+        var timer = setTimeout(function() {
+            controller.abort();
+            // Timed out — active backend is sleeping
+            if (!_backend.usingRailway) {
+                _switchToRailway();
+                fetch(RENDER_URL + '/api/health').catch(function() {}); // kick Render wake cycle
+            }
+        }, 5000);
+
+        fetch(activeUrl + '/api/health', { signal: controller.signal })
+            .then(function(r) {
+                clearTimeout(timer);
+                if (!r.ok && !_backend.usingRailway) {
+                    _switchToRailway();
+                    fetch(RENDER_URL + '/api/health').catch(function() {});
+                }
+            })
+            .catch(function(err) {
+                clearTimeout(timer);
+                if (err.name === 'AbortError') return; // already handled above
+                if (!_backend.usingRailway) {
+                    _switchToRailway();
+                    fetch(RENDER_URL + '/api/health').catch(function() {});
+                }
+            });
+    }, 10 * 60 * 1000); // every 10 minutes
+}());
+
 function getInitials(name) {
     if (!name) return '?';
     var parts = name.trim().split(/\s+/);
