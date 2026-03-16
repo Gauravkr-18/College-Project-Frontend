@@ -32,22 +32,17 @@
     <script defer src="/_vercel/insights/script.js"></script>
   </head>
   <body>
-    <div class="editor-page">
-
-      <div class="mobile-notice" id="mobileNotice">
-        <div class="mobile-notice-inner">
-          <div class="mobile-notice-icon">
-            <svg data-lucide="rotate-cw"></svg>
-          </div>
-          <div class="mobile-notice-text">
-            <strong>Better on bigger screens</strong>
-            <span>Rotate your device or use a tablet / laptop for the best experience.</span>
-          </div>
-        </div>
-        <button class="mobile-notice-close" id="mobileNoticeClose" title="Dismiss">
-          <svg data-lucide="x"></svg>
-        </button>
+    <!-- Mobile Overlay -->
+    <div id="mobile-overlay" class="mobile-overlay">
+      <div class="mobile-overlay-content">
+        <i data-lucide="monitor"></i>
+        <h2>Desktop Experience Required</h2>
+        <p>Code visualization is optimized for larger screens. Please use a tablet or laptop to experience the CodeLens editor.</p>
+        <button onclick="window.location.href='index.html'" style="padding: 10px 24px; border-radius: 6px; cursor: pointer; border: none; font-weight: bold; width: 100%; background: #007bff; color: white;">Return to Home</button>
       </div>
+    </div>
+
+    <div class="editor-page">
       <script>
         (function() {
           if (localStorage.getItem('mobileNoticeDismissed') === '1') {
