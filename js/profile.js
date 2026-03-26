@@ -3,6 +3,7 @@
 var isEditingName = false;
 var originalName = '';
 var isAvatarPickerOpen = false;
+var fullNamePattern = /^[A-Za-z]+(?: [A-Za-z]+)*$/;
 
 function updateProfileAvatarDisplay(avatar) {
     var img = document.getElementById('profileAvatarImg');
@@ -168,6 +169,11 @@ async function saveNameChange() {
 
     if (!newName || newName.length < 2) {
         showProfileMsg('Name must be at least 2 characters', 'error');
+        return;
+    }
+
+    if (!fullNamePattern.test(newName)) {
+        showProfileMsg('Name can contain only letters and single spaces between words', 'error');
         return;
     }
 

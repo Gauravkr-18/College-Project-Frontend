@@ -6,6 +6,7 @@ var currentUser = null;
 var forgotEmail = '';
 var forgotOtp = '';
 var otpCountdownInterval = null;
+var fullNamePattern = /^[A-Za-z]+(?: [A-Za-z]+)*$/;
 
 function openAuthModal() {
     var overlay = document.getElementById('authOverlay');
@@ -236,6 +237,11 @@ async function handleRegister() {
 
     if (name.length < 2) {
         showAuthError('Name must be at least 2 characters');
+        return;
+    }
+
+    if (!fullNamePattern.test(name)) {
+        showAuthError('Name can contain only letters and single spaces between words');
         return;
     }
 
